@@ -1,0 +1,104 @@
+Renesas Optimizing Linker (W3.01.00 )             08-Dec-2019 23:28:04
+
+*** Options ***
+
+-subcommand=DefaultBuild\RX71M_MCR.clnk
+-library=DefaultBuild\RX71M_MCR.lib
+-input=DefaultBuild\RX71M_MCR.obj
+-input=DefaultBuild\Config_PORT.obj
+-input=DefaultBuild\Config_PORT_user.obj
+-input=DefaultBuild\r_cg_hardware_setup.obj
+-input=DefaultBuild\r_smc_cgc.obj
+-input=DefaultBuild\r_smc_cgc_user.obj
+-input=DefaultBuild\r_smc_interrupt.obj
+-input=DefaultBuild\hwsetup.obj
+-input=DefaultBuild\dbsct.obj
+-input=DefaultBuild\lowlvl.obj
+-input=DefaultBuild\lowsrc.obj
+-input=DefaultBuild\mcu_locks.obj
+-input=DefaultBuild\resetprg.obj
+-input=DefaultBuild\reset_program.obj
+-input=DefaultBuild\r_bsp_common.obj
+-input=DefaultBuild\r_bsp_cpu.obj
+-input=DefaultBuild\r_bsp_interrupts.obj
+-input=DefaultBuild\r_bsp_locking.obj
+-input=DefaultBuild\r_bsp_mcu_startup.obj
+-input=DefaultBuild\r_rx_intrinsic_functions.obj
+-input=DefaultBuild\sbrk.obj
+-input=DefaultBuild\mcu_clocks.obj
+-input=DefaultBuild\mcu_init.obj
+-input=DefaultBuild\mcu_interrupts.obj
+-input=DefaultBuild\mcu_mapped_interrupts.obj
+-input=DefaultBuild\vecttbl.obj
+-input=DefaultBuild\Pin.obj
+-input=DefaultBuild\Config_CMT0.obj
+-input=DefaultBuild\Config_CMT0_user.obj
+-noprelink
+-output=DefaultBuild\RX71M_MCR.abs
+-vect=_undefined_interrupt_source_isr
+-list=DefaultBuild\RX71M_MCR.map
+-nooptimize
+-start=SU,SI,B_1,R_1,B_2,R_2,B,R/4,C_1,C_2,C,C$*,D*,W*,L,P*/FFE00000,EXCEPTVECT/FFFFFF80,RESETVECT/FFFFFFFC
+-rom=D=R,D_1=R_1,D_2=R_2
+-nologo
+-end
+
+*** Error information ***
+
+*** Mapping List ***
+
+SECTION                            START      END         SIZE   ALIGN
+SU
+                                  00000004  00001003      1000   4
+SI
+                                  00001004  00001403       400   4
+B_1
+                                  00001404  0000142b        28   1
+R_1
+                                  0000142c  0000147c        51   1
+B_2
+                                  0000147e  00001485         8   2
+R_2
+                                  00001486  00001486         0   1
+B
+                                  00001488  00001c47       7c0   4
+R
+                                  00001c48  00001d3f        f8   4
+$ADDR_C_120040
+                                  00120040  00120043         4   1
+$ADDR_C_120048
+                                  00120048  0012004b         4   1
+$ADDR_C_120050
+                                  00120050  0012006f        20   1
+C_1
+                                  ffe00000  ffe00000         0   1
+C_2
+                                  ffe00000  ffe00005         6   2
+C
+                                  ffe00008  ffe0007f        78   4
+C$DSEC
+                                  ffe00080  ffe000a3        24   4
+C$BSEC
+                                  ffe000a4  ffe000bb        18   4
+C$VECT
+                                  ffe000bc  ffe004bb       400   4
+D_1
+                                  ffe004bc  ffe0050c        51   1
+D
+                                  ffe00510  ffe00607        f8   4
+D_2
+                                  ffe00608  ffe00608         0   1
+W
+                                  ffe00608  ffe00608         0   4
+W_1
+                                  ffe00608  ffe00617        10   1
+W_2
+                                  ffe00618  ffe00618         0   2
+L
+                                  ffe00618  ffe0065d        46   4
+P
+                                  ffe0065e  ffe01f74      1917   1
+EXCEPTVECT
+                                  ffffff80  fffffffb        7c   4
+RESETVECT
+                                  fffffffc  ffffffff         4   4
