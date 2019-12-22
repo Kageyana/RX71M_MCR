@@ -28,6 +28,11 @@
 -input=DefaultBuild\Pin.obj
 -input=DefaultBuild\Config_CMT0.obj
 -input=DefaultBuild\Config_CMT0_user.obj
+-input=DefaultBuild\I2C_LCD.obj
+-input=DefaultBuild\Config_SCI12.obj
+-input=DefaultBuild\Config_SCI12_user.obj
+-input=DefaultBuild\Config_CMT1.obj
+-input=DefaultBuild\Config_CMT1_user.obj
 -noprelink
 -output=DefaultBuild\RX71M_MCR.abs
 -vect=_undefined_interrupt_source_isr

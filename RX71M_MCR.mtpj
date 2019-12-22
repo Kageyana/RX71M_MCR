@@ -667,6 +667,12 @@
       <MemoCount>0</MemoCount>
     </Instance>
   </Class>
+  <Class Guid="873c9a58-9bc5-439a-b476-78629a4553ed">
+    <Instance Guid="873c9a58-9bc5-439a-b476-78629a4553ed">
+      <ProjectDeviceChangedCounter>0</ProjectDeviceChangedCounter>
+      <ProjectInitialDeviceName>R5F571MFCxFP</ProjectInitialDeviceName>
+    </Instance>
+  </Class>
   <Class Guid="c3835e31-dea3-4c93-b02b-d2db997f7630">
     <Instance Guid="c3835e31-dea3-4c93-b02b-d2db997f7630">
       <BuildToolManager>3a79707d-5977-45f7-ac11-19c35e333132</BuildToolManager>
@@ -679,17 +685,17 @@
       <BuildMode0>RABlAGYAYQB1AGwAdABCAHUAaQBsAGQA</BuildMode0>
       <BatchBuildFlag0>False</BatchBuildFlag0>
       <CurrentBuildMode>DefaultBuild</CurrentBuildMode>
-      <SourceItemGuid0>98832e15-53cf-496e-bbf6-11a29f734794</SourceItemGuid0>
+      <SourceItemGuid0>c2cd44ea-09eb-4fc4-9552-45e405536243</SourceItemGuid0>
       <SourceItemType0>CSource</SourceItemType0>
-      <SourceItemGuid1>c2640a61-374c-4f5e-8aee-9f935c554a5c</SourceItemGuid1>
+      <SourceItemGuid1>4be1f764-2295-4b51-9051-8753f77e5d72</SourceItemGuid1>
       <SourceItemType1>CSource</SourceItemType1>
-      <SourceItemGuid2>c2cd44ea-09eb-4fc4-9552-45e405536243</SourceItemGuid2>
+      <SourceItemGuid2>1043b37d-5daa-4fb0-a4a3-1115ba896187</SourceItemGuid2>
       <SourceItemType2>CSource</SourceItemType2>
       <SourceItemGuid3>14fac628-ab87-4fb4-b818-ea44aa90655c</SourceItemGuid3>
       <SourceItemType3>CSource</SourceItemType3>
-      <SourceItemGuid4>1043b37d-5daa-4fb0-a4a3-1115ba896187</SourceItemGuid4>
+      <SourceItemGuid4>c2640a61-374c-4f5e-8aee-9f935c554a5c</SourceItemGuid4>
       <SourceItemType4>CSource</SourceItemType4>
-      <SourceItemGuid5>4be1f764-2295-4b51-9051-8753f77e5d72</SourceItemGuid5>
+      <SourceItemGuid5>98832e15-53cf-496e-bbf6-11a29f734794</SourceItemGuid5>
       <SourceItemType5>CSource</SourceItemType5>
       <SourceItemGuid6>8f14547c-9674-49c8-a8e6-e83a742b939b</SourceItemGuid6>
       <SourceItemType6>CSource</SourceItemType6>
@@ -1916,15 +1922,15 @@ D_2=R_2
       <ItemAddTimeCount>1</ItemAddTimeCount>
     </Instance>
     <Instance Guid="a7be515f-f007-45ed-9059-4e1500c0f74d">
-      <TimeTagModified-SourceItem0--0>-8586257932952764330</TimeTagModified-SourceItem0--0>
+      <TimeTagModified-SourceItem0--0>-8586257954115637993</TimeTagModified-SourceItem0--0>
       <SourceItem0-IsLockedByUser>False</SourceItem0-IsLockedByUser>
       <SourceItem0-BuildingTarget-0>True</SourceItem0-BuildingTarget-0>
       <SourceItem0-IndividualCompileOption-0>False</SourceItem0-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem1--0>-8586257932952764330</TimeTagModified-SourceItem1--0>
+      <TimeTagModified-SourceItem1--0>-8586257932953253002</TimeTagModified-SourceItem1--0>
       <SourceItem1-IsLockedByUser>False</SourceItem1-IsLockedByUser>
       <SourceItem1-BuildingTarget-0>True</SourceItem1-BuildingTarget-0>
       <SourceItem1-IndividualCompileOption-0>False</SourceItem1-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem2--0>-8586257954115637993</TimeTagModified-SourceItem2--0>
+      <TimeTagModified-SourceItem2--0>-8586257932953253002</TimeTagModified-SourceItem2--0>
       <SourceItem2-IsLockedByUser>False</SourceItem2-IsLockedByUser>
       <SourceItem2-BuildingTarget-0>True</SourceItem2-BuildingTarget-0>
       <SourceItem2-IndividualCompileOption-0>False</SourceItem2-IndividualCompileOption-0>
@@ -1932,11 +1938,11 @@ D_2=R_2
       <SourceItem3-IsLockedByUser>False</SourceItem3-IsLockedByUser>
       <SourceItem3-BuildingTarget-0>True</SourceItem3-BuildingTarget-0>
       <SourceItem3-IndividualCompileOption-0>False</SourceItem3-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem4--0>-8586257932953253002</TimeTagModified-SourceItem4--0>
+      <TimeTagModified-SourceItem4--0>-8586257932952764330</TimeTagModified-SourceItem4--0>
       <SourceItem4-IsLockedByUser>False</SourceItem4-IsLockedByUser>
       <SourceItem4-BuildingTarget-0>True</SourceItem4-BuildingTarget-0>
       <SourceItem4-IndividualCompileOption-0>False</SourceItem4-IndividualCompileOption-0>
-      <TimeTagModified-SourceItem5--0>-8586257932953253002</TimeTagModified-SourceItem5--0>
+      <TimeTagModified-SourceItem5--0>-8586257932952764330</TimeTagModified-SourceItem5--0>
       <SourceItem5-IsLockedByUser>False</SourceItem5-IsLockedByUser>
       <SourceItem5-BuildingTarget-0>True</SourceItem5-BuildingTarget-0>
       <SourceItem5-IndividualCompileOption-0>False</SourceItem5-IndividualCompileOption-0>
@@ -2449,6 +2455,11 @@ D_2=R_2
       <SmcExePath>C:\Program Files (x86)\Renesas Electronics\SmartConfigurator\RX\eclipse\SmartConfigurator.exe</SmcExePath>
       <CodeGeneratorFilesGuid>5705d1be-aa9e-42ec-996c-b2c1af9bccf1</CodeGeneratorFilesGuid>
       <SCFGFile>RX71M_MCR.scfg</SCFGFile>
+    </Instance>
+  </Class>
+  <Class Guid="2a2c2a43-ecdb-4e88-80bd-e75f3e33db90">
+    <Instance Guid="2a2c2a43-ecdb-4e88-80bd-e75f3e33db90">
+      <ProductVersion>9.02.00.00</ProductVersion>
     </Instance>
   </Class>
 </CubeSuiteProject>

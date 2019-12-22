@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.01.00 )             08-Dec-2019 23:28:04
+Renesas Optimizing Linker (W3.01.00 )             21-Dec-2019 21:36:39
 
 *** Options ***
 
@@ -33,6 +33,11 @@ Renesas Optimizing Linker (W3.01.00 )             08-Dec-2019 23:28:04
 -input=DefaultBuild\Pin.obj
 -input=DefaultBuild\Config_CMT0.obj
 -input=DefaultBuild\Config_CMT0_user.obj
+-input=DefaultBuild\I2C_LCD.obj
+-input=DefaultBuild\Config_SCI12.obj
+-input=DefaultBuild\Config_SCI12_user.obj
+-input=DefaultBuild\Config_CMT1.obj
+-input=DefaultBuild\Config_CMT1_user.obj
 -noprelink
 -output=DefaultBuild\RX71M_MCR.abs
 -vect=_undefined_interrupt_source_isr
@@ -53,17 +58,17 @@ SU
 SI
                                   00001004  00001403       400   4
 B_1
-                                  00001404  0000142b        28   1
+                                  00001404  00001448        45   1
 R_1
-                                  0000142c  0000147c        51   1
+                                  00001449  00001499        51   1
 B_2
-                                  0000147e  00001485         8   2
+                                  0000149a  000014a7         e   2
 R_2
-                                  00001486  00001486         0   1
+                                  000014a8  000014a8         0   1
 B
-                                  00001488  00001c47       7c0   4
+                                  000014a8  00001c7b       7d4   4
 R
-                                  00001c48  00001d3f        f8   4
+                                  00001c7c  00001ee3       268   4
 $ADDR_C_120040
                                   00120040  00120043         4   1
 $ADDR_C_120048
@@ -71,33 +76,33 @@ $ADDR_C_120048
 $ADDR_C_120050
                                   00120050  0012006f        20   1
 C_1
-                                  ffe00000  ffe00000         0   1
+                                  ffe00000  ffe000d1        d2   1
 C_2
-                                  ffe00000  ffe00005         6   2
+                                  ffe000d2  ffe002d9       208   2
 C
-                                  ffe00008  ffe0007f        78   4
+                                  ffe002dc  ffe003b3        d8   4
 C$DSEC
-                                  ffe00080  ffe000a3        24   4
+                                  ffe003b4  ffe003d7        24   4
 C$BSEC
-                                  ffe000a4  ffe000bb        18   4
+                                  ffe003d8  ffe003ef        18   4
 C$VECT
-                                  ffe000bc  ffe004bb       400   4
-D_1
-                                  ffe004bc  ffe0050c        51   1
+                                  ffe003f0  ffe007ef       400   4
 D
-                                  ffe00510  ffe00607        f8   4
+                                  ffe007f0  ffe00a57       268   4
+D_1
+                                  ffe00a58  ffe00aa8        51   1
 D_2
-                                  ffe00608  ffe00608         0   1
+                                  ffe00aa9  ffe00aa9         0   1
 W
-                                  ffe00608  ffe00608         0   4
+                                  ffe00aac  ffe00aac         0   4
 W_1
-                                  ffe00608  ffe00617        10   1
+                                  ffe00aac  ffe00abb        10   1
 W_2
-                                  ffe00618  ffe00618         0   2
+                                  ffe00abc  ffe00abc         0   2
 L
-                                  ffe00618  ffe0065d        46   4
+                                  ffe00abc  ffe00b54        99   4
 P
-                                  ffe0065e  ffe01f74      1917   1
+                                  ffe00b55  ffe0496c      3e18   1
 EXCEPTVECT
                                   ffffff80  fffffffb        7c   4
 RESETVECT
