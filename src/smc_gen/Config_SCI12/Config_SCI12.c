@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : Config_SCI12.c
-* Version      : 1.6.0
+* Version      : 1.8.0
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_SCI12.
-* Creation Date: 2019-12-21
+* Creation Date: 2020-02-08
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -85,8 +85,8 @@ void R_Config_SCI12_Create(void)
     /* Set bit rate */
     SCI12.BRR = 0x04U;
     SCI12.SEMR.BYTE = _00_SCI_NOISE_FILTER_DISABLE | _00_SCI_BIT_MODULATION_DISABLE;
-    SCI12.SIMR1.BYTE |= _01_SCI_IIC_MODE | _00_SCI_NONE;
-    SCI12.SIMR2.BYTE |= _00_SCI_ACK_NACK_INTERRUPTS | _02_SCI_SYNCHRONIZATION | _20_SCI_NACK_TRANSMISSION;
+    SCI12.SIMR1.BYTE |= (_01_SCI_IIC_MODE | _00_SCI_NONE);
+    SCI12.SIMR2.BYTE |= (_00_SCI_ACK_NACK_INTERRUPTS | _02_SCI_SYNCHRONIZATION | _20_SCI_NACK_TRANSMISSION);
     SCI12.SPMR.BYTE = _00_SCI_CLOCK_NOT_INVERTED | _00_SCI_CLOCK_NOT_DELAYED;
     SCI12.SCR.BYTE = _10_SCI_RECEIVE_ENABLE | _20_SCI_TRANSMIT_ENABLE | _40_SCI_RXI_ERI_ENABLE | _80_SCI_TXI_ENABLE | 
                      _04_SCI_TEI_INTERRUPT_ENABLE;

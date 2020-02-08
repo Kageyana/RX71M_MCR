@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : r_cg_hardware_setup.c
-* Version      : 1.4.3
+* Version      : 1.4.4
 * Device(s)    : R5F571MFCxFP
 * Description  : Initialization file for code generation configurations.
-* Creation Date: 2019-12-21
+* Creation Date: 2020-02-08
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -36,9 +36,9 @@ Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
 #include "Config_PORT.h"
-#include "Config_SCI12.h"
 #include "Config_CMT0.h"
 #include "Config_CMT1.h"
+#include "Config_SCI12.h"
 #include "r_smc_cgc.h"
 #include "r_smc_interrupt.h"
 /* Start user code for include. Do not edit comment generated here */

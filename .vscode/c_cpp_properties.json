@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/Program Files (x86)/Renesas Electronics/CS+/CC/CC-RX/V3.02.00/include",
+                "${workspaceFolder}/src/smc_gen/r_bsp/mcu/all"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "_VSCODE"
+            ],
+            "intelliSenseMode": "msvc-x64",
+            "cStandard": "c99"
+        }
+    ],
+    "version": 4
+}

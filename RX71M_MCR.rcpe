@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <MicomToolCommonProjectFile Version="1.00">
-  <CreatorType Name="CubeSuite+" Version="V8.02.00  [07 Jun 2019]" />
+  <CreatorType Name="CubeSuite+" Version="V8.03.00  [21 Nov 2019]" />
   <Placeholders>
     <PlaceholderPrefix>%</PlaceholderPrefix>
     <PlaceholderPostfix>%</PlaceholderPostfix>
@@ -27,6 +27,8 @@
           <Path>src\smc_gen\general\r_smc_interrupt.h</Path>
           <Path>src\smc_gen\general\r_cg_cmt.h</Path>
           <Path>src\smc_gen\general\r_cg_cmtw.h</Path>
+          <Path>src\smc_gen\general\r_cg_riic.h</Path>
+          <Path>src\smc_gen\general\r_cg_sci.h</Path>
         </Category>
         <Category Name="r_bsp">
           <Path>src\smc_gen\r_bsp\platform.h</Path>
@@ -122,7 +124,19 @@
           <Path>src\smc_gen\Config_CMT0\Config_CMT0.h</Path>
           <Path>src\smc_gen\Config_CMT0\Config_CMT0_user.c</Path>
         </Category>
+        <Category Name="Config_SCI12">
+          <Path>src\smc_gen\Config_SCI12\Config_SCI12.c</Path>
+          <Path>src\smc_gen\Config_SCI12\Config_SCI12.h</Path>
+          <Path>src\smc_gen\Config_SCI12\Config_SCI12_user.c</Path>
+        </Category>
+        <Category Name="Config_CMT1">
+          <Path>src\smc_gen\Config_CMT1\Config_CMT1.c</Path>
+          <Path>src\smc_gen\Config_CMT1\Config_CMT1.h</Path>
+          <Path>src\smc_gen\Config_CMT1\Config_CMT1_user.c</Path>
+        </Category>
       </Category>
+      <Path>I2C_LCD.c</Path>
+      <Path>I2C_LCD.h</Path>
     </Files>
     <DebugOptions>
       <DebugTool>Simulator</DebugTool>
@@ -130,7 +144,7 @@
       <DebugToolSettings />
     </DebugOptions>
     <Device Series="RX">R5F571MFCxFP</Device>
-    <BuildOptions Name="CC-RX" Version="V3.01.00">
+    <BuildOptions Name="CC-RX" Version="V3.02.00">
       <BuildMode Name="DefaultBuild" Active="True">
         <GeneralOptions>
           <SimultaneouslyBuild>false</SimultaneouslyBuild>
@@ -140,6 +154,9 @@
           <Option>-fpu</Option>
           <Option>-dbl_size=8</Option>
           <Option>-lang=c99</Option>
+          <Option>-include=src\smc_gen\Config_CMT1</Option>
+          <Option>-include=src\smc_gen\Config_SCI12</Option>
+          <Option>-include=.</Option>
           <Option>-include=src\smc_gen\Config_CMT0</Option>
           <Option>-include=src\smc_gen\r_pincfg</Option>
           <Option>-include=src\smc_gen\r_config</Option>
@@ -155,6 +172,7 @@
           <Option>-include=src\smc_gen\Config_PORT</Option>
           <Option>-output=obj=%BuildModeName%\%FileLeaf%.obj</Option>
           <Option>-debug</Option>
+          <Option>-g_line</Option>
           <Option>-nologo</Option>
         </CompileOptions>
         <AssembleOptions>
@@ -220,8 +238,16 @@
           <Path>DefaultBuild\Pin.obj</Path>
           <Path>DefaultBuild\Config_CMT0.obj</Path>
           <Path>DefaultBuild\Config_CMT0_user.obj</Path>
+          <Path>DefaultBuild\I2C_LCD.obj</Path>
+          <Path>DefaultBuild\Config_SCI12.obj</Path>
+          <Path>DefaultBuild\Config_SCI12_user.obj</Path>
+          <Path>DefaultBuild\Config_CMT1.obj</Path>
+          <Path>DefaultBuild\Config_CMT1_user.obj</Path>
         </LinkOrder>
         <CommonOptions>
+          <IncludePathForC>src\smc_gen\Config_CMT1</IncludePathForC>
+          <IncludePathForC>src\smc_gen\Config_SCI12</IncludePathForC>
+          <IncludePathForC>.</IncludePathForC>
           <IncludePathForC>src\smc_gen\Config_CMT0</IncludePathForC>
           <IncludePathForC>src\smc_gen\r_pincfg</IncludePathForC>
           <IncludePathForC>src\smc_gen\r_config</IncludePathForC>

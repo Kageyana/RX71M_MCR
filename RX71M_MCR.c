@@ -18,7 +18,7 @@ void main(void)
 	
 	//タイマ割り込み開始
 	R_Config_CMT0_Start();
-	R_Config_CMT1_Start();
+	//R_Config_CMT1_Start();
 	
 	// I2C通信開始
 	R_Config_SCI12_Start();

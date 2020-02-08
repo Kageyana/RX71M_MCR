@@ -1,16 +1,23 @@
-Renesas Optimizing Linker (W3.01.00 )             21-Dec-2019 21:36:39
+Renesas Optimizing Linker (W3.02.00 )             08-Feb-2020 16:47:09
 
 *** Options ***
 
+-MAKEUD=DefaultBuild\RX71M_MCR.lk.ud
 -subcommand=DefaultBuild\RX71M_MCR.clnk
 -library=DefaultBuild\RX71M_MCR.lib
 -input=DefaultBuild\RX71M_MCR.obj
--input=DefaultBuild\Config_PORT.obj
--input=DefaultBuild\Config_PORT_user.obj
--input=DefaultBuild\r_cg_hardware_setup.obj
 -input=DefaultBuild\r_smc_cgc.obj
 -input=DefaultBuild\r_smc_cgc_user.obj
 -input=DefaultBuild\r_smc_interrupt.obj
+-input=DefaultBuild\Pin.obj
+-input=DefaultBuild\I2C_LCD.obj
+-input=DefaultBuild\Config_CMT0.obj
+-input=DefaultBuild\Config_CMT0_user.obj
+-input=DefaultBuild\Config_CMT1.obj
+-input=DefaultBuild\Config_CMT1_user.obj
+-input=DefaultBuild\Config_PORT.obj
+-input=DefaultBuild\Config_PORT_user.obj
+-input=DefaultBuild\r_cg_hardware_setup.obj
 -input=DefaultBuild\hwsetup.obj
 -input=DefaultBuild\dbsct.obj
 -input=DefaultBuild\lowlvl.obj
@@ -30,14 +37,8 @@ Renesas Optimizing Linker (W3.01.00 )             21-Dec-2019 21:36:39
 -input=DefaultBuild\mcu_interrupts.obj
 -input=DefaultBuild\mcu_mapped_interrupts.obj
 -input=DefaultBuild\vecttbl.obj
--input=DefaultBuild\Pin.obj
--input=DefaultBuild\Config_CMT0.obj
--input=DefaultBuild\Config_CMT0_user.obj
--input=DefaultBuild\I2C_LCD.obj
 -input=DefaultBuild\Config_SCI12.obj
 -input=DefaultBuild\Config_SCI12_user.obj
--input=DefaultBuild\Config_CMT1.obj
--input=DefaultBuild\Config_CMT1_user.obj
 -noprelink
 -output=DefaultBuild\RX71M_MCR.abs
 -vect=_undefined_interrupt_source_isr
@@ -102,7 +103,7 @@ W_2
 L
                                   ffe00abc  ffe00b54        99   4
 P
-                                  ffe00b55  ffe0496c      3e18   1
+                                  ffe00b55  ffe048ec      3d98   1
 EXCEPTVECT
                                   ffffff80  fffffffb        7c   4
 RESETVECT

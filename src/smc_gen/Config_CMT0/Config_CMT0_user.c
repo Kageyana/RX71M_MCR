@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : Config_CMT0_user.c
-* Version      : 1.8.0
+* Version      : 2.0.0
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_CMT0.
-* Creation Date: 2019-12-21
+* Creation Date: 2020-02-08
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -37,7 +37,7 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "Config_CMT0.h"
 /* Start user code for include. Do not edit comment generated here */
-#include "I2C_LCD.h"
+#include "I2c_LCD.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
@@ -75,7 +75,7 @@ void R_Config_CMT0_Create_UserInit(void)
 static void r_Config_CMT0_cmi0_interrupt(void)
 {
     /* Start user code for r_Config_CMT0_cmi0_interrupt. Do not edit comment generated here */
-	lcdShowProcess();
+    lcdShowProcess();
     /* End user code. Do not edit comment generated here */
 }
 

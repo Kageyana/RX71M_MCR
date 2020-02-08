@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : Config_SCI12_user.c
-* Version      : 1.6.0
+* Version      : 1.8.0
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_SCI12.
-* Creation Date: 2019-12-21
+* Creation Date: 2020-02-08
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -113,7 +113,7 @@ void r_Config_SCI12_transmitend_interrupt(void)
     else if (_00_SCI_IIC_STOP_CYCLE == g_sci12_iic_cycle_flag)
     {
         SCI12.SIMR3.BIT.IICSTIF = 0U;
-        SCI12.SIMR3.BYTE |= _30_SCI_SSDA_HIGH_IMPEDANCE | _C0_SCI_SSCL_HIGH_IMPEDANCE;
+        SCI12.SIMR3.BYTE |= (_30_SCI_SSDA_HIGH_IMPEDANCE | _C0_SCI_SSCL_HIGH_IMPEDANCE);
     }
     else
     {

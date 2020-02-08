@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : Config_SCI12.h
-* Version      : 1.6.0
+* Version      : 1.8.0
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_SCI12.
-* Creation Date: 2019-12-21
+* Creation Date: 2020-02-08
 ***********************************************************************************************************************/
 
 #ifndef CFG_Config_SCI12_H
