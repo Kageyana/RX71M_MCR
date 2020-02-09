@@ -7,14 +7,11 @@
 -input=DefaultBuild\I2C_LCD.obj
 -input=DefaultBuild\Config_CMT0.obj
 -input=DefaultBuild\Config_CMT0_user.obj
--input=DefaultBuild\Config_CMT1.obj
--input=DefaultBuild\Config_CMT1_user.obj
 -input=DefaultBuild\Config_PORT.obj
 -input=DefaultBuild\Config_PORT_user.obj
 -input=DefaultBuild\r_cg_hardware_setup.obj
 -input=DefaultBuild\hwsetup.obj
 -input=DefaultBuild\dbsct.obj
--input=DefaultBuild\lowlvl.obj
 -input=DefaultBuild\lowsrc.obj
 -input=DefaultBuild\mcu_locks.obj
 -input=DefaultBuild\resetprg.obj
@@ -33,6 +30,9 @@
 -input=DefaultBuild\vecttbl.obj
 -input=DefaultBuild\Config_SCI12.obj
 -input=DefaultBuild\Config_SCI12_user.obj
+-input=DefaultBuild\Config_SCI1.obj
+-input=DefaultBuild\Config_SCI1_user.obj
+-input=DefaultBuild\lowlvl.obj
 -noprelink
 -output=DefaultBuild\RX71M_MCR.abs
 -vect=_undefined_interrupt_source_isr
