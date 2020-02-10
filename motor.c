@@ -58,12 +58,6 @@ void motor_r( signed char accelerL, signed char accelerR )
 	if( accelerR >= 0 ) {					
 		// ³“]
 		DIR_RR = FORWARD;
-	} else if ( accelerR == 100 || accelerR == -100 ) {	
-		// 100%
-		if ( accelerR > 0 )	DIR_RR = FORWARD;
-		else				DIR_RR = REVERSE;
-		
-		pwmrr = TGR_MOTOR + 2;
 	} else {						
 		// ‹t“]
 		pwmrr = -pwmrr;

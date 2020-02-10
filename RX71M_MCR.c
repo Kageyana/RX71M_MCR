@@ -41,12 +41,12 @@ void main(void)
 		motor_r(0,0);
 		wait_lcd(2000U);
 		motor_r_mode(BRAKE,BRAKE);
-		motor_r(-30,-30);
+		motor_r(60,60);
 		wait_lcd(2000U);
 		motor_r(0,0);
 		wait_lcd(2000U);
 		motor_r_mode(FREE,FREE);
-		motor_r(30,30);
+		motor_r(100,100);
 		wait_lcd(2000U);
 	}
 }
