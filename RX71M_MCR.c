@@ -11,23 +11,15 @@
 //#include "typedefine.h"
 #include "r_smc_entry.h"  //スマートコンフィグレータのマニュアルの使用例で呼んでたのでinclude
 #include "I2c_LCD.h"
-#include "timer.h"
+//#include "timer.h"
 
 void main(void)
-{   
-	//R_Config_CMT1_Start();
-	
+{
 	// I2C通信開始
-	R_Config_SCI1_Start();
 	R_Config_SCI12_Start();
 	inti_lcd();
 	//タイマ割り込み開始
 	R_Config_CMT0_Start();
-	
-	
-	
-	//R_Config_SCI1_Serial_Send(data, 2U);
-	//R_Config_SCI1_Serial_Send(data, 2U);
 	
 	while(1){
 		lcdPosition( 0, 0 );
