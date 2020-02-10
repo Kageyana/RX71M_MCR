@@ -18,42 +18,102 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_smc_entry.h
-* Version      : 1.4.4
+* File Name    : Config_MTU0.c
+* Version      : 1.8.0
 * Device(s)    : R5F571MFCxFP
-* Description  : SMC platform header file.
+* Description  : This file implements device driver for Config_MTU0.
 * Creation Date: 2020-02-10
 ***********************************************************************************************************************/
 
-#ifndef SMC_ENTRY_H
-#define SMC_ENTRY_H
+/***********************************************************************************************************************
+Pragma directive
+***********************************************************************************************************************/
+/* Start user code for pragma. Do not edit comment generated here */
+/* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "Config_PORT.h"
-#include "Config_CMT0.h"
-#include "Config_SCI12.h"
-#include "Config_SCI1.h"
 #include "Config_MTU0.h"
-
-/***********************************************************************************************************************
-Macro definitions (Register bit)
-***********************************************************************************************************************/
-
-/***********************************************************************************************************************
-Macro definitions
-***********************************************************************************************************************/
-
-/***********************************************************************************************************************
-Typedef definitions
-***********************************************************************************************************************/
-
-/***********************************************************************************************************************
-Global functions
-***********************************************************************************************************************/
-/* Start user code for function. Do not edit comment generated here */
+/* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
-#endif
+#include "r_cg_userdefine.h"
 
+/***********************************************************************************************************************
+Global variables and functions
+***********************************************************************************************************************/
+/* Start user code for global. Do not edit comment generated here */
+/* End user code. Do not edit comment generated here */
+
+/***********************************************************************************************************************
+* Function Name: R_Config_MTU0_Create
+* Description  : This function initializes the MTU0 channel
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+
+void R_Config_MTU0_Create(void)
+{
+    /* Release MTU channel 0 from stop state */
+    MSTP(MTU0) = 0U;
+
+    /* Stop MTU channel 0 counter */
+    MTU.TSTRA.BIT.CST0 = 0U;
+
+    /* MTU channel 0 is used as PWM mode 1 */
+    MTU.TSYRA.BIT.SYNC0 = 0U;
+    MTU0.TCR.BYTE = _00_MTU_PCLK_1 | _20_MTU_CKCL_A;
+    MTU0.TCR2.BYTE = _00_MTU_PCLK_1;
+    MTU0.TIER.BYTE = _00_MTU_TGIEA_DISABLE | _00_MTU_TGIEB_DISABLE | _00_MTU_TGIEC_DISABLE | _00_MTU_TGIED_DISABLE | 
+                     _00_MTU_TCIEV_DISABLE | _00_MTU_TTGE_DISABLE;
+    MTU0.TIER2.BYTE = _00_MTU_TGIEE_DISABLE | _00_MTU_TGIEF_DISABLE | _00_MTU_TTGE2_DISABLE;
+    MTU0.TMDR1.BYTE = _02_MTU_PWM1;
+    MTU0.TIORH.BYTE = _02_MTU_IOA_LH | _50_MTU_IOB_HL;
+    MTU0.TIORL.BYTE = _02_MTU_IOC_LH | _50_MTU_IOD_HL;
+    MTU0.TGRA = _176F_TGRA0_VALUE;
+    MTU0.TGRB = _0000_TGRB0_VALUE;
+    MTU0.TGRC = _176F_TGRC0_VALUE;
+    MTU0.TGRD = _0000_TGRD0_VALUE;
+    MTU0.TGRE = _0064_TGRE0_VALUE;
+    MTU0.TGRF = _0064_TGRF0_VALUE;
+
+    /* Set MTIOC0A pin */
+    MPC.PB3PFS.BYTE = 0x01U;
+    PORTB.PMR.BYTE |= 0x08U;
+
+    /* Set MTIOC0C pin */
+    MPC.PB1PFS.BYTE = 0x01U;
+    PORTB.PMR.BYTE |= 0x02U;
+
+    R_Config_MTU0_Create_UserInit();
+}
+
+/***********************************************************************************************************************
+* Function Name: R_Config_MTU0_Start
+* Description  : This function starts the MTU0 channel counter
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+
+void R_Config_MTU0_Start(void)
+{
+    /* Start MTU channel 0 counter */
+    MTU.TSTRA.BIT.CST0 = 1U;
+}
+
+/***********************************************************************************************************************
+* Function Name: R_Config_MTU0_Stop
+* Description  : This function stops the MTU0 channel counter
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+
+void R_Config_MTU0_Stop(void)
+{
+    /* Stop MTU channel 0 counter */
+    MTU.TSTRA.BIT.CST0 = 0U;
+}
+
+/* Start user code for adding. Do not edit comment generated here */
+/* End user code. Do not edit comment generated here */   

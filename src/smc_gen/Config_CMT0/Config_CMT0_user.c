@@ -101,7 +101,7 @@ static void r_Config_CMT0_cmi0_interrupt(void)
 		break;
 	case 1000:
 		cnt0++;
-		printf("%d\n",cnt0);
+		//printf("%d\n",cnt0);
 		Timer10 = 0;
 		break;
 	default:

@@ -11,6 +11,7 @@
 //#include "typedefine.h"
 #include "r_smc_entry.h"  //スマートコンフィグレータのマニュアルの使用例で呼んでたのでinclude
 #include "I2c_LCD.h"
+#include "motor.h"
 //#include "timer.h"
 
 void main(void)
@@ -20,13 +21,32 @@ void main(void)
 	inti_lcd();
 	//タイマ割り込み開始
 	R_Config_CMT0_Start();
+	// ブレーキモード
+	motor_r_mode(BRAKE,BRAKE);
+	motor_r(0,0);
 	
 	while(1){
-		lcdPosition( 0, 0 );
-		lcdPrintf("Hello");
-		lcdPosition( 0, 1 );
-		lcdPrintf("RXworld");
+		//lcdPosition( 0, 0 );
+		//lcdPrintf("Hello");
+		//lcdPosition( 0, 1 );
+		//lcdPrintf("RXworld");
 		
 		PORTE.PODR.BIT.B3 = 1;
+		
+		motor_r(0,0);
+		wait_lcd(2000U);
+		motor_r_mode(BRAKE,BRAKE);
+		motor_r(30,30);
+		wait_lcd(2000U);
+		motor_r(0,0);
+		wait_lcd(2000U);
+		motor_r_mode(BRAKE,BRAKE);
+		motor_r(-30,-30);
+		wait_lcd(2000U);
+		motor_r(0,0);
+		wait_lcd(2000U);
+		motor_r_mode(FREE,FREE);
+		motor_r(30,30);
+		wait_lcd(2000U);
 	}
 }
