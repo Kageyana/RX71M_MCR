@@ -37,6 +37,7 @@ Includes
 #include "Config_SCI12.h"
 #include "Config_SCI1.h"
 #include "Config_MTU0.h"
+#include "Config_MTU2.h"
 
 /***********************************************************************************************************************
 Macro definitions (Register bit)

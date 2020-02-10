@@ -18,102 +18,42 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : Config_CMT0_user.c
+* File Name    : Config_MTU2.h
 * Version      : 2.0.0
 * Device(s)    : R5F571MFCxFP
-* Description  : This file implements device driver for Config_CMT0.
+* Description  : This file implements device driver for Config_MTU2.
 * Creation Date: 2020-02-10
 ***********************************************************************************************************************/
 
-/***********************************************************************************************************************
-Pragma directive
-***********************************************************************************************************************/
-/* Start user code for pragma. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
+#ifndef CFG_Config_MTU2_H
+#define CFG_Config_MTU2_H
 
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
-#include "r_cg_macrodriver.h"
-#include "Config_CMT0.h"
-/* Start user code for include. Do not edit comment generated here */
-#include "I2c_LCD.h"
-#include "Timer.h"
-#include "Rotaryencoder.h"
+#include "r_cg_mtu3.h"
+
+/***********************************************************************************************************************
+Macro definitions (Register bit)
+***********************************************************************************************************************/
+
+/***********************************************************************************************************************
+Macro definitions
+***********************************************************************************************************************/
+#define _0063_TGRA2_VALUE               (0x0063U) /* TGRA2 value */
+#define _0063_TGRB2_VALUE               (0x0063U) /* TGRB2 value */
+
+/***********************************************************************************************************************
+Typedef definitions
+***********************************************************************************************************************/
+
+/***********************************************************************************************************************
+Global functions
+***********************************************************************************************************************/
+void R_Config_MTU2_Create(void);
+void R_Config_MTU2_Start(void);
+void R_Config_MTU2_Stop(void);
+void R_Config_MTU2_Create_UserInit(void);
+/* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
-#include "r_cg_userdefine.h"
-
-/***********************************************************************************************************************
-Global variables and functions
-***********************************************************************************************************************/
-/* Start user code for global. Do not edit comment generated here */
-short Timer10 = 0;
-short cnt0 = 0;
-/* End user code. Do not edit comment generated here */
-
-/***********************************************************************************************************************
-* Function Name: R_Config_CMT0_Create_UserInit
-* Description  : This function adds user code after initializing the CMT0 channel
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-
-void R_Config_CMT0_Create_UserInit(void)
-{
-    /* Start user code for user init. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
-}
-
-/***********************************************************************************************************************
-* Function Name: r_Config_CMT0_cmi0_interrupt
-* Description  : This function is CMI0 interrupt service routine
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-
-#if FAST_INTERRUPT_VECTOR == VECT_CMT0_CMI0
-#pragma interrupt r_Config_CMT0_cmi0_interrupt(vect=VECT(CMT0,CMI0),fint)
-#else
-#pragma interrupt r_Config_CMT0_cmi0_interrupt(vect=VECT(CMT0,CMI0))
 #endif
-static void r_Config_CMT0_cmi0_interrupt(void)
-{
-    /* Start user code for r_Config_CMT0_cmi0_interrupt. Do not edit comment generated here */
-    
-    
-    lcdShowProcess();
-    Timer10++;
-    switch ( Timer10 ) {	
-	case 1:
-		break;
-	case 2:
-		break;
-	case 3:
-		break;
-	case 5:
-		break;
-	case 6:
-		break;
-	case 7:
-		break;
-	case 8:
-		break;
-	case 9:
-		break;
-	case 100:
-		cnt0++;
-		printf("%d\r",MTU2.TCNT);
-		Timer10 = 0;
-		break;
-	default:
-		break;
-	}
-    /* End user code. Do not edit comment generated here */
-}
-
-/* Start user code for adding. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */   
-
-
-
-

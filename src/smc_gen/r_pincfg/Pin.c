@@ -56,6 +56,14 @@ void R_Pins_Create(void)
 {
     R_BSP_RegisterProtectDisable(BSP_REG_PROTECT_MPC);
 
+    /* Set MTCLKA pin */
+    MPC.P24PFS.BYTE = 0x02U;
+    PORT2.PMR.BYTE |= 0x10U;
+
+    /* Set MTCLKB pin */
+    MPC.P25PFS.BYTE = 0x02U;
+    PORT2.PMR.BYTE |= 0x20U;
+
     /* Set MTIOC0A pin */
     MPC.PB3PFS.BYTE = 0x01U;
     PORTB.PMR.BYTE |= 0x08U;

@@ -11,7 +11,7 @@
 //#include "typedefine.h"
 #include "r_smc_entry.h"  //スマートコンフィグレータのマニュアルの使用例で呼んでたのでinclude
 #include "I2c_LCD.h"
-#include "motor.h"
+#include "Motor.h"
 //#include "timer.h"
 
 void main(void)
@@ -33,6 +33,8 @@ void main(void)
 		
 		PORTE.PODR.BIT.B3 = 1;
 		
+		// モータ動作確認
+		/*
 		motor_r(0,0);
 		wait_lcd(2000U);
 		motor_r_mode(BRAKE,BRAKE);
@@ -48,5 +50,6 @@ void main(void)
 		motor_r_mode(FREE,FREE);
 		motor_r(100,100);
 		wait_lcd(2000U);
+		*/
 	}
 }

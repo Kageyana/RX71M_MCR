@@ -40,6 +40,7 @@ Includes
 #include "Config_SCI12.h"
 #include "Config_SCI1.h"
 #include "Config_MTU0.h"
+#include "Config_MTU2.h"
 #include "r_smc_cgc.h"
 #include "r_smc_interrupt.h"
 /* Start user code for include. Do not edit comment generated here */
@@ -90,6 +91,7 @@ void R_Systeminit(void)
     R_Config_SCI12_Create();
     R_Config_SCI1_Create();
     R_Config_MTU0_Create();
+    R_Config_MTU2_Create();
 
     /* Set interrupt settings */
     R_Interrupt_Create();
