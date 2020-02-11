@@ -22,7 +22,7 @@
 * Version      : 2.0.0
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_CMT0.
-* Creation Date: 2020-02-10
+* Creation Date: 2020-02-11
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -40,6 +40,7 @@ Includes
 #include "I2c_LCD.h"
 #include "Timer.h"
 #include "Rotaryencoder.h"
+#include "AD12.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
@@ -102,7 +103,9 @@ static void r_Config_CMT0_cmi0_interrupt(void)
 		break;
 	case 100:
 		cnt0++;
-		printf("%d\r",MTU2.TCNT);
+		//printf("%d\r",MTU2.TCNT);	// カウント
+		//printf("%d\r",MTU2.TCNT);		// エンコーダ
+		//printf("%4d  %4d  %4d  %4d  %4d  %4d\r",A_Sen[1],A_Sen[2],A_Sen[3],A_Sen[4],A_Sen[5],A_Sen[6]);
 		Timer10 = 0;
 		break;
 	default:

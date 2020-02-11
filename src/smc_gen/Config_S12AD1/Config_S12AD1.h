@@ -14,19 +14,24 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2018 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2019 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : Pin.h
-* Version      : 1.0.2
+* File Name    : Config_S12AD1.h
+* Version      : 1.8.0
 * Device(s)    : R5F571MFCxFP
-* Description  : This file implements SMC pin code generation.
+* Description  : This file implements device driver for Config_S12AD1.
 * Creation Date: 2020-02-11
 ***********************************************************************************************************************/
 
-#ifndef PIN_H
-#define PIN_H
+#ifndef CFG_Config_S12AD1_H
+#define CFG_Config_S12AD1_H
+
+/***********************************************************************************************************************
+Includes
+***********************************************************************************************************************/
+#include "r_cg_s12ad.h"
 
 /***********************************************************************************************************************
 Macro definitions (Register bit)
@@ -35,6 +40,7 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
+#define _FF_AD1_SAMPLING_STATE_L           (0xFFU) /* AN108-AN120 sampling time setting */
 
 /***********************************************************************************************************************
 Typedef definitions
@@ -43,8 +49,12 @@ Typedef definitions
 /***********************************************************************************************************************
 Global functions
 ***********************************************************************************************************************/
-void R_Pins_Create(void);
+void R_Config_S12AD1_Create(void);
+void R_Config_S12AD1_Start(void);
+void R_Config_S12AD1_Stop(void);
+void R_Config_S12AD1_Get_ValueResult(ad_channel_t channel, uint16_t * const buffer);
+void R_Config_S12AD1_Set_CompareValue(uint16_t reg_value0,uint16_t reg_value1);
+void R_Config_S12AD1_Create_UserInit(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif
-

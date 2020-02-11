@@ -14,37 +14,75 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2018 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2019 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : Pin.h
-* Version      : 1.0.2
+* File Name    : Config_S12AD0_user.c
+* Version      : 1.8.0
 * Device(s)    : R5F571MFCxFP
-* Description  : This file implements SMC pin code generation.
+* Description  : This file implements device driver for Config_S12AD0.
 * Creation Date: 2020-02-11
 ***********************************************************************************************************************/
 
-#ifndef PIN_H
-#define PIN_H
-
 /***********************************************************************************************************************
-Macro definitions (Register bit)
+Pragma directive
 ***********************************************************************************************************************/
-
-/***********************************************************************************************************************
-Macro definitions
-***********************************************************************************************************************/
-
-/***********************************************************************************************************************
-Typedef definitions
-***********************************************************************************************************************/
-
-/***********************************************************************************************************************
-Global functions
-***********************************************************************************************************************/
-void R_Pins_Create(void);
-/* Start user code for function. Do not edit comment generated here */
+/* Start user code for pragma. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
+
+/***********************************************************************************************************************
+Includes
+***********************************************************************************************************************/
+#include "r_cg_macrodriver.h"
+#include "Config_S12AD0.h"
+/* Start user code for include. Do not edit comment generated here */
+#include "AD12.h"
+/* End user code. Do not edit comment generated here */
+#include "r_cg_userdefine.h"
+
+/***********************************************************************************************************************
+Global variables and functions
+***********************************************************************************************************************/
+/* Start user code for global. Do not edit comment generated here */
+/* End user code. Do not edit comment generated here */
+
+/***********************************************************************************************************************
+* Function Name: R_Config_S12AD0_Create_UserInit
+* Description  : This function adds user code after initializing the S12AD0 channel
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+
+void R_Config_S12AD0_Create_UserInit(void)
+{
+    /* Start user code for user init. Do not edit comment generated here */
+    /* End user code. Do not edit comment generated here */
+}
+
+/***********************************************************************************************************************
+* Function Name: r_Config_S12AD0_interrupt
+* Description  : This function is S12ADI interrupt service routine
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+
+#if FAST_INTERRUPT_VECTOR == VECT_PERIB_INTB190
+#pragma interrupt r_Config_S12AD0_interrupt(vect=VECT(PERIB,INTB190),fint)
+#else
+#pragma interrupt r_Config_S12AD0_interrupt(vect=VECT(PERIB,INTB190))
 #endif
+static void r_Config_S12AD0_interrupt(void)
+{
+    /* Start user code for r_Config_S12AD0_interrupt. Do not edit comment generated here */
+    A_Sen[1] = (uint16_t)(S12AD.ADDR6);
+    A_Sen[2] = (uint16_t)(S12AD.ADDR7);
+    /* End user code. Do not edit comment generated here */
+}
+
+/* Start user code for adding. Do not edit comment generated here */
+/* End user code. Do not edit comment generated here */   
+
+
+
 

@@ -22,7 +22,7 @@
 * Version      : 1.0.2
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements SMC pin code generation.
-* Creation Date: 2020-02-10
+* Creation Date: 2020-02-11
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -55,6 +55,46 @@ Global variables and functions
 void R_Pins_Create(void)
 {
     R_BSP_RegisterProtectDisable(BSP_REG_PROTECT_MPC);
+
+    /* Set AN006 pin */
+    MPC.P46PFS.BYTE = 0x80U;
+    PORT4.PMR.BYTE &= 0xBFU;
+    PORT4.PDR.BYTE &= 0xBFU;
+
+    /* Set AN007 pin */
+    MPC.P47PFS.BYTE = 0x80U;
+    PORT4.PMR.BYTE &= 0x7FU;
+    PORT4.PDR.BYTE &= 0x7FU;
+
+    /* Set AN108 pin */
+    MPC.PD0PFS.BYTE = 0x80U;
+    PORTD.PMR.BYTE &= 0xFEU;
+    PORTD.PDR.BYTE &= 0xFEU;
+
+    /* Set AN109 pin */
+    MPC.PD1PFS.BYTE = 0x80U;
+    PORTD.PMR.BYTE &= 0xFDU;
+    PORTD.PDR.BYTE &= 0xFDU;
+
+    /* Set AN110 pin */
+    MPC.PD2PFS.BYTE = 0x80U;
+    PORTD.PMR.BYTE &= 0xFBU;
+    PORTD.PDR.BYTE &= 0xFBU;
+
+    /* Set AN111 pin */
+    MPC.PD3PFS.BYTE = 0x80U;
+    PORTD.PMR.BYTE &= 0xF7U;
+    PORTD.PDR.BYTE &= 0xF7U;
+
+    /* Set AN112 pin */
+    MPC.PD4PFS.BYTE = 0x80U;
+    PORTD.PMR.BYTE &= 0xEFU;
+    PORTD.PDR.BYTE &= 0xEFU;
+
+    /* Set AN113 pin */
+    MPC.PD5PFS.BYTE = 0x80U;
+    PORTD.PMR.BYTE &= 0xDFU;
+    PORTD.PDR.BYTE &= 0xDFU;
 
     /* Set MTCLKA pin */
     MPC.P24PFS.BYTE = 0x02U;

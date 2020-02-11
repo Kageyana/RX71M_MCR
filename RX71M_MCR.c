@@ -21,9 +21,18 @@ void main(void)
 	inti_lcd();
 	//タイマ割り込み開始
 	R_Config_CMT0_Start();
+	// 位相計数モード
+	R_Config_MTU2_Start();
+	// PWM出力開始
+	R_Config_MTU0_Start();
 	// ブレーキモード
 	motor_r_mode(BRAKE,BRAKE);
 	motor_r(0,0);
+	// センサ駆動
+	PORTA.PODR.BIT.B3 = 0;
+	// A/D変換開始
+	R_Config_S12AD0_Start();
+	R_Config_S12AD1_Start();
 	
 	while(1){
 		//lcdPosition( 0, 0 );

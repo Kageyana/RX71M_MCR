@@ -22,7 +22,7 @@
 * Version      : 1.8.0
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_SCI1.
-* Creation Date: 2020-02-10
+* Creation Date: 2020-02-11
 ***********************************************************************************************************************/
 
 #ifndef CFG_Config_SCI1_H

@@ -22,7 +22,7 @@
 * Version      : 1.4.4
 * Device(s)    : R5F571MFCxFP
 * Description  : General header file for CMTW peripheral.
-* Creation Date: 2020-02-10
+* Creation Date: 2020-02-11
 ***********************************************************************************************************************/
 
 #ifndef CMTW_H

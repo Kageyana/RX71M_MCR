@@ -22,7 +22,7 @@
 * Version      : 2.0.0
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_PORT.
-* Creation Date: 2020-02-10
+* Creation Date: 2020-02-11
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -55,6 +55,13 @@ Global variables and functions
 
 void R_Config_PORT_Create(void)
 {
+    /* Set PORTA registers */
+    PORTA.PODR.BYTE = _00_Pm3_OUTPUT_0;
+    PORTA.ODR0.BYTE = _00_Pm3_CMOS_OUTPUT;
+    PORTA.DSCR.BYTE = _00_Pm3_HIDRV_OFF;
+    PORTA.PMR.BYTE = _00_Pm3_PIN_GPIO;
+    PORTA.PDR.BYTE = _08_Pm3_MODE_OUTPUT;
+
     /* Set PORTC registers */
     PORTC.PODR.BYTE = _00_Pm2_OUTPUT_0 | _00_Pm3_OUTPUT_0 | _00_Pm4_OUTPUT_0 | _00_Pm5_OUTPUT_0;
     PORTC.ODR0.BYTE = _00_Pm2_CMOS_OUTPUT | _00_Pm3_CMOS_OUTPUT;
