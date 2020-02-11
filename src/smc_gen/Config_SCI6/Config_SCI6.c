@@ -18,10 +18,10 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : Config_SCI12.c
+* File Name    : Config_SCI6.c
 * Version      : 1.8.0
 * Device(s)    : R5F571MFCxFP
-* Description  : This file implements device driver for Config_SCI12.
+* Description  : This file implements device driver for Config_SCI6.
 * Creation Date: 2020-02-11
 ***********************************************************************************************************************/
 
@@ -35,7 +35,7 @@ Pragma directive
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "Config_SCI12.h"
+#include "Config_SCI6.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -43,135 +43,133 @@ Includes
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
-volatile uint8_t   g_sci12_iic_transmit_receive_flag; /* SCI12 transmit receive flag for I2C */
-volatile uint8_t   g_sci12_iic_cycle_flag;            /* SCI12 start stop flag for I2C */
-volatile uint8_t   g_sci12_slave_address;             /* SCI12 target slave address */
-volatile uint8_t * gp_sci12_tx_address;               /* SCI12 transmit buffer address */
-volatile uint16_t  g_sci12_tx_count;                  /* SCI12 transmit data number */
-volatile uint8_t * gp_sci12_rx_address;               /* SCI12 receive buffer address */
-volatile uint16_t  g_sci12_rx_count;                  /* SCI12 receive data number */
-volatile uint16_t  g_sci12_rx_length;                 /* SCI12 receive data length */
+volatile uint8_t   g_sci6_iic_transmit_receive_flag; /* SCI6 transmit receive flag for I2C */
+volatile uint8_t   g_sci6_iic_cycle_flag;            /* SCI6 start stop flag for I2C */
+volatile uint8_t   g_sci6_slave_address;             /* SCI6 target slave address */
+volatile uint8_t * gp_sci6_tx_address;               /* SCI6 transmit buffer address */
+volatile uint16_t  g_sci6_tx_count;                  /* SCI6 transmit data number */
+volatile uint8_t * gp_sci6_rx_address;               /* SCI6 receive buffer address */
+volatile uint16_t  g_sci6_rx_count;                  /* SCI6 receive data number */
+volatile uint16_t  g_sci6_rx_length;                 /* SCI6 receive data length */
 /* Start user code for global. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Config_SCI12_Create
-* Description  : This function initializes the SCI12 channel
+* Function Name: R_Config_SCI6_Create
+* Description  : This function initializes the SCI6 channel
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Config_SCI12_Create(void)
+void R_Config_SCI6_Create(void)
 {
     /* Cancel SCI stop state */
-    MSTP(SCI12) = 0U;
+    MSTP(SCI6) = 0U;
 
     /* Set interrupt priority */
-    IPR(SCI12, RXI12) = _0F_SCI_PRIORITY_LEVEL15;
-    IPR(SCI12, TXI12) = _0F_SCI_PRIORITY_LEVEL15;
+    IPR(SCI6, RXI6) = _0F_SCI_PRIORITY_LEVEL15;
+    IPR(SCI6, TXI6) = _0F_SCI_PRIORITY_LEVEL15;
 
     /* Clear the control register */
-    SCI12.SCR.BYTE = 0x00U;
+    SCI6.SCR.BYTE = 0x00U;
 
     /* Initialize SSCL and SSDA pins to high impedance */
-    SCI12.SIMR3.BYTE = _C0_SCI_SSCL_HIGH_IMPEDANCE | _30_SCI_SSDA_HIGH_IMPEDANCE;
+    SCI6.SIMR3.BYTE = _C0_SCI_SSCL_HIGH_IMPEDANCE | _30_SCI_SSDA_HIGH_IMPEDANCE;
 
     /* Set up transfer or reception format in SMR and SCMR */
-    SCI12.SMR.BYTE = _00_SCI_CLOCK_PCLK | _00_SCI_ASYNCHRONOUS_OR_I2C_MODE;
-    SCI12.SCMR.BIT.SMIF = 0U;
-    SCI12.SCMR.BIT.SINV = 0U;
-    SCI12.SCMR.BIT.SDIR = 1U;
+    SCI6.SMR.BYTE = _00_SCI_CLOCK_PCLK | _00_SCI_ASYNCHRONOUS_OR_I2C_MODE;
+    SCI6.SCMR.BIT.SMIF = 0U;
+    SCI6.SCMR.BIT.SINV = 0U;
+    SCI6.SCMR.BIT.SDIR = 1U;
 
     /* Set bit rate */
-    SCI12.BRR = 0x10U;
-    SCI12.MDDR = 0xE8U;
-    SCI12.SEMR.BYTE = _20_SCI_NOISE_FILTER_ENABLE | _04_SCI_BIT_MODULATION_ENABLE;
-    SCI12.SNFR.BYTE = _01_SCI_IIC_DIV_1;
-    SCI12.SIMR1.BYTE |= (_01_SCI_IIC_MODE | _08_SCI_0_TO_1_CYCLE);
-    SCI12.SIMR2.BYTE |= (_00_SCI_ACK_NACK_INTERRUPTS | _02_SCI_SYNCHRONIZATION | _20_SCI_NACK_TRANSMISSION);
-    SCI12.SPMR.BYTE = _00_SCI_CLOCK_NOT_INVERTED | _00_SCI_CLOCK_NOT_DELAYED;
-    SCI12.SCR.BYTE = _10_SCI_RECEIVE_ENABLE | _20_SCI_TRANSMIT_ENABLE | _40_SCI_RXI_ERI_ENABLE | _80_SCI_TXI_ENABLE | 
-                     _04_SCI_TEI_INTERRUPT_ENABLE;
+    SCI6.BRR = 0x04U;
+    SCI6.SEMR.BYTE = _00_SCI_NOISE_FILTER_DISABLE | _00_SCI_BIT_MODULATION_DISABLE;
+    SCI6.SIMR1.BYTE |= (_01_SCI_IIC_MODE | _00_SCI_NONE);
+    SCI6.SIMR2.BYTE |= (_00_SCI_ACK_NACK_INTERRUPTS | _02_SCI_SYNCHRONIZATION | _20_SCI_NACK_TRANSMISSION);
+    SCI6.SPMR.BYTE = _00_SCI_CLOCK_NOT_INVERTED | _00_SCI_CLOCK_NOT_DELAYED;
+    SCI6.SCR.BYTE = _10_SCI_RECEIVE_ENABLE | _20_SCI_TRANSMIT_ENABLE | _40_SCI_RXI_ERI_ENABLE | _80_SCI_TXI_ENABLE | 
+                    _04_SCI_TEI_INTERRUPT_ENABLE;
 
-    /* Set SSCL12 pin */
-    MPC.PE2PFS.BYTE = 0x0CU;
-    PORTE.ODR0.BYTE |= 0x10U;
-    PORTE.PMR.BYTE |= 0x04U;
+    /* Set SSCL6 pin */
+    MPC.P33PFS.BYTE = 0x0AU;
+    PORT3.ODR0.BYTE |= 0x40U;
+    PORT3.PMR.BYTE |= 0x08U;
 
-    /* Set SSDA12 pin */
-    MPC.PE1PFS.BYTE = 0x0CU;
-    PORTE.ODR0.BYTE |= 0x04U;
-    PORTE.PMR.BYTE |= 0x02U;
+    /* Set SSDA6 pin */
+    MPC.P32PFS.BYTE = 0x0AU;
+    PORT3.ODR0.BYTE |= 0x10U;
+    PORT3.PMR.BYTE |= 0x04U;
 
-    R_Config_SCI12_Create_UserInit();
+    R_Config_SCI6_Create_UserInit();
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_SCI12_Start
-* Description  : This function starts the SCI12 channel
+* Function Name: R_Config_SCI6_Start
+* Description  : This function starts the SCI6 channel
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Config_SCI12_Start(void)
+void R_Config_SCI6_Start(void)
 {
     /* Clear interrupt flag */
-    IR(SCI12,TXI12) = 0U;
-    IR(SCI12,RXI12) = 0U;
+    IR(SCI6,TXI6) = 0U;
+    IR(SCI6,RXI6) = 0U;
 
     /* Enable SCI interrupt */
-    IEN(SCI12,TXI12) = 1U;
-    ICU.GENBL0.BIT.EN16 = 1U;
-    IEN(SCI12,RXI12) = 1U;
-    ICU.GENBL0.BIT.EN17 = 1U;
+    IEN(SCI6,TXI6) = 1U;
+    ICU.GENBL0.BIT.EN12 = 1U;
+    IEN(SCI6,RXI6) = 1U;
+    ICU.GENBL0.BIT.EN13 = 1U;
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_SCI12_Stop
-* Description  : This function stops the SCI12 channel
+* Function Name: R_Config_SCI6_Stop
+* Description  : This function stops the SCI6 channel
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Config_SCI12_Stop(void)
+void R_Config_SCI6_Stop(void)
 {
-    IR(SCI12,TXI12) = 0U;
-    IEN(SCI12,TXI12) = 0U;
-    ICU.GENBL0.BIT.EN16 = 0U;
-    IR(SCI12,RXI12) = 0U;
-    IEN(SCI12,RXI12) = 0U;
-    ICU.GENBL0.BIT.EN17 = 0U;
+    IR(SCI6,TXI6) = 0U;
+    IEN(SCI6,TXI6) = 0U;
+    ICU.GENBL0.BIT.EN12 = 0U;
+    IR(SCI6,RXI6) = 0U;
+    IEN(SCI6,RXI6) = 0U;
+    ICU.GENBL0.BIT.EN13 = 0U;
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_SCI12_IIC_StartCondition
+* Function Name: R_Config_SCI6_IIC_StartCondition
 * Description  : This function generates IIC start condition
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Config_SCI12_IIC_StartCondition(void)
+void R_Config_SCI6_IIC_StartCondition(void)
 {
-    SCI12.SIMR3.BYTE = _01_SCI_START_CONDITION_ON | _10_SCI_SSDA_START_RESTART_STOP_CONDITION | 
-                       _40_SCI_SSCL_START_RESTART_STOP_CONDITION;
+    SCI6.SIMR3.BYTE = _01_SCI_START_CONDITION_ON | _10_SCI_SSDA_START_RESTART_STOP_CONDITION | 
+                      _40_SCI_SSCL_START_RESTART_STOP_CONDITION;
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_SCI12_IIC_StopCondition
+* Function Name: R_Config_SCI6_IIC_StopCondition
 * Description  : This function generates IIC stop condition
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Config_SCI12_IIC_StopCondition(void)
+void R_Config_SCI6_IIC_StopCondition(void)
 {
-    SCI12.SIMR3.BYTE = _04_SCI_STOP_CONDITION_ON | _10_SCI_SSDA_START_RESTART_STOP_CONDITION | 
-                       _40_SCI_SSCL_START_RESTART_STOP_CONDITION;
+    SCI6.SIMR3.BYTE = _04_SCI_STOP_CONDITION_ON | _10_SCI_SSDA_START_RESTART_STOP_CONDITION | 
+                      _40_SCI_SSCL_START_RESTART_STOP_CONDITION;
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_SCI12_IIC_Master_Send
-* Description  : This function sends simple IIC(SCI12) data to slave device
+* Function Name: R_Config_SCI6_IIC_Master_Send
+* Description  : This function sends simple IIC(SCI6) data to slave device
 * Arguments    : adr -
 *                    slave device address
 *                tx_buf -
@@ -181,26 +179,26 @@ void R_Config_SCI12_IIC_StopCondition(void)
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Config_SCI12_IIC_Master_Send(uint8_t adr, uint8_t * const tx_buf, uint16_t tx_num)
+void R_Config_SCI6_IIC_Master_Send(uint8_t adr, uint8_t * const tx_buf, uint16_t tx_num)
 {
     if (tx_num < 1U)
     {
         return;
     }
 
-    gp_sci12_tx_address = tx_buf;
-    g_sci12_tx_count = tx_num;
-    g_sci12_slave_address = adr;
-    g_sci12_iic_transmit_receive_flag = _80_SCI_IIC_TRANSMISSION;
-    g_sci12_iic_cycle_flag = _80_SCI_IIC_START_CYCLE;
+    gp_sci6_tx_address = tx_buf;
+    g_sci6_tx_count = tx_num;
+    g_sci6_slave_address = adr;
+    g_sci6_iic_transmit_receive_flag = _80_SCI_IIC_TRANSMISSION;
+    g_sci6_iic_cycle_flag = _80_SCI_IIC_START_CYCLE;
 
     /* Generate start condition */
-    R_Config_SCI12_IIC_StartCondition();
+    R_Config_SCI6_IIC_StartCondition();
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_SCI12_IIC_Master_Receive
-* Description  : This function receives simple IIC(SCI12) data from slave device
+* Function Name: R_Config_SCI6_IIC_Master_Receive
+* Description  : This function receives simple IIC(SCI6) data from slave device
 * Arguments    : adr -
 *                    slave device address
 *                rx_buf -
@@ -210,22 +208,22 @@ void R_Config_SCI12_IIC_Master_Send(uint8_t adr, uint8_t * const tx_buf, uint16_
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Config_SCI12_IIC_Master_Receive(uint8_t adr, uint8_t * const rx_buf, uint16_t rx_num)
+void R_Config_SCI6_IIC_Master_Receive(uint8_t adr, uint8_t * const rx_buf, uint16_t rx_num)
 {
     if (rx_num < 1U)
     {
         return;
     }
 
-    g_sci12_rx_length = rx_num;
-    g_sci12_rx_count = 0;
-    gp_sci12_rx_address = rx_buf;
-    g_sci12_slave_address = adr;
-    g_sci12_iic_transmit_receive_flag = _00_SCI_IIC_RECEPTION;
-    g_sci12_iic_cycle_flag = _80_SCI_IIC_START_CYCLE;
+    g_sci6_rx_length = rx_num;
+    g_sci6_rx_count = 0;
+    gp_sci6_rx_address = rx_buf;
+    g_sci6_slave_address = adr;
+    g_sci6_iic_transmit_receive_flag = _00_SCI_IIC_RECEPTION;
+    g_sci6_iic_cycle_flag = _80_SCI_IIC_START_CYCLE;
 
     /* Generate start condition */
-    R_Config_SCI12_IIC_StartCondition();
+    R_Config_SCI6_IIC_StartCondition();
 }
 
 /* Start user code for adding. Do not edit comment generated here */

@@ -41,6 +41,7 @@ Includes
 #include "Timer.h"
 #include "Rotaryencoder.h"
 #include "AD12.h"
+#include "I2C_MPU9250.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
@@ -103,9 +104,12 @@ static void r_Config_CMT0_cmi0_interrupt(void)
 		break;
 	case 100:
 		cnt0++;
+		
+		PORTE.PODR.BIT.B3 = !PORTE.PODR.BIT.B3;
 		//printf("%d\r",MTU2.TCNT);	// カウント
 		//printf("%d\r",MTU2.TCNT);		// エンコーダ
 		//printf("%4d  %4d  %4d  %4d  %4d  %4d\r",A_Sen[1],A_Sen[2],A_Sen[3],A_Sen[4],A_Sen[5],A_Sen[6]);
+		printf("0x%x\n",IMUReadByte(WHO_AM_I));
 		Timer10 = 0;
 		break;
 	default:

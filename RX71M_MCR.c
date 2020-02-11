@@ -18,6 +18,7 @@ void main(void)
 {
 	// I2C通信開始
 	R_Config_SCI12_Start();
+	R_Config_SCI6_Start();
 	inti_lcd();
 	//タイマ割り込み開始
 	R_Config_CMT0_Start();
@@ -35,12 +36,10 @@ void main(void)
 	R_Config_S12AD1_Start();
 	
 	while(1){
-		//lcdPosition( 0, 0 );
-		//lcdPrintf("Hello");
-		//lcdPosition( 0, 1 );
-		//lcdPrintf("RXworld");
-		
-		PORTE.PODR.BIT.B3 = 1;
+		lcdPosition( 0, 0 );
+		lcdPrintf("Hello");
+		lcdPosition( 0, 1 );
+		lcdPrintf("RXworld");
 		
 		// モータ動作確認
 		/*

@@ -43,6 +43,7 @@ Includes
 #include "Config_MTU2.h"
 #include "Config_S12AD1.h"
 #include "Config_S12AD0.h"
+#include "Config_SCI6.h"
 #include "r_smc_cgc.h"
 #include "r_smc_interrupt.h"
 /* Start user code for include. Do not edit comment generated here */
@@ -96,6 +97,7 @@ void R_Systeminit(void)
     R_Config_MTU2_Create();
     R_Config_S12AD1_Create();
     R_Config_S12AD0_Create();
+    R_Config_SCI6_Create();
 
     /* Set interrupt settings */
     R_Interrupt_Create();
@@ -108,6 +110,9 @@ void R_Systeminit(void)
 
     /* Register group BL0 interrupt ERI1 (SCI1) */
     R_BSP_InterruptWrite(BSP_INT_SRC_BL0_SCI1_ERI1,(bsp_int_cb_t)r_Config_SCI1_receiveerror_interrupt);
+
+    /* Register group BL0 interrupt TEI6 (SCI6) */
+    R_BSP_InterruptWrite(BSP_INT_SRC_BL0_SCI6_TEI6,(bsp_int_cb_t)r_Config_SCI6_transmitend_interrupt);
 
     /* Register group BL0 interrupt TEI12 (SCI12) */
     R_BSP_InterruptWrite(BSP_INT_SRC_BL0_SCI12_TEI12,(bsp_int_cb_t)r_Config_SCI12_transmitend_interrupt);
