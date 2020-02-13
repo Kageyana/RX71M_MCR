@@ -18,6 +18,8 @@
 
 void main(void)
 {
+	uint8_t flg = 0;
+	
 	// I2C通信開始
 	R_Config_SCI12_Start();
 	R_Config_SCI6_Start();
@@ -43,13 +45,51 @@ void main(void)
 	R_Config_S12AD1_Start();
 	
 	while(1){
+		uint8_t ret, test_buff[512];
+		uint16_t l, i;
 		
 		if ( cnt0 >= 100 ) {
 			cnt0 = 0;
 			lcdPosition( 0, 0 );
 			lcdPrintf("zg      ");
 			lcdPosition( 0, 1 );
-			lcdPrintf("%5d   ",rawZg);
+			lcdPrintf("%5d  %d",rawZg, PORT1.PIDR.BIT.B3);
+		}
+		
+		if ( PORT1.PIDR.BIT.B3 == 0 && flg == 0) {
+			flg = 1;
+			
+			// microSDイレース
+			cnt1 = 0;
+			ret = eraseMicroSD( 0x00000, 0x5dc00-1 );
+			l = cnt1;
+			if (ret == 1) while(1);
+			else printf("microSD Erase Time %d[ms]\n",l);
+			
+			// バッファ作成
+			for ( i=0; i<512; i++ ) {
+				test_buff[i] = i % 0x100;
+			}
+			
+			// microSD書き込み
+			cnt1 = 0;
+			ret = writeMicroSD( 0x00000, test_buff );
+			l = cnt1;
+			if (ret == 1) while(1);
+			else printf("microSD Write Time %d[ms]\n",l);
+			
+			// バッファクリア
+			for ( i=0; i<512; i++ ) {
+				test_buff[i] =0x00;
+			}
+			
+			// microSD読み込み
+			cnt1 = 0;
+			ret = readMicroSD( 0x00000, test_buff );
+			l = cnt1;
+			if (ret == 1) while(1);
+			else printf("microSD Read Time %d[ms]\n",l);
+			
 		}
 		
 		// モータ動作確認

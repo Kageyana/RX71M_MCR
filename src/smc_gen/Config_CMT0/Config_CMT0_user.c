@@ -51,6 +51,7 @@ Global variables and functions
 /* Start user code for global. Do not edit comment generated here */
 short Timer10 = 0;
 short cnt0 = 0;
+short cnt1 = 0;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -87,6 +88,7 @@ static void r_Config_CMT0_cmi0_interrupt(void)
     IMUProcess();
     
     cnt0++;
+    cnt1++;
     Timer10++;
     switch ( Timer10 ) {	
 	case 1:

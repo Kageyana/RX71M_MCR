@@ -55,6 +55,11 @@ Global variables and functions
 
 void R_Config_PORT_Create(void)
 {
+    /* Set PORT1 registers */
+    PORT1.PCR.BYTE = _00_Pm3_PULLUP_OFF;
+    PORT1.PMR.BYTE = _00_Pm3_PIN_GPIO;
+    PORT1.PDR.BYTE = _00_Pm3_MODE_INPUT | _03_PDR1_DEFAULT;
+
     /* Set PORTA registers */
     PORTA.PODR.BYTE = _00_Pm0_OUTPUT_0 | _00_Pm3_OUTPUT_0;
     PORTA.ODR0.BYTE = _00_Pm0_CMOS_OUTPUT | _00_Pm3_CMOS_OUTPUT;

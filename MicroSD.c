@@ -275,7 +275,7 @@ char init_msd ( void )
 	}
 	
 	if ( ret == 0 ) {
-		printf("SDcard Initialize\n");
+		printf("SDcard Initialized\n");
 	} else if ( ret == 1 ) {
 		printf("No slot card\n");
 	}

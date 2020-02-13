@@ -85,7 +85,7 @@ void R_Config_SCI5_Create(void)
     SCI5.SEMR.BYTE = _00_SCI_BIT_MODULATION_DISABLE;
 
     /* Set bit rate */
-    SCI5.BRR = 0x0EU;
+    SCI5.BRR = 0x01U;
 
     /* Set SMISO5 pin */
     MPC.PA2PFS.BYTE = 0x0AU;
