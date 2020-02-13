@@ -22,7 +22,7 @@
 * Version      : 1.4.4
 * Device(s)    : R5F571MFCxFP
 * Description  : SMC platform header file.
-* Creation Date: 2020-02-11
+* Creation Date: 2020-02-13
 ***********************************************************************************************************************/
 
 #ifndef SMC_ENTRY_H

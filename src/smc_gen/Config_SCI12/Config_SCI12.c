@@ -22,7 +22,7 @@
 * Version      : 1.8.0
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_SCI12.
-* Creation Date: 2020-02-11
+* Creation Date: 2020-02-13
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -67,8 +67,8 @@ void R_Config_SCI12_Create(void)
     MSTP(SCI12) = 0U;
 
     /* Set interrupt priority */
-    IPR(SCI12, RXI12) = _0F_SCI_PRIORITY_LEVEL15;
-    IPR(SCI12, TXI12) = _0F_SCI_PRIORITY_LEVEL15;
+    IPR(SCI12, RXI12) = _07_SCI_PRIORITY_LEVEL7;
+    IPR(SCI12, TXI12) = _08_SCI_PRIORITY_LEVEL8;
 
     /* Clear the control register */
     SCI12.SCR.BYTE = 0x00U;
@@ -88,7 +88,7 @@ void R_Config_SCI12_Create(void)
     SCI12.SEMR.BYTE = _20_SCI_NOISE_FILTER_ENABLE | _04_SCI_BIT_MODULATION_ENABLE;
     SCI12.SNFR.BYTE = _01_SCI_IIC_DIV_1;
     SCI12.SIMR1.BYTE |= (_01_SCI_IIC_MODE | _08_SCI_0_TO_1_CYCLE);
-    SCI12.SIMR2.BYTE |= (_00_SCI_ACK_NACK_INTERRUPTS | _02_SCI_SYNCHRONIZATION | _20_SCI_NACK_TRANSMISSION);
+    SCI12.SIMR2.BYTE |= (_01_SCI_RX_TX_INTERRUPTS | _02_SCI_SYNCHRONIZATION | _20_SCI_NACK_TRANSMISSION);
     SCI12.SPMR.BYTE = _00_SCI_CLOCK_NOT_INVERTED | _00_SCI_CLOCK_NOT_DELAYED;
     SCI12.SCR.BYTE = _10_SCI_RECEIVE_ENABLE | _20_SCI_TRANSMIT_ENABLE | _40_SCI_RXI_ERI_ENABLE | _80_SCI_TXI_ENABLE | 
                      _04_SCI_TEI_INTERRUPT_ENABLE;
@@ -194,6 +194,9 @@ void R_Config_SCI12_IIC_Master_Send(uint8_t adr, uint8_t * const tx_buf, uint16_
     g_sci12_iic_transmit_receive_flag = _80_SCI_IIC_TRANSMISSION;
     g_sci12_iic_cycle_flag = _80_SCI_IIC_START_CYCLE;
 
+    /* Disable RXI and ERI interrupt requests */
+    SCI12.SCR.BIT.RIE = 0U;
+
     /* Generate start condition */
     R_Config_SCI12_IIC_StartCondition();
 }
@@ -223,6 +226,9 @@ void R_Config_SCI12_IIC_Master_Receive(uint8_t adr, uint8_t * const rx_buf, uint
     g_sci12_slave_address = adr;
     g_sci12_iic_transmit_receive_flag = _00_SCI_IIC_RECEPTION;
     g_sci12_iic_cycle_flag = _80_SCI_IIC_START_CYCLE;
+
+    /* Disable RXI and ERI interrupt requests */
+    SCI12.SCR.BIT.RIE = 0U;
 
     /* Generate start condition */
     R_Config_SCI12_IIC_StartCondition();

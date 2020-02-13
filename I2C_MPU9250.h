@@ -101,7 +101,7 @@
 #define FIFO_COUNTH		0x72
 #define FIFO_COUNTL		0x73
 #define FIFO_R_W			0x74
-#define WHO_AM_I			0x75
+#define WHO_AM_I			0x75U
 #define XA_OFFSET_H		0x77
 #define XA_OFFSET_L		0x78
 #define YA_OFFSET_H		0x7A
@@ -116,6 +116,9 @@
 #define GYROLSB			32.8		// 1000[deg/s]
 #define TEMP_LSB			333.87	// LSB/°C
 #define ROOMTEMPOFFSET	0		// 21°Cのとき0
+
+#define BUS_IMU_FREE 			0		// 通信可能
+#define BUS_IMU_BUSY 			1		// 通信中
 
 // データ処理関連
 #define CLOCK				240		// 動作周波数[MHz]
@@ -149,6 +152,7 @@ extern double		TempIMU;			// IMUの温度
 // モード関連
 extern char	whoami;
 extern char	cnt_imu;
+extern char	busIMU;
 //====================================//
 // プロトタイプ宣言									//
 //====================================//
@@ -156,7 +160,7 @@ void wait_IMU ( short waitTime );
 void IMUWriteByte( char reg, char data );
 char IMUReadByte( char reg );
 void IMUReadArry( char reg, char num, char* dataArry );
-char init_IMU (void);
+void init_IMU (void);
 void IMUProcess (void);
 void caribrateIMU (void);
 void getTurningAngleIMU(void);

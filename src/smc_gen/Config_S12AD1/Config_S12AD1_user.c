@@ -22,7 +22,7 @@
 * Version      : 1.8.0
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_S12AD1.
-* Creation Date: 2020-02-11
+* Creation Date: 2020-02-13
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -37,6 +37,7 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "Config_S12AD1.h"
 /* Start user code for include. Do not edit comment generated here */
+#include "AD12.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 

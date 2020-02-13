@@ -1,9 +1,9 @@
-//======================================//
-// インクルード                         //
-//======================================//
+//=====================================//
+// インクルード									 //
+//====================================//
 #include "I2C_LCD.h"
 //====================================//
-// グローバル変数の宣言							//
+// グローバル変数の宣言								//
 //====================================//
 // LCD関連
 static volatile char	buffLcdData[ LCD_MAX_X / LCD_MAX_Y ];		// 表示バッファ
@@ -13,6 +13,7 @@ static volatile int	lcdMode2 = 1;					// 表示処理No管理
 static volatile int	lcdNowLocate;					// 現在の表示している位置
 static volatile int	lcdRefreshFlag;					// リフレッシュフラグ
 
+char	busLCD = BUS_LCD_FREE;
 //////////////////////////////////////////////////////////////////////////
 // モジュール名 lcd_put	                                                //
 // 処理概要     データ送信	                                        //
@@ -23,6 +24,8 @@ void lcd_put( unsigned char data )
 {
 	uint8_t word[2] = { RSBIT1, data };
 	I2C_LCD_SEND;
+	busLCD = BUS_LCD_BUSY;
+	while(busLCD)__nop();
 }
 //////////////////////////////////////////////////////////////////////////
 // モジュール名 lcd_CMD	                                                //
@@ -34,6 +37,8 @@ void lcd_CMD( unsigned char cmd )
 {
 	uint8_t Command[2] = { RSBIT0, cmd };
  	I2C_LCD_CMD;
+	busLCD = BUS_LCD_BUSY;
+	while(busLCD)__nop();
 }
 //////////////////////////////////////////////////////////////////////////
 // モジュール名 wait_lcd						//
@@ -56,25 +61,25 @@ void wait_lcd ( short waitTime )
 //////////////////////////////////////////////////////////////////////////
  void inti_lcd(void)
  {
-	wait_lcd(8U);
-	lcd_CMD(0x38U);	// function set			: データ線は8本・表示は２行・フォントは5x8ドット
-	wait_lcd(2U);
-	lcd_CMD(0x39U);	// function set           		: 拡張コマンドの設定を有効にする
-	wait_lcd(2U);
-	lcd_CMD(0x14U);	// Internal OSC frequency 	: バイアスの選択と内部OSC周波数の調整
-	wait_lcd(2U);
-	lcd_CMD(0x7fU);	// Contrast set          		: コントラスト調整データ(下位4ビット)
-	wait_lcd(2U);
-	lcd_CMD(0x57U);	// Power/ICON/Contrast control	: 昇圧回路有効、コントラスト調整データ(上位2ビット)
-	wait_lcd(2U);
-	lcd_CMD(0x6cU);	// Follower control     		: フォロア回路をON、増幅率の調整を行う
-	wait_lcd(400U);
-	lcd_CMD(0x38U);	// function set         		: 拡張コマンドを設定を無効にする
-	wait_lcd(2U);
-	lcd_CMD(0x0cU);	// display ON/OFF control	: 画面表示はON・カーソル表示はOFF・カーソル点滅はOFF
-	wait_lcd(2U);
-	lcd_CMD(0x01U);	// Clear Display 			: 画面全体に20Hのｽﾍﾟｰｽで表示、ｶｰｿﾙはcol=0,row=0に移動
-	wait_lcd(4U);
+	wait_lcd(4);
+	lcd_CMD(0x38);	// function set			: データ線は8本・表示は２行・フォントは5x8ドット
+	wait_lcd(1);
+	lcd_CMD(0x39);	// function set           	: 拡張コマンドの設定を有効にする
+	wait_lcd(1);
+	lcd_CMD(0x14);	// Internal OSC frequency 	: バイアスの選択と内部OSC周波数の調整
+	wait_lcd(1);
+	lcd_CMD(0x70);	// Contrast set          	: コントラスト調整データ(下位4ビット)
+	wait_lcd(1);
+	lcd_CMD(0x56);	// Power/ICON/Contrast control	: 昇圧回路有効、コントラスト調整データ(上位2ビット)
+	wait_lcd(1);
+	lcd_CMD(0x6c);	// Follower control     	: フォロア回路をON、増幅率の調整を行う
+	wait_lcd(200);
+	lcd_CMD(0x38);	// function set         	: 拡張コマンドを設定を無効にする
+	wait_lcd(1);
+	lcd_CMD(0x0c);	// display ON/OFF control      	: 画面表示はON・カーソル表示はOFF・カーソル点滅はOFF
+	wait_lcd(1);
+	lcd_CMD(0x01);	// Clear Display 		: 画面全体に20Hのｽﾍﾟｰｽで表示、ｶｰｿﾙはcol=0,row=0に移動
+	wait_lcd(2);
 }
 //////////////////////////////////////////////////////////////////////////
 // モジュール名 lcdLocate						//
@@ -100,7 +105,6 @@ static void lcdLocate( int x, int y )
 
     // カーソル移動
     lcd_CMD(work);
-    //printf("c %x\n",work);
 }
 //////////////////////////////////////////////////////////////////////////
 // モジュール名 lcdShowProcess						//
@@ -134,7 +138,6 @@ void lcdShowProcess( void )
 
     case 4: // データ表示処理
 	lcd_put(buffLcdData[ lcdNowLocate++ ]);
-	//printf("d %x\n",buffLcdData[ lcdNowLocate-1 ]);
 	if( lcdNowLocate >= LCD_MAX_X * LCD_MAX_Y ) {
 		lcdMode2 = 1;
 	} else {

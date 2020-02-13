@@ -12,6 +12,8 @@
 #include "r_smc_entry.h"  //スマートコンフィグレータのマニュアルの使用例で呼んでたのでinclude
 #include "I2c_LCD.h"
 #include "Motor.h"
+#include "Timer.h"
+#include "I2C_MPU9250.h"
 //#include "timer.h"
 
 void main(void)
@@ -20,14 +22,16 @@ void main(void)
 	R_Config_SCI12_Start();
 	R_Config_SCI6_Start();
 	inti_lcd();
+	init_IMU();
 	//タイマ割り込み開始
 	R_Config_CMT0_Start();
-	// 位相計数モード
+	// 位相計数モード計測開始
 	R_Config_MTU2_Start();
 	// PWM出力開始
 	R_Config_MTU0_Start();
 	// ブレーキモード
 	motor_r_mode(BRAKE,BRAKE);
+	// モータ停止
 	motor_r(0,0);
 	// センサ駆動
 	PORTA.PODR.BIT.B3 = 0;
@@ -36,10 +40,13 @@ void main(void)
 	R_Config_S12AD1_Start();
 	
 	while(1){
-		lcdPosition( 0, 0 );
-		lcdPrintf("Hello");
-		lcdPosition( 0, 1 );
-		lcdPrintf("RXworld");
+		if ( cnt0 >= 100 ) {
+			cnt0 = 0;
+			lcdPosition( 0, 0 );
+			lcdPrintf("zg      ");
+			lcdPosition( 0, 1 );
+			lcdPrintf("%5d   ",rawZg);
+		}
 		
 		// モータ動作確認
 		/*

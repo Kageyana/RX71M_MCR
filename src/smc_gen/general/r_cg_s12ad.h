@@ -22,7 +22,7 @@
 * Version      : 1.4.4
 * Device(s)    : R5F571MFCxFP
 * Description  : General header file for S12AD peripheral.
-* Creation Date: 2020-02-11
+* Creation Date: 2020-02-13
 ***********************************************************************************************************************/
 
 #ifndef S12AD_H

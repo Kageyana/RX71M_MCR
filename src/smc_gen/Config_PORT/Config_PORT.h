@@ -22,7 +22,7 @@
 * Version      : 2.0.0
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_PORT.
-* Creation Date: 2020-02-11
+* Creation Date: 2020-02-13
 ***********************************************************************************************************************/
 
 #ifndef CFG_Config_PORT_H

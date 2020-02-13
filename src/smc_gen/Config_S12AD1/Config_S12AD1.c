@@ -22,7 +22,7 @@
 * Version      : 1.8.0
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_S12AD1.
-* Creation Date: 2020-02-11
+* Creation Date: 2020-02-13
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -84,7 +84,7 @@ void R_Config_S12AD1_Create(void)
 
     /* Set interrupt and priority level */
     ICU.SLIBR192.BYTE = 0x44U;
-    IPR(PERIB, INTB192) = _0F_AD_PRIORITY_LEVEL15;
+    IPR(PERIB, INTB192) = _0E_AD_PRIORITY_LEVEL14;
 
     /* Set AN108 pin */
     PORTD.PMR.BYTE &= 0xFEU;

@@ -22,7 +22,7 @@
 * Version      : 1.8.0
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_SCI6.
-* Creation Date: 2020-02-11
+* Creation Date: 2020-02-13
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -37,6 +37,7 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "Config_SCI6.h"
 /* Start user code for include. Do not edit comment generated here */
+#include "I2C_MPU9250.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
@@ -81,17 +82,42 @@ void R_Config_SCI6_Create_UserInit(void)
 #endif
 static void r_Config_SCI6_transmit_interrupt(void)
 {
-    /* Receive last data in master receive mode (ACK/NACK) */
-    if (1U == SCI6.SISR.BIT.IICACKR)
+    if (0U == SCI6.SISR.BIT.IICACKR)
     {
-        *gp_sci6_rx_address = SCI6.RDR;
-        gp_sci6_rx_address++;
-        g_sci6_rx_count++;
-    }
+        if (_80_SCI_IIC_TRANSMISSION == g_sci6_iic_transmit_receive_flag)
+        {
+            if (g_sci6_tx_count > 0U)
+            {
+                SCI6.TDR = *gp_sci6_tx_address;
+                gp_sci6_tx_address++;
+                g_sci6_tx_count--;
+            }
+            else
+            {
+                /* Generate stop condition */
+                g_sci6_iic_cycle_flag = _00_SCI_IIC_STOP_CYCLE;
+                R_Config_SCI6_IIC_StopCondition();
+            }
+        }
+        else if (_00_SCI_IIC_RECEPTION == g_sci6_iic_transmit_receive_flag)
+        {
+            SCI6.SIMR2.BIT.IICACKT = 0U;
+            SCI6.SCR.BIT.RIE = 1U;
+            if (g_sci6_rx_length == (g_sci6_rx_count + 1))
+            {
+                SCI6.SIMR2.BIT.IICACKT = 1U;
+            }
 
-    /* Generate stop condition */
-    g_sci6_iic_cycle_flag = _00_SCI_IIC_STOP_CYCLE;
-    R_Config_SCI6_IIC_StopCondition();
+            /* Write dummy */
+            SCI6.TDR = 0xFFU;
+        }
+    }
+    else
+    {
+        /* Generate stop condition */
+        g_sci6_iic_cycle_flag = _00_SCI_IIC_STOP_CYCLE;
+        R_Config_SCI6_IIC_StopCondition();
+    }
 }
 
 /***********************************************************************************************************************
@@ -114,6 +140,14 @@ void r_Config_SCI6_transmitend_interrupt(void)
     {
         SCI6.SIMR3.BIT.IICSTIF = 0U;
         SCI6.SIMR3.BYTE |= (_30_SCI_SSDA_HIGH_IMPEDANCE | _C0_SCI_SSCL_HIGH_IMPEDANCE);
+        if (_80_SCI_IIC_TRANSMISSION == g_sci6_iic_transmit_receive_flag)
+        {
+            r_Config_SCI6_callback_transmitend();
+        }
+        if (_00_SCI_IIC_RECEPTION == g_sci6_iic_transmit_receive_flag)
+        {
+            r_Config_SCI6_callback_receiveend();
+        }
     }
     else
     {
@@ -135,69 +169,11 @@ void r_Config_SCI6_transmitend_interrupt(void)
 #endif
 static void r_Config_SCI6_receive_interrupt(void)
 {
-    volatile uint8_t dummy;
-
-    if (0U == SCI6.SISR.BIT.IICACKR)
+    if (g_sci6_rx_length > g_sci6_rx_count)
     {
-        if (_80_SCI_IIC_TRANSMISSION == g_sci6_iic_transmit_receive_flag)
-        {
-            if (g_sci6_tx_count > 0U)
-            {
-                SCI6.TDR = *gp_sci6_tx_address;
-                gp_sci6_tx_address++;
-                g_sci6_tx_count--;
-            }
-            else
-            {
-                /* Generate stop condition */
-                g_sci6_iic_cycle_flag = _00_SCI_IIC_STOP_CYCLE;
-                R_Config_SCI6_IIC_StopCondition();
-            }
-        }
-        else if (_00_SCI_IIC_RECEPTION == g_sci6_iic_transmit_receive_flag)
-        {
-            if (0U == SCI6.SIMR2.BIT.IICACKT)
-            {
-                if (g_sci6_rx_length > g_sci6_rx_count)
-                {
-                    *gp_sci6_rx_address = SCI6.RDR;
-                    gp_sci6_rx_address++;
-                    g_sci6_rx_count++;
-                }
-            }
-            else
-            {
-                dummy = SCI6.RDR;
-            }
-
-            if (0U == g_sci6_rx_count)
-            {
-                if(1U == g_sci6_rx_length)
-                {
-                    SCI6.SIMR2.BIT.IICACKT = 1U;
-                }
-                else
-                {
-                    SCI6.SIMR2.BIT.IICACKT = 0U; 
-                    SCI6.SCR.BIT.RIE = 1U;
-                }
-            }
-            else if (g_sci6_rx_length == (g_sci6_rx_count + 1))
-            {
-                 SCI6.SIMR2.BIT.IICACKT = 1U;
-            }
-            else
-            {
-                /* Do nothing */
-            }
-
-            /* Write dummy */
-            SCI6.TDR = 0xFFU;
-        }
-        else
-        {
-            /* Do nothing */
-        }
+        *gp_sci6_rx_address = SCI6.RDR;
+        gp_sci6_rx_address++;
+        g_sci6_rx_count++;
     }
     else
     {
@@ -205,6 +181,34 @@ static void r_Config_SCI6_receive_interrupt(void)
         g_sci6_iic_cycle_flag = _00_SCI_IIC_STOP_CYCLE;
         R_Config_SCI6_IIC_StopCondition();
     }
+}
+
+/***********************************************************************************************************************
+* Function Name: r_Config_SCI6_callback_transmitend
+* Description  : This function is a callback function when SCI6 finishes transmission
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+
+static void r_Config_SCI6_callback_transmitend(void)
+{
+    /* Start user code for r_Config_SCI6_callback_transmitend. Do not edit comment generated here */
+    busIMU = BUS_IMU_FREE;
+    /* End user code. Do not edit comment generated here */
+}
+
+/***********************************************************************************************************************
+* Function Name: r_Config_SCI6_callback_receiveend
+* Description  : This function is a callback function when SCI6 finishes reception
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+
+static void r_Config_SCI6_callback_receiveend(void)
+{
+    /* Start user code for r_Config_SCI6_callback_receiveend. Do not edit comment generated here */
+    busIMU = BUS_IMU_FREE;
+    /* End user code. Do not edit comment generated here */
 }
 
 /* Start user code for adding. Do not edit comment generated here */

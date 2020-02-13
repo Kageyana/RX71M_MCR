@@ -22,7 +22,7 @@
 * Version      : 1.8.0
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_S12AD0.
-* Creation Date: 2020-02-11
+* Creation Date: 2020-02-13
 ***********************************************************************************************************************/
 
 #ifndef CFG_Config_S12AD0_H

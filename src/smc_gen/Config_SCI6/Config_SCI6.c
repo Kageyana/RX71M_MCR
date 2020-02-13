@@ -22,7 +22,7 @@
 * Version      : 1.8.0
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_SCI6.
-* Creation Date: 2020-02-11
+* Creation Date: 2020-02-13
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -67,8 +67,8 @@ void R_Config_SCI6_Create(void)
     MSTP(SCI6) = 0U;
 
     /* Set interrupt priority */
-    IPR(SCI6, RXI6) = _0F_SCI_PRIORITY_LEVEL15;
-    IPR(SCI6, TXI6) = _0F_SCI_PRIORITY_LEVEL15;
+    IPR(SCI6, RXI6) = _0B_SCI_PRIORITY_LEVEL11;
+    IPR(SCI6, TXI6) = _0A_SCI_PRIORITY_LEVEL10;
 
     /* Clear the control register */
     SCI6.SCR.BYTE = 0x00U;
@@ -86,7 +86,7 @@ void R_Config_SCI6_Create(void)
     SCI6.BRR = 0x04U;
     SCI6.SEMR.BYTE = _00_SCI_NOISE_FILTER_DISABLE | _00_SCI_BIT_MODULATION_DISABLE;
     SCI6.SIMR1.BYTE |= (_01_SCI_IIC_MODE | _00_SCI_NONE);
-    SCI6.SIMR2.BYTE |= (_00_SCI_ACK_NACK_INTERRUPTS | _02_SCI_SYNCHRONIZATION | _20_SCI_NACK_TRANSMISSION);
+    SCI6.SIMR2.BYTE |= (_01_SCI_RX_TX_INTERRUPTS | _02_SCI_SYNCHRONIZATION | _20_SCI_NACK_TRANSMISSION);
     SCI6.SPMR.BYTE = _00_SCI_CLOCK_NOT_INVERTED | _00_SCI_CLOCK_NOT_DELAYED;
     SCI6.SCR.BYTE = _10_SCI_RECEIVE_ENABLE | _20_SCI_TRANSMIT_ENABLE | _40_SCI_RXI_ERI_ENABLE | _80_SCI_TXI_ENABLE | 
                     _04_SCI_TEI_INTERRUPT_ENABLE;
@@ -192,6 +192,9 @@ void R_Config_SCI6_IIC_Master_Send(uint8_t adr, uint8_t * const tx_buf, uint16_t
     g_sci6_iic_transmit_receive_flag = _80_SCI_IIC_TRANSMISSION;
     g_sci6_iic_cycle_flag = _80_SCI_IIC_START_CYCLE;
 
+    /* Disable RXI and ERI interrupt requests */
+    SCI6.SCR.BIT.RIE = 0U;
+
     /* Generate start condition */
     R_Config_SCI6_IIC_StartCondition();
 }
@@ -221,6 +224,9 @@ void R_Config_SCI6_IIC_Master_Receive(uint8_t adr, uint8_t * const rx_buf, uint1
     g_sci6_slave_address = adr;
     g_sci6_iic_transmit_receive_flag = _00_SCI_IIC_RECEPTION;
     g_sci6_iic_cycle_flag = _80_SCI_IIC_START_CYCLE;
+
+    /* Disable RXI and ERI interrupt requests */
+    SCI6.SCR.BIT.RIE = 0U;
 
     /* Generate start condition */
     R_Config_SCI6_IIC_StartCondition();

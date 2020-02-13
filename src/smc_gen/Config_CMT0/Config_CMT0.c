@@ -22,7 +22,7 @@
 * Version      : 2.0.0
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_CMT0.
-* Creation Date: 2020-02-11
+* Creation Date: 2020-02-13
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -68,7 +68,7 @@ void R_Config_CMT0_Create(void)
     CMT0.CMCOR = _0752_CMT0_CMCOR_VALUE;
     
     /* Set CMI0 priority level */
-    IPR(CMT0,CMI0) = _0F_CMT_PRIORITY_LEVEL15;
+    IPR(CMT0,CMI0) = _06_CMT_PRIORITY_LEVEL6;
     
     R_Config_CMT0_Create_UserInit();
 }

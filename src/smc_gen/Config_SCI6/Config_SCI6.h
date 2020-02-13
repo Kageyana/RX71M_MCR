@@ -22,7 +22,7 @@
 * Version      : 1.8.0
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_SCI6.
-* Creation Date: 2020-02-11
+* Creation Date: 2020-02-13
 ***********************************************************************************************************************/
 
 #ifndef CFG_Config_SCI6_H
@@ -57,6 +57,8 @@ void R_Config_SCI6_IIC_Master_Receive(uint8_t adr, uint8_t * const rx_buf, uint1
 void R_Config_SCI6_IIC_StartCondition(void);
 void R_Config_SCI6_IIC_StopCondition(void);
 void r_Config_SCI6_transmitend_interrupt(void);
+static void r_Config_SCI6_callback_transmitend(void);
+static void r_Config_SCI6_callback_receiveend(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif

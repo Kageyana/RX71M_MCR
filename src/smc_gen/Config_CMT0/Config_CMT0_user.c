@@ -22,7 +22,7 @@
 * Version      : 2.0.0
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_CMT0.
-* Creation Date: 2020-02-11
+* Creation Date: 2020-02-13
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -81,9 +81,12 @@ void R_Config_CMT0_Create_UserInit(void)
 static void r_Config_CMT0_cmi0_interrupt(void)
 {
     /* Start user code for r_Config_CMT0_cmi0_interrupt. Do not edit comment generated here */
-    
+    __setpsw_i();		// 多重割り込み許可
     
     lcdShowProcess();
+    IMUProcess();
+    
+    cnt0++;
     Timer10++;
     switch ( Timer10 ) {	
 	case 1:
@@ -103,13 +106,14 @@ static void r_Config_CMT0_cmi0_interrupt(void)
 	case 9:
 		break;
 	case 100:
-		cnt0++;
 		
-		PORTE.PODR.BIT.B3 = !PORTE.PODR.BIT.B3;
+		//PORTE.PODR.BIT.B3 = !PORTE.PODR.BIT.B3;
 		//printf("%d\r",MTU2.TCNT);	// カウント
 		//printf("%d\r",MTU2.TCNT);		// エンコーダ
 		//printf("%4d  %4d  %4d  %4d  %4d  %4d\r",A_Sen[1],A_Sen[2],A_Sen[3],A_Sen[4],A_Sen[5],A_Sen[6]);
-		printf("0x%x\n",IMUReadByte(WHO_AM_I));
+		//printf("%x\n",SCI6.SIMR3.BIT.IICSCLS);
+		//printf("0x%x\n",IMUReadByte(WHO_AM_I));
+		//printf("%5d   %5d   %5d\n",rawXg,rawYg,rawZg);
 		Timer10 = 0;
 		break;
 	default:
