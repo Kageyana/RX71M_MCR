@@ -18,30 +18,20 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_smc_entry.h
-* Version      : 1.4.4
+* File Name    : Config_SCI5.h
+* Version      : 1.8.0
 * Device(s)    : R5F571MFCxFP
-* Description  : SMC platform header file.
+* Description  : This file implements device driver for Config_SCI5.
 * Creation Date: 2020-02-13
 ***********************************************************************************************************************/
 
-#ifndef SMC_ENTRY_H
-#define SMC_ENTRY_H
+#ifndef CFG_Config_SCI5_H
+#define CFG_Config_SCI5_H
 
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
-#include "r_cg_macrodriver.h"
-#include "Config_PORT.h"
-#include "Config_CMT0.h"
-#include "Config_SCI12.h"
-#include "Config_SCI1.h"
-#include "Config_MTU0.h"
-#include "Config_MTU2.h"
-#include "Config_S12AD1.h"
-#include "Config_S12AD0.h"
-#include "Config_SCI6.h"
-#include "Config_SCI5.h"
+#include "r_cg_sci.h"
 
 /***********************************************************************************************************************
 Macro definitions (Register bit)
@@ -58,7 +48,15 @@ Typedef definitions
 /***********************************************************************************************************************
 Global functions
 ***********************************************************************************************************************/
+void R_Config_SCI5_Create(void);
+void R_Config_SCI5_Start(void);
+void R_Config_SCI5_Stop(void);
+MD_STATUS R_Config_SCI5_SPI_Master_Send_Receive(uint8_t * const tx_buf, uint16_t tx_num, uint8_t * const rx_buf, uint16_t rx_num);
+void r_Config_SCI5_transmitend_interrupt(void);
+void r_Config_SCI5_receiveerror_interrupt(void);
+static void r_Config_SCI5_callback_transmitend(void);
+static void r_Config_SCI5_callback_receiveend(void);
+void R_Config_SCI5_Create_UserInit(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif
-

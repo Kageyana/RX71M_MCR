@@ -267,7 +267,7 @@
 <Item id="FCU_FRDYI" priority="15"/>
 <Item id="ICU_SWINT2" priority="15"/>
 <Item id="ICU_SWINT" priority="15"/>
-<Item id="CMT0_CMI0" priority="15"/>
+<Item id="CMT0_CMI0" priority="6"/>
 <Item id="CMT1_CMI1" priority="15"/>
 <Item id="CMTW0_CMWI0" priority="15"/>
 <Item id="CMTW1_CMWI1" priority="15"/>
@@ -294,8 +294,8 @@
 <Item id="RIIC2_TXI2" priority="15"/>
 <Item id="SCI0_RXI0" priority="15"/>
 <Item id="SCI0_TXI0" priority="15"/>
-<Item id="SCI1_RXI1" priority="15"/>
-<Item id="SCI1_TXI1" priority="15"/>
+<Item id="SCI1_RXI1" priority="12"/>
+<Item id="SCI1_TXI1" priority="13"/>
 <Item id="SCI2_RXI2" priority="15"/>
 <Item id="SCI2_TXI2" priority="15"/>
 <Item id="ICU_IRQ0" priority="15"/>
@@ -320,8 +320,8 @@
 <Item id="SCI4_TXI4" priority="15"/>
 <Item id="SCI5_RXI5" priority="15"/>
 <Item id="SCI5_TXI5" priority="15"/>
-<Item id="SCI6_RXI6" priority="15"/>
-<Item id="SCI6_TXI6" priority="15"/>
+<Item id="SCI6_RXI6" priority="11"/>
+<Item id="SCI6_TXI6" priority="10"/>
 <Item id="LVD1_LVD1" priority="15"/>
 <Item id="LVD2_LVD2" priority="15"/>
 <Item id="USB0_USBR0" priority="15"/>
@@ -340,14 +340,14 @@
 <Item id="SCIFA10_RXIF10" priority="15"/>
 <Item id="SCIFA10_TXIF10" priority="15"/>
 <Item id="BE0" priority="15"/>
-<Item id="BL0" priority="15"/>
+<Item id="BL0" priority="9"/>
 <Item id="BL1" priority="15"/>
 <Item id="AL0" priority="15"/>
 <Item id="AL1" priority="15"/>
 <Item id="SCIFA11_RXIF11" priority="15"/>
 <Item id="SCIFA11_TXIF11" priority="15"/>
-<Item id="SCI12_RXI12" priority="15"/>
-<Item id="SCI12_TXI12" priority="15"/>
+<Item id="SCI12_RXI12" priority="7"/>
+<Item id="SCI12_TXI12" priority="8"/>
 <Item id="DMAC_DMAC0I" priority="15"/>
 <Item id="DMAC_DMAC1I" priority="15"/>
 <Item id="DMAC_DMAC2I" priority="15"/>
@@ -420,7 +420,7 @@
 <Item defaultVect="189" id="USB0_USBI0" priority="15"/>
 <Item defaultVect="190" id="S12AD_S12ADI" priority="15"/>
 <Item defaultVect="191" id="S12AD_S12GBADI" priority="15"/>
-<Item defaultVect="192" id="S12AD1_S12ADI1" priority="15"/>
+<Item defaultVect="192" id="S12AD1_S12ADI1" priority="14"/>
 <Item defaultVect="193" id="S12AD1_S12GBADI1" priority="15"/>
 <Item defaultVect="194" id="DES_DESEND" priority="15"/>
 <Item defaultVect="195" id="SHA_SHADEND" priority="15"/>
@@ -1430,7 +1430,7 @@
 <item id="Enable" input="" vlaue="0"/>
 <item id="Disable" input="" vlaue="0"/>
 </option>
-<option enabled="true" id="IntCMWIPriority" selection="Level15">
+<option enabled="true" id="IntCMWIPriority" selection="Level6">
 <item id="Level0" input="" vlaue="0"/>
 <item id="Level1" input="" vlaue="0"/>
 <item id="Level2" input="" vlaue="0"/>
@@ -1531,11 +1531,11 @@
 <item id="DMAC" input="" vlaue="0"/>
 <item id="DTC" input="" vlaue="0"/>
 </option>
-<option enabled="true" id="ISRMode" selection="ACKNACK">
+<option enabled="true" id="ISRMode" selection="RXITXI">
 <item id="RXITXI" input="" vlaue="0"/>
 <item id="ACKNACK" input="" vlaue="0"/>
 </option>
-<option enabled="true" id="IntTXIPriority" selection="Level15">
+<option enabled="true" id="IntTXIPriority" selection="Level8">
 <item id="Level0" input="" vlaue="0"/>
 <item id="Level1" input="" vlaue="0"/>
 <item id="Level2" input="" vlaue="0"/>
@@ -1553,7 +1553,7 @@
 <item id="Level14" input="" vlaue="0"/>
 <item id="Level15" input="" vlaue="0"/>
 </option>
-<option enabled="true" id="IntRXIPriority" selection="Level15">
+<option enabled="true" id="IntRXIPriority" selection="Level7">
 <item id="Level0" input="" vlaue="0"/>
 <item id="Level1" input="" vlaue="0"/>
 <item id="Level2" input="" vlaue="0"/>
@@ -1571,7 +1571,7 @@
 <item id="Level14" input="" vlaue="0"/>
 <item id="Level15" input="" vlaue="0"/>
 </option>
-<option enabled="true" id="IntTEIPriority" selection="Level15">
+<option enabled="true" id="IntTEIPriority" selection="Level9">
 <item id="Level0" input="" vlaue="0"/>
 <item id="Level1" input="" vlaue="0"/>
 <item id="Level2" input="" vlaue="0"/>
@@ -1589,11 +1589,11 @@
 <item id="Level14" input="" vlaue="0"/>
 <item id="Level15" input="" vlaue="0"/>
 </option>
-<option enabled="true" id="TransEnd" selection="Disable">
+<option enabled="true" id="TransEnd" selection="Enable">
 <item id="Enable" input="" vlaue="0"/>
 <item id="Disable" input="" vlaue="0"/>
 </option>
-<option enabled="true" id="RecvEnd" selection="Disable">
+<option enabled="true" id="RecvEnd" selection="Enable">
 <item id="Enable" input="" vlaue="0"/>
 <item id="Disable" input="" vlaue="0"/>
 </option>
@@ -1643,7 +1643,7 @@
 <item id="8Cyl" input="" vlaue="0"/>
 </option>
 <option enabled="true" id="Bitrate" selection="FreeValue">
-<item id="FreeValue" input="31250" vlaue="9600"/>
+<item id="FreeValue" input="375000" vlaue="9600"/>
 <item id="9600" input="9600" vlaue="0"/>
 <item id="19200" input="19200" vlaue="0"/>
 <item id="31250" input="31250" vlaue="0"/>
@@ -1683,7 +1683,7 @@
 <item id="DMAC" input="" vlaue="0"/>
 <item id="DTC" input="" vlaue="0"/>
 </option>
-<option enabled="true" id="TXIPriority" selection="Level15">
+<option enabled="true" id="TXIPriority" selection="Level13">
 <item id="Level0" input="" vlaue="0"/>
 <item id="Level1" input="" vlaue="0"/>
 <item id="Level2" input="" vlaue="0"/>
@@ -1701,7 +1701,7 @@
 <item id="Level14" input="" vlaue="0"/>
 <item id="Level15" input="" vlaue="0"/>
 </option>
-<option enabled="true" id="RXIPriority" selection="Level15">
+<option enabled="true" id="RXIPriority" selection="Level12">
 <item id="Level0" input="" vlaue="0"/>
 <item id="Level1" input="" vlaue="0"/>
 <item id="Level2" input="" vlaue="0"/>
@@ -1723,7 +1723,7 @@
 <item id="Enable" input="" vlaue="0"/>
 <item id="Disable" input="" vlaue="0"/>
 </option>
-<option enabled="true" id="ERIPriority" selection="Level15">
+<option enabled="true" id="ERIPriority" selection="Level9">
 <item id="Level0" input="" vlaue="0"/>
 <item id="Level1" input="" vlaue="0"/>
 <item id="Level2" input="" vlaue="0"/>
@@ -2404,7 +2404,7 @@
 <item id="Use" input="" vlaue="0"/>
 <item id="Unuse" input="" vlaue="0"/>
 </option>
-<option enabled="true" id="S12ADIPrity" selection="Level15">
+<option enabled="true" id="S12ADIPrity" selection="Level14">
 <item id="Level0" input="" vlaue="0"/>
 <item id="Level1" input="" vlaue="0"/>
 <item id="Level2" input="" vlaue="0"/>
@@ -3188,11 +3188,11 @@
 <item id="DMAC" input="" vlaue="0"/>
 <item id="DTC" input="" vlaue="0"/>
 </option>
-<option enabled="true" id="ISRMode" selection="ACKNACK">
+<option enabled="true" id="ISRMode" selection="RXITXI">
 <item id="RXITXI" input="" vlaue="0"/>
 <item id="ACKNACK" input="" vlaue="0"/>
 </option>
-<option enabled="true" id="IntTXIPriority" selection="Level15">
+<option enabled="true" id="IntTXIPriority" selection="Level10">
 <item id="Level0" input="" vlaue="0"/>
 <item id="Level1" input="" vlaue="0"/>
 <item id="Level2" input="" vlaue="0"/>
@@ -3210,7 +3210,7 @@
 <item id="Level14" input="" vlaue="0"/>
 <item id="Level15" input="" vlaue="0"/>
 </option>
-<option enabled="true" id="IntRXIPriority" selection="Level15">
+<option enabled="true" id="IntRXIPriority" selection="Level11">
 <item id="Level0" input="" vlaue="0"/>
 <item id="Level1" input="" vlaue="0"/>
 <item id="Level2" input="" vlaue="0"/>
@@ -3228,7 +3228,7 @@
 <item id="Level14" input="" vlaue="0"/>
 <item id="Level15" input="" vlaue="0"/>
 </option>
-<option enabled="true" id="IntTEIPriority" selection="Level15">
+<option enabled="true" id="IntTEIPriority" selection="Level9">
 <item id="Level0" input="" vlaue="0"/>
 <item id="Level1" input="" vlaue="0"/>
 <item id="Level2" input="" vlaue="0"/>
@@ -3246,11 +3246,11 @@
 <item id="Level14" input="" vlaue="0"/>
 <item id="Level15" input="" vlaue="0"/>
 </option>
-<option enabled="true" id="TransEnd" selection="Disable">
+<option enabled="true" id="TransEnd" selection="Enable">
 <item id="Enable" input="" vlaue="0"/>
 <item id="Disable" input="" vlaue="0"/>
 </option>
-<option enabled="true" id="RecvEnd" selection="Disable">
+<option enabled="true" id="RecvEnd" selection="Enable">
 <item id="Enable" input="" vlaue="0"/>
 <item id="Disable" input="" vlaue="0"/>
 </option>

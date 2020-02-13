@@ -13,8 +13,8 @@
 #include "I2c_LCD.h"
 #include "Motor.h"
 #include "Timer.h"
+#include "MicroSD.h"
 #include "I2C_MPU9250.h"
-//#include "timer.h"
 
 void main(void)
 {
@@ -23,6 +23,9 @@ void main(void)
 	R_Config_SCI6_Start();
 	inti_lcd();
 	init_IMU();
+	// SPI通信開始
+	R_Config_SCI5_Start();
+	init_msd();
 	//タイマ割り込み開始
 	R_Config_CMT0_Start();
 	// 位相計数モード計測開始
@@ -40,6 +43,7 @@ void main(void)
 	R_Config_S12AD1_Start();
 	
 	while(1){
+		
 		if ( cnt0 >= 100 ) {
 			cnt0 = 0;
 			lcdPosition( 0, 0 );
