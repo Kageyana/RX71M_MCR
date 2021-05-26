@@ -4,17 +4,27 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build", // ビルドタスク
+            "label": "Build",
             "type": "shell",
             "command": "C:\\Program Files (x86)\\Renesas Electronics\\CS+\\CC\\CubeSuite+.exe",
-            "args": [   // 引数指定
-                "/bb",   // ビルドを実行
-                "${workspaceRoot}\\${workspaceRootFolderName}.mtpj",    // プロジェクトファイル(.mtpj)をディレクトリから指定する
+            "args": [
+                "/bb",
+                "DefaultBuild",
+                "${workspaceRoot}\\${workspaceRootFolderName}.mtpj"
             ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             }
+        },
+        {
+            "label": "Flash",
+            "type": "shell",
+            "command": "C:\\Program Files (x86)\\Renesas Electronics\\Programming Tools\\Renesas Flash Programmer V3.08\\RFPV3.Console.exe",
+            "args": [
+                "${workspaceRoot}\\Flash Programmer\\${workspaceRootFolderName}\\${workspaceRootFolderName}.rpj"
+            ],
+            "problemMatcher": []
         }
     ]
 }
