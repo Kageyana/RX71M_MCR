@@ -19,16 +19,32 @@
 
 /***********************************************************************************************************************
 * File Name    : r_smc_interrupt.c
-* Version      : 1.1.0
+* Version      : 1.2.2
 * Device(s)    : R5F571MFCxFP
-* Description  : This file implements interrupt setting
-* Creation Date: 2020-02-13
+* Description  : This file implements interrupt setting.
+* Creation Date: 2021-06-04
 ***********************************************************************************************************************/
+
+/***********************************************************************************************************************
+Pragma directive
+***********************************************************************************************************************/
+/* Start user code for pragma. Do not edit comment generated here */
+/* End user code. Do not edit comment generated here */
+
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
+#include "r_cg_macrodriver.h"
 #include "r_smc_interrupt.h"
-#include "platform.h"
+/* Start user code for include. Do not edit comment generated here */
+/* End user code. Do not edit comment generated here */
+#include "r_cg_userdefine.h"
+
+/***********************************************************************************************************************
+Global variables and functions
+***********************************************************************************************************************/
+/* Start user code for global. Do not edit comment generated here */
+/* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
 * Function Name: R_Interrupt_Create
@@ -39,14 +55,8 @@ Includes
 
 void R_Interrupt_Create(void)
 {
-    /* Disable group BL0 interrupt*/
-    IEN(ICU,GROUPBL0) = 0U;
-    
-
-    /* Set group BL0 interrupt priority level */
-    IPR(ICU,GROUPBL0) = _0F_ICU_PRIORITY_LEVEL15;
-
-    /* Enable group BL0 interrupt */
-    IEN(ICU,GROUPBL0) = 1U;
+    /* No fast interrupt and group settings have been configured in the Interrupts tab. */
 }
 
+/* Start user code for adding. Do not edit comment generated here */
+/* End user code. Do not edit comment generated here */

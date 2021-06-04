@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : r_smc_entry.h
-* Version      : 1.4.4
+* Version      : 1.4.102
 * Device(s)    : R5F571MFCxFP
 * Description  : SMC platform header file.
-* Creation Date: 2020-02-13
+* Creation Date: 2021-06-04
 ***********************************************************************************************************************/
 
 #ifndef SMC_ENTRY_H
@@ -32,16 +32,6 @@
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "Config_PORT.h"
-#include "Config_CMT0.h"
-#include "Config_SCI12.h"
-#include "Config_SCI1.h"
-#include "Config_MTU0.h"
-#include "Config_MTU2.h"
-#include "Config_S12AD1.h"
-#include "Config_S12AD0.h"
-#include "Config_SCI6.h"
-#include "Config_SCI5.h"
 
 /***********************************************************************************************************************
 Macro definitions (Register bit)

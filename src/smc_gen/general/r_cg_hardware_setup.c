@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : r_cg_hardware_setup.c
-* Version      : 1.4.4
+* Version      : 1.4.102
 * Device(s)    : R5F571MFCxFP
 * Description  : Initialization file for code generation configurations.
-* Creation Date: 2020-02-13
+* Creation Date: 2021-06-04
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -35,16 +35,6 @@ Pragma directive
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "Config_PORT.h"
-#include "Config_CMT0.h"
-#include "Config_SCI12.h"
-#include "Config_SCI1.h"
-#include "Config_MTU0.h"
-#include "Config_MTU2.h"
-#include "Config_S12AD1.h"
-#include "Config_S12AD0.h"
-#include "Config_SCI6.h"
-#include "Config_SCI5.h"
 #include "r_smc_cgc.h"
 #include "r_smc_interrupt.h"
 /* Start user code for include. Do not edit comment generated here */
@@ -86,44 +76,15 @@ void R_Systeminit(void)
     MPC.PWPR.BIT.B0WI = 0U;
     MPC.PWPR.BIT.PFSWE = 1U;
 
+    /* Write 0 to the target bits in the POECR2 and POECR3 registers */
+    POE3.POECR2.WORD = 0x0000U;
+    POE3.POECR3.WORD = 0x0000U;
+
     /* Initialize clocks settings */
     R_CGC_Create();
 
-    /* Set peripheral settings */
-    R_Config_PORT_Create();
-    R_Config_CMT0_Create();
-    R_Config_SCI12_Create();
-    R_Config_SCI1_Create();
-    R_Config_MTU0_Create();
-    R_Config_MTU2_Create();
-    R_Config_S12AD1_Create();
-    R_Config_S12AD0_Create();
-    R_Config_SCI6_Create();
-    R_Config_SCI5_Create();
-
-    /* Set interrupt settings */
-    R_Interrupt_Create();
-
     /* Register undefined interrupt */
     R_BSP_InterruptWrite(BSP_INT_SRC_UNDEFINED_INTERRUPT,(bsp_int_cb_t)r_undefined_exception);
-
-    /* Register group BL0 interrupt TEI1 (SCI1) */
-    R_BSP_InterruptWrite(BSP_INT_SRC_BL0_SCI1_TEI1,(bsp_int_cb_t)r_Config_SCI1_transmitend_interrupt);
-
-    /* Register group BL0 interrupt ERI1 (SCI1) */
-    R_BSP_InterruptWrite(BSP_INT_SRC_BL0_SCI1_ERI1,(bsp_int_cb_t)r_Config_SCI1_receiveerror_interrupt);
-
-    /* Register group BL0 interrupt TEI5 (SCI5) */
-    R_BSP_InterruptWrite(BSP_INT_SRC_BL0_SCI5_TEI5,(bsp_int_cb_t)r_Config_SCI5_transmitend_interrupt);
-
-    /* Register group BL0 interrupt ERI5 (SCI5) */
-    R_BSP_InterruptWrite(BSP_INT_SRC_BL0_SCI5_ERI5,(bsp_int_cb_t)r_Config_SCI5_receiveerror_interrupt);
-
-    /* Register group BL0 interrupt TEI6 (SCI6) */
-    R_BSP_InterruptWrite(BSP_INT_SRC_BL0_SCI6_TEI6,(bsp_int_cb_t)r_Config_SCI6_transmitend_interrupt);
-
-    /* Register group BL0 interrupt TEI12 (SCI12) */
-    R_BSP_InterruptWrite(BSP_INT_SRC_BL0_SCI12_TEI12,(bsp_int_cb_t)r_Config_SCI12_transmitend_interrupt);
 
     /* Disable writing to MPC pin function control registers */
     MPC.PWPR.BIT.PFSWE = 0U;
@@ -134,4 +95,4 @@ void R_Systeminit(void)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */   
+/* End user code. Do not edit comment generated here */
