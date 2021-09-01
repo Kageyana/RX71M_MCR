@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : Config_MTU0.h
-* Version      : 1.8.0
+* Version      : 1.9.1
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_MTU0.
-* Creation Date: 2020-02-13
+* Creation Date: 2021-09-01
 ***********************************************************************************************************************/
 
 #ifndef CFG_Config_MTU0_H
@@ -40,7 +40,8 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _176F_TGRA0_VALUE               (0x176FU) /* TGRA0 value */
+#define MTU0_PCLK_COUNTER_DIVISION      (1)
+#define _2EDF_TGRA0_VALUE               (0x2EDFU) /* TGRA0 value */
 #define _0000_TGRB0_VALUE               (0x0000U) /* TGRB0 value */
 #define _176F_TGRC0_VALUE               (0x176FU) /* TGRC0 value */
 #define _0000_TGRD0_VALUE               (0x0000U) /* TGRD0 value */
@@ -55,9 +56,9 @@ Typedef definitions
 Global functions
 ***********************************************************************************************************************/
 void R_Config_MTU0_Create(void);
+void R_Config_MTU0_Create_UserInit(void);
 void R_Config_MTU0_Start(void);
 void R_Config_MTU0_Stop(void);
-void R_Config_MTU0_Create_UserInit(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif

@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : Config_S12AD0.c
-* Version      : 1.8.0
+* Version      : 1.10.1
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_S12AD0.
-* Creation Date: 2020-02-13
+* Creation Date: 2021-09-01
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -74,8 +74,8 @@ void R_Config_S12AD0_Create(void)
     /* Set channels and sampling time */
     S12AD.ADANSA0.WORD = _0040_AD_ANx06_USED | _0080_AD_ANx07_USED;
     S12AD.ADADS0.WORD = _0040_AD_ANx06_ADD_USED | _0080_AD_ANx07_ADD_USED;
-    S12AD.ADSSTR6 = _FF_AD0_SAMPLING_STATE_6;
-    S12AD.ADSSTR7 = _FF_AD0_SAMPLING_STATE_7;
+    S12AD.ADSSTR6 = _F0_AD0_SAMPLING_STATE_6;
+    S12AD.ADSSTR7 = _F0_AD0_SAMPLING_STATE_7;
 
     /* Set compare control register */
     S12AD.ADCMPCR.BYTE = _00_AD_COMPARISON_INTERRUPT_DISABLE | _00_AD_WINDOWFUNCTION_DISABLE;
@@ -138,57 +138,72 @@ void R_Config_S12AD0_Stop(void)
 
 void R_Config_S12AD0_Get_ValueResult(ad_channel_t channel, uint16_t * const buffer)
 {
-    if (channel == ADSELFDIAGNOSIS)
+    switch (channel)
     {
-        *buffer = (uint16_t)(S12AD.ADRD.WORD);
-    }
-    else if (channel == ADCHANNEL0)
-    {
-        *buffer = (uint16_t)(S12AD.ADDR0);
-    }
-    else if (channel == ADCHANNEL1)
-    {
-        *buffer = (uint16_t)(S12AD.ADDR1);
-    }
-    else if (channel == ADCHANNEL2)
-    {
-        *buffer = (uint16_t)(S12AD.ADDR2);
-    }
-    else if (channel == ADCHANNEL3)
-    {
-        *buffer = (uint16_t)(S12AD.ADDR3);
-    }
-    else if (channel == ADCHANNEL4)
-    {
-        *buffer = (uint16_t)(S12AD.ADDR4);
-    }
-    else if (channel == ADCHANNEL5)
-    {
-        *buffer = (uint16_t)(S12AD.ADDR5);
-    }
-    else if (channel == ADCHANNEL6)
-    {
-        *buffer = (uint16_t)(S12AD.ADDR6);
-    }
-    else if (channel == ADCHANNEL7)
-    {
-        *buffer = (uint16_t)(S12AD.ADDR7);
-    }
-    else if (channel == ADDATADUPLICATION)
-    {
-        *buffer = (uint16_t)(S12AD.ADDBLDR.WORD);
-    }
-    else if (channel == ADDATADUPLICATIONA)
-    {
-        *buffer = (uint16_t)(S12AD.ADDBLDRA);
-    }
-    else if (channel == ADDATADUPLICATIONB)
-    {
-        *buffer = (uint16_t)(S12AD.ADDBLDRB);
-    }
-    else
-    {
-        /* Do Nothing */ 
+        case ADSELFDIAGNOSIS:
+        {
+            *buffer = (uint16_t)(S12AD.ADRD.WORD);
+            break;
+        }
+        case ADCHANNEL0:
+        {
+            *buffer = (uint16_t)(S12AD.ADDR0);
+            break;
+        }
+        case ADCHANNEL1:
+        {
+            *buffer = (uint16_t)(S12AD.ADDR1);
+            break;
+        }
+        case ADCHANNEL2:
+        {
+            *buffer = (uint16_t)(S12AD.ADDR2);
+            break;
+        }
+        case ADCHANNEL3:
+        {
+            *buffer = (uint16_t)(S12AD.ADDR3);
+            break;
+        }
+        case ADCHANNEL4:
+        {
+            *buffer = (uint16_t)(S12AD.ADDR4);
+            break;
+        }
+        case ADCHANNEL5:
+        {
+            *buffer = (uint16_t)(S12AD.ADDR5);
+            break;
+        }
+        case ADCHANNEL6:
+        {
+            *buffer = (uint16_t)(S12AD.ADDR6);
+            break;
+        }
+        case ADCHANNEL7:
+        {
+            *buffer = (uint16_t)(S12AD.ADDR7);
+            break;
+        }
+        case ADDATADUPLICATION:
+        {
+            *buffer = (uint16_t)(S12AD.ADDBLDR.WORD);
+            break;
+        }
+        case ADDATADUPLICATIONA:
+        {
+            *buffer = (uint16_t)(S12AD.ADDBLDRA);
+            break;
+        }
+        case ADDATADUPLICATIONB:
+        {
+            *buffer = (uint16_t)(S12AD.ADDBLDRB);
+            break;
+        }
+        default:
+        {
+            break;
+        }
     }
 }
 
@@ -209,5 +224,4 @@ void R_Config_S12AD0_Set_CompareValue(uint16_t reg_value0, uint16_t reg_value1)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */   
-
+/* End user code. Do not edit comment generated here */

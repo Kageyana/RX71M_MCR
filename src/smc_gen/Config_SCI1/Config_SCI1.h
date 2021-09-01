@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : Config_SCI1.h
-* Version      : 1.8.0
+* Version      : 1.9.2
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_SCI1.
-* Creation Date: 2020-02-13
+* Creation Date: 2021-09-01
 ***********************************************************************************************************************/
 
 #ifndef CFG_Config_SCI1_H
@@ -49,9 +49,9 @@ Typedef definitions
 Global functions
 ***********************************************************************************************************************/
 void R_Config_SCI1_Create(void);
+void R_Config_SCI1_Create_UserInit(void);
 void R_Config_SCI1_Start(void);
 void R_Config_SCI1_Stop(void);
-void R_Config_SCI1_Create_UserInit(void);
 MD_STATUS R_Config_SCI1_Serial_Send(uint8_t * const tx_buf, uint16_t tx_num);
 MD_STATUS R_Config_SCI1_Serial_Receive(uint8_t * const rx_buf, uint16_t rx_num);
 void r_Config_SCI1_transmitend_interrupt(void);
@@ -59,4 +59,3 @@ void r_Config_SCI1_receiveerror_interrupt(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif
-

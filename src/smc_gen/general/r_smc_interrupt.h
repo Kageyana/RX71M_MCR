@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : r_smc_interrupt.h
-* Version      : 1.1.0
+* Version      : 1.2.2
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements interrupt setting.
-* Creation Date: 2020-02-13
+* Creation Date: 2021-09-01
 ***********************************************************************************************************************/
 
 #ifndef SMC_INTERRUPT_H
@@ -292,4 +292,6 @@ Typedef definitions
 Global functions
 ***********************************************************************************************************************/
 void R_Interrupt_Create(void);
+/* Start user code for function. Do not edit comment generated here */
+/* End user code. Do not edit comment generated here */
 #endif

@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : Config_SCI5.c
-* Version      : 1.8.0
+* Version      : 1.9.3
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_SCI5.
-* Creation Date: 2020-02-13
+* Creation Date: 2021-09-01
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -85,7 +85,7 @@ void R_Config_SCI5_Create(void)
     SCI5.SEMR.BYTE = _00_SCI_BIT_MODULATION_DISABLE;
 
     /* Set bit rate */
-    SCI5.BRR = 0x01U;
+    SCI5.BRR = 0x00U;
 
     /* Set SMISO5 pin */
     MPC.PA2PFS.BYTE = 0x0AU;
@@ -96,8 +96,8 @@ void R_Config_SCI5_Create(void)
     PORTA.PMR.BYTE |= 0x10U;
 
     /* Set SCK5 pin */
-    MPC.PA1PFS.BYTE = 0x0AU;
-    PORTA.PMR.BYTE |= 0x02U;
+    MPC.PC1PFS.BYTE = 0x0AU;
+    PORTC.PMR.BYTE |= 0x02U;
 
     R_Config_SCI5_Create_UserInit();
 }
@@ -196,4 +196,4 @@ MD_STATUS R_Config_SCI5_SPI_Master_Send_Receive(uint8_t * const tx_buf, uint16_t
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */   
+/* End user code. Do not edit comment generated here */

@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : Config_SCI6.c
-* Version      : 1.8.0
+* Version      : 1.9.2
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_SCI6.
-* Creation Date: 2020-02-13
+* Creation Date: 2021-09-01
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -83,7 +83,7 @@ void R_Config_SCI6_Create(void)
     SCI6.SCMR.BIT.SDIR = 1U;
 
     /* Set bit rate */
-    SCI6.BRR = 0x04U;
+    SCI6.BRR = 0x09U;
     SCI6.SEMR.BYTE = _00_SCI_NOISE_FILTER_DISABLE | _00_SCI_BIT_MODULATION_DISABLE;
     SCI6.SIMR1.BYTE |= (_01_SCI_IIC_MODE | _00_SCI_NONE);
     SCI6.SIMR2.BYTE |= (_01_SCI_RX_TX_INTERRUPTS | _02_SCI_SYNCHRONIZATION | _20_SCI_NACK_TRANSMISSION);
@@ -233,4 +233,5 @@ void R_Config_SCI6_IIC_Master_Receive(uint8_t adr, uint8_t * const rx_buf, uint1
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */   
+/* End user code. Do not edit comment generated here */
+

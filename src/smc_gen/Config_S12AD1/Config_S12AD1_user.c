@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : Config_S12AD1_user.c
-* Version      : 1.8.0
+* Version      : 1.10.1
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_S12AD1.
-* Creation Date: 2020-02-13
+* Creation Date: 2021-09-01
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -86,8 +86,4 @@ static void r_Config_S12AD1_interrupt(void)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */   
-
-
-
-
+/* End user code. Do not edit comment generated here */

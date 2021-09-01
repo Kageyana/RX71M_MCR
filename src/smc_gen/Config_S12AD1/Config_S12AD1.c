@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : Config_S12AD1.c
-* Version      : 1.8.0
+* Version      : 1.10.1
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_S12AD1.
-* Creation Date: 2020-02-13
+* Creation Date: 2021-09-01
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -76,7 +76,7 @@ void R_Config_S12AD1_Create(void)
                           _1000_AD_AN112_USED | _2000_AD_AN113_USED;
     S12AD1.ADADS0.WORD = _0100_AD_AN108_ADD_USED | _0200_AD_AN109_ADD_USED | _0400_AD_AN110_ADD_USED | 
                          _0800_AD_AN111_ADD_USED | _1000_AD_AN112_ADD_USED | _2000_AD_AN113_ADD_USED;
-    S12AD1.ADSSTRL = _FF_AD1_SAMPLING_STATE_L;
+    S12AD1.ADSSTRL = _F0_AD1_SAMPLING_STATE_L;
 
     /* Set compare control register */
     S12AD1.ADCMPCR.BYTE = _00_AD_COMPARISON_INTERRUPT_DISABLE | _00_AD_WINDOWFUNCTION_DISABLE;
@@ -159,117 +159,147 @@ void R_Config_S12AD1_Stop(void)
 
 void R_Config_S12AD1_Get_ValueResult(ad_channel_t channel, uint16_t * const buffer)
 {
-    if (channel == ADSELFDIAGNOSIS)
+    switch (channel)
     {
-        *buffer = (uint16_t)(S12AD1.ADRD.WORD);
-    }
-    else if (channel == ADCHANNEL0)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDR0);
-    }
-    else if (channel == ADCHANNEL1)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDR1);
-    }
-    else if (channel == ADCHANNEL2)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDR2);
-    }
-    else if (channel == ADCHANNEL3)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDR3);
-    }
-    else if (channel == ADCHANNEL4)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDR4);
-    }
-    else if (channel == ADCHANNEL5)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDR5);
-    }
-    else if (channel == ADCHANNEL6)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDR6);
-    }
-    else if (channel == ADCHANNEL7)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDR7);
-    }
-    else if (channel == ADCHANNEL8)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDR8);
-    }
-    else if (channel == ADCHANNEL9)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDR9);
-    }
-    else if (channel == ADCHANNEL10)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDR10);
-    }
-    else if (channel == ADCHANNEL11)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDR11);
-    }
-    else if (channel == ADCHANNEL12)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDR12);
-    }
-    else if (channel == ADCHANNEL13)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDR13);
-    }
-    else if (channel == ADCHANNEL14)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDR14);
-    }
-    else if (channel == ADCHANNEL15)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDR15);
-    }
-    else if (channel == ADCHANNEL16)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDR16);
-    }
-    else if (channel == ADCHANNEL17)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDR17);
-    }
-    else if (channel == ADCHANNEL18)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDR18);
-    }
-    else if (channel == ADCHANNEL19)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDR19);
-    }
-    else if (channel == ADCHANNEL20)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDR20);
-    }
-    else if (channel == ADTEMPSENSOR)
-    {
-        *buffer = (uint16_t)(S12AD1.ADTSDR);
-    }
-    else if (channel == ADINTERREFVOLT)
-    {
-        *buffer = (uint16_t)(S12AD1.ADOCDR);
-    }
-    else if (channel == ADDATADUPLICATION)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDBLDR);
-    }
-    else if (channel == ADDATADUPLICATIONA)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDBLDRA);
-    }
-    else if (channel == ADDATADUPLICATIONB)
-    {
-        *buffer = (uint16_t)(S12AD1.ADDBLDRB);
-    }
-    else
-    {
-        /* Do Nothing */ 
+        case ADSELFDIAGNOSIS:
+        {
+            *buffer = (uint16_t)(S12AD1.ADRD.WORD);
+            break;
+        }
+        case ADCHANNEL0:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDR0);
+            break;
+        }
+        case ADCHANNEL1:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDR1);
+            break;
+        }
+        case ADCHANNEL2:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDR2);
+            break;
+        }
+        case ADCHANNEL3:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDR3);
+            break;
+        }
+        case ADCHANNEL4:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDR4);
+            break;
+        }
+        case ADCHANNEL5:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDR5);
+            break;
+        }
+        case ADCHANNEL6:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDR6);
+            break;
+        }
+        case ADCHANNEL7:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDR7);
+            break;
+        }
+        case ADCHANNEL8:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDR8);
+            break;
+        }
+        case ADCHANNEL9:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDR9);
+            break;
+        }
+        case ADCHANNEL10:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDR10);
+            break;
+        }
+        case ADCHANNEL11:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDR11);
+            break;
+        }
+        case ADCHANNEL12:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDR12);
+            break;
+        }
+        case ADCHANNEL13:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDR13);
+            break;
+        }
+        case ADCHANNEL14:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDR14);
+            break;
+        }
+        case ADCHANNEL15:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDR15);
+            break;
+        }
+        case ADCHANNEL16:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDR16);
+            break;
+        }
+        case ADCHANNEL17:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDR17);
+            break;
+        }
+        case ADCHANNEL18:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDR18);
+            break;
+        }
+        case ADCHANNEL19:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDR19);
+            break;
+        }
+        case ADCHANNEL20:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDR20);
+            break;
+        }
+        case ADTEMPSENSOR:
+        {
+            *buffer = (uint16_t)(S12AD1.ADTSDR);
+            break;
+        }
+        case ADINTERREFVOLT:
+        {
+            *buffer = (uint16_t)(S12AD1.ADOCDR);
+            break;
+        }
+        case ADDATADUPLICATION:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDBLDR);
+            break;
+        }
+        case ADDATADUPLICATIONA:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDBLDRA);
+            break;
+        }
+        case ADDATADUPLICATIONB:
+        {
+            *buffer = (uint16_t)(S12AD1.ADDBLDRB);
+            break;
+        }
+        default:
+        {
+            break;
+        }
     }
 }
 
@@ -290,5 +320,4 @@ void R_Config_S12AD1_Set_CompareValue(uint16_t reg_value0, uint16_t reg_value1)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */   
-
+/* End user code. Do not edit comment generated here */

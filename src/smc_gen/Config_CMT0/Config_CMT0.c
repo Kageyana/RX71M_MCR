@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : Config_CMT0.c
-* Version      : 2.0.0
+* Version      : 2.0.2
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_CMT0.
-* Creation Date: 2020-02-13
+* Creation Date: 2021-09-01
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -65,7 +65,7 @@ void R_Config_CMT0_Create(void)
     CMT0.CMCR.WORD = _0001_CMT_CMCR_CLOCK_PCLK32 | _0040_CMT_CMCR_CMIE_ENABLE | _0080_CMT_CMCR_DEFAULT;
     
     /* Set compare match register */
-    CMT0.CMCOR = _0752_CMT0_CMCOR_VALUE;
+    CMT0.CMCOR = _0EA5_CMT0_CMCOR_VALUE;
     
     /* Set CMI0 priority level */
     IPR(CMT0,CMI0) = _06_CMT_PRIORITY_LEVEL6;
@@ -106,5 +106,4 @@ void R_Config_CMT0_Stop(void)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */   
-
+/* End user code. Do not edit comment generated here */

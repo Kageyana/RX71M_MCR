@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : Config_SCI12.h
-* Version      : 1.8.0
+* Version      : 1.9.2
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_SCI12.
-* Creation Date: 2020-02-13
+* Creation Date: 2021-09-01
 ***********************************************************************************************************************/
 
 #ifndef CFG_Config_SCI12_H
@@ -49,9 +49,9 @@ Typedef definitions
 Global functions
 ***********************************************************************************************************************/
 void R_Config_SCI12_Create(void);
+void R_Config_SCI12_Create_UserInit(void);
 void R_Config_SCI12_Start(void);
 void R_Config_SCI12_Stop(void);
-void R_Config_SCI12_Create_UserInit(void);
 void R_Config_SCI12_IIC_Master_Send(uint8_t adr, uint8_t * const tx_buf, uint16_t tx_num);
 void R_Config_SCI12_IIC_Master_Receive(uint8_t adr, uint8_t * const rx_buf, uint16_t rx_num);
 void R_Config_SCI12_IIC_StartCondition(void);
@@ -62,4 +62,3 @@ static void r_Config_SCI12_callback_receiveend(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif
-

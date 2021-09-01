@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : Config_CMT0.h
-* Version      : 2.0.0
+* Version      : 2.0.2
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_CMT0.
-* Creation Date: 2020-02-13
+* Creation Date: 2021-09-01
 ***********************************************************************************************************************/
 
 #ifndef CFG_Config_CMT0_H
@@ -40,8 +40,10 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
+#define CMT0_PCLK_COUNTER_DIVISION          (32)
+
 /* Compare Match Constant Register (CMCOR) */
-#define _0752_CMT0_CMCOR_VALUE              (0x0752U)
+#define _0EA5_CMT0_CMCOR_VALUE              (0x0EA5U)
 
 /***********************************************************************************************************************
 Typedef definitions
@@ -51,10 +53,9 @@ Typedef definitions
 Global functions
 ***********************************************************************************************************************/
 void R_Config_CMT0_Create(void);
+void R_Config_CMT0_Create_UserInit(void);
 void R_Config_CMT0_Start(void);
 void R_Config_CMT0_Stop(void);
-void R_Config_CMT0_Create_UserInit(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif
-

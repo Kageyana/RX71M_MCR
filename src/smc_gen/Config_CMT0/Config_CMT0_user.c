@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : Config_CMT0_user.c
-* Version      : 2.0.0
+* Version      : 2.0.2
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_CMT0.
-* Creation Date: 2020-02-13
+* Creation Date: 2021-09-01
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -125,8 +125,4 @@ static void r_Config_CMT0_cmi0_interrupt(void)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */   
-
-
-
-
+/* End user code. Do not edit comment generated here */

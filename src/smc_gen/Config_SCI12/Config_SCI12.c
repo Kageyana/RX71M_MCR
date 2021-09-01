@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : Config_SCI12.c
-* Version      : 1.8.0
+* Version      : 1.9.2
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_SCI12.
-* Creation Date: 2020-02-13
+* Creation Date: 2021-09-01
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -83,8 +83,8 @@ void R_Config_SCI12_Create(void)
     SCI12.SCMR.BIT.SDIR = 1U;
 
     /* Set bit rate */
-    SCI12.BRR = 0x10U;
-    SCI12.MDDR = 0xE8U;
+    SCI12.BRR = 0x16U;
+    SCI12.MDDR = 0x9DU;
     SCI12.SEMR.BYTE = _20_SCI_NOISE_FILTER_ENABLE | _04_SCI_BIT_MODULATION_ENABLE;
     SCI12.SNFR.BYTE = _01_SCI_IIC_DIV_1;
     SCI12.SIMR1.BYTE |= (_01_SCI_IIC_MODE | _08_SCI_0_TO_1_CYCLE);
@@ -235,4 +235,5 @@ void R_Config_SCI12_IIC_Master_Receive(uint8_t adr, uint8_t * const rx_buf, uint
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */   
+/* End user code. Do not edit comment generated here */
+

@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : Config_PORT.h
-* Version      : 2.0.0
+* Version      : 2.1.3
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_PORT.
-* Creation Date: 2020-02-13
+* Creation Date: 2021-09-01
 ***********************************************************************************************************************/
 
 #ifndef CFG_Config_PORT_H

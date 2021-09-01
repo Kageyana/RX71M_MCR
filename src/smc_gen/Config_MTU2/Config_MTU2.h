@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : Config_MTU2.h
-* Version      : 2.0.0
+* Version      : 2.1.1
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_MTU2.
-* Creation Date: 2020-02-13
+* Creation Date: 2021-09-01
 ***********************************************************************************************************************/
 
 #ifndef CFG_Config_MTU2_H
@@ -51,9 +51,9 @@ Typedef definitions
 Global functions
 ***********************************************************************************************************************/
 void R_Config_MTU2_Create(void);
+void R_Config_MTU2_Create_UserInit(void);
 void R_Config_MTU2_Start(void);
 void R_Config_MTU2_Stop(void);
-void R_Config_MTU2_Create_UserInit(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif
