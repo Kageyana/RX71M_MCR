@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : Config_SCI6.c
-* Version      : 1.9.2
+* Version      : 1.9.3
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_SCI6.
-* Creation Date: 2021-09-01
+* Creation Date: 2021-09-02
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -43,9 +43,6 @@ Includes
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
-volatile uint8_t   g_sci6_iic_transmit_receive_flag; /* SCI6 transmit receive flag for I2C */
-volatile uint8_t   g_sci6_iic_cycle_flag;            /* SCI6 start stop flag for I2C */
-volatile uint8_t   g_sci6_slave_address;             /* SCI6 target slave address */
 volatile uint8_t * gp_sci6_tx_address;               /* SCI6 transmit buffer address */
 volatile uint16_t  g_sci6_tx_count;                  /* SCI6 transmit data number */
 volatile uint8_t * gp_sci6_rx_address;               /* SCI6 receive buffer address */
@@ -56,182 +53,147 @@ volatile uint16_t  g_sci6_rx_length;                 /* SCI6 receive data length
 
 /***********************************************************************************************************************
 * Function Name: R_Config_SCI6_Create
-* Description  : This function initializes the SCI6 channel
+* Description  : This function initializes SCI6
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
 void R_Config_SCI6_Create(void)
 {
-    /* Cancel SCI stop state */
+    /* Cancel SCI6 module stop state */
     MSTP(SCI6) = 0U;
 
     /* Set interrupt priority */
-    IPR(SCI6, RXI6) = _0B_SCI_PRIORITY_LEVEL11;
-    IPR(SCI6, TXI6) = _0A_SCI_PRIORITY_LEVEL10;
+    IPR(SCI6,TXI6) = _0F_SCI_PRIORITY_LEVEL15;
+    IPR(SCI6,RXI6) = _0F_SCI_PRIORITY_LEVEL15;
 
     /* Clear the control register */
     SCI6.SCR.BYTE = 0x00U;
 
-    /* Initialize SSCL and SSDA pins to high impedance */
-    SCI6.SIMR3.BYTE = _C0_SCI_SSCL_HIGH_IMPEDANCE | _30_SCI_SSDA_HIGH_IMPEDANCE;
+    /* Set clock enable */
+    SCI6.SCR.BYTE |= _01_SCI_INTERNAL_SCK_OUTPUT;
 
-    /* Set up transfer or reception format in SMR and SCMR */
-    SCI6.SMR.BYTE = _00_SCI_CLOCK_PCLK | _00_SCI_ASYNCHRONOUS_OR_I2C_MODE;
-    SCI6.SCMR.BIT.SMIF = 0U;
-    SCI6.SCMR.BIT.SINV = 0U;
-    SCI6.SCMR.BIT.SDIR = 1U;
+    /* Clear the SIMR1.IICM */
+    SCI6.SIMR1.BIT.IICM = 0U;
+
+    /* Set control registers */
+    SCI6.SPMR.BYTE = _00_SCI_SS_PIN_DISABLE | _00_SCI_SPI_MASTER | _00_SCI_CLOCK_NOT_INVERTED | 
+                     _00_SCI_CLOCK_NOT_DELAYED;
+    SCI6.SMR.BYTE = _80_SCI_CLOCK_SYNCHRONOUS_OR_SPI_MODE | _00_SCI_CLOCK_PCLK;
+    SCI6.SCMR.BYTE = _00_SCI_SERIAL_MODE | _00_SCI_DATA_INVERT_NONE | _08_SCI_DATA_MSB_FIRST | 
+                     _10_SCI_DATA_LENGTH_8_OR_7 | _62_SCI_SCMR_DEFAULT;
+    SCI6.SEMR.BYTE = _00_SCI_BIT_MODULATION_DISABLE;
 
     /* Set bit rate */
-    SCI6.BRR = 0x09U;
-    SCI6.SEMR.BYTE = _00_SCI_NOISE_FILTER_DISABLE | _00_SCI_BIT_MODULATION_DISABLE;
-    SCI6.SIMR1.BYTE |= (_01_SCI_IIC_MODE | _00_SCI_NONE);
-    SCI6.SIMR2.BYTE |= (_01_SCI_RX_TX_INTERRUPTS | _02_SCI_SYNCHRONIZATION | _20_SCI_NACK_TRANSMISSION);
-    SCI6.SPMR.BYTE = _00_SCI_CLOCK_NOT_INVERTED | _00_SCI_CLOCK_NOT_DELAYED;
-    SCI6.SCR.BYTE = _10_SCI_RECEIVE_ENABLE | _20_SCI_TRANSMIT_ENABLE | _40_SCI_RXI_ERI_ENABLE | _80_SCI_TXI_ENABLE | 
-                    _04_SCI_TEI_INTERRUPT_ENABLE;
+    SCI6.BRR = 0x0EU;
 
-    /* Set SSCL6 pin */
+    /* Set SMISO6 pin */
     MPC.P33PFS.BYTE = 0x0AU;
-    PORT3.ODR0.BYTE |= 0x40U;
     PORT3.PMR.BYTE |= 0x08U;
 
-    /* Set SSDA6 pin */
+    /* Set SMOSI6 pin */
     MPC.P32PFS.BYTE = 0x0AU;
-    PORT3.ODR0.BYTE |= 0x10U;
     PORT3.PMR.BYTE |= 0x04U;
+
+    /* Set SCK6 pin */
+    MPC.P34PFS.BYTE = 0x0AU;
+    PORT3.PMR.BYTE |= 0x10U;
 
     R_Config_SCI6_Create_UserInit();
 }
 
 /***********************************************************************************************************************
 * Function Name: R_Config_SCI6_Start
-* Description  : This function starts the SCI6 channel
+* Description  : This function starts SCI6
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
 void R_Config_SCI6_Start(void)
 {
-    /* Clear interrupt flag */
+    /* Enable TXI and TEI interrupt */
     IR(SCI6,TXI6) = 0U;
-    IR(SCI6,RXI6) = 0U;
-
-    /* Enable SCI interrupt */
     IEN(SCI6,TXI6) = 1U;
     ICU.GENBL0.BIT.EN12 = 1U;
+
+    /* Enable RXI interrupt */
+    IR(SCI6,RXI6) = 0U;
     IEN(SCI6,RXI6) = 1U;
+
+    /* Enable ERI interrupt */
     ICU.GENBL0.BIT.EN13 = 1U;
 }
 
 /***********************************************************************************************************************
 * Function Name: R_Config_SCI6_Stop
-* Description  : This function stops the SCI6 channel
+* Description  : This function stops SCI6
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
 void R_Config_SCI6_Stop(void)
 {
-    IR(SCI6,TXI6) = 0U;
+    /* Set SMOSI6 pin */
+    PORT3.PMR.BYTE &= 0xFBU;
+
+    /* Disable serial transmit and receive */
+    SCI6.SCR.BYTE &= 0xCFU;
+
+    /* Disable TXI and TEI interrupt */
     IEN(SCI6,TXI6) = 0U;
     ICU.GENBL0.BIT.EN12 = 0U;
-    IR(SCI6,RXI6) = 0U;
+
+    /* Disable RXI interrupt */
     IEN(SCI6,RXI6) = 0U;
+
+    /* Disable ERI interrupt */
     ICU.GENBL0.BIT.EN13 = 0U;
+
+    /* Clear interrupt flags */
+    IR(SCI6,TXI6) = 0U;
+    IR(SCI6,RXI6) = 0U;
 }
 
 /***********************************************************************************************************************
-* Function Name: R_Config_SCI6_IIC_StartCondition
-* Description  : This function generates IIC start condition
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-
-void R_Config_SCI6_IIC_StartCondition(void)
-{
-    SCI6.SIMR3.BYTE = _01_SCI_START_CONDITION_ON | _10_SCI_SSDA_START_RESTART_STOP_CONDITION | 
-                      _40_SCI_SSCL_START_RESTART_STOP_CONDITION;
-}
-
-/***********************************************************************************************************************
-* Function Name: R_Config_SCI6_IIC_StopCondition
-* Description  : This function generates IIC stop condition
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-
-void R_Config_SCI6_IIC_StopCondition(void)
-{
-    SCI6.SIMR3.BYTE = _04_SCI_STOP_CONDITION_ON | _10_SCI_SSDA_START_RESTART_STOP_CONDITION | 
-                      _40_SCI_SSCL_START_RESTART_STOP_CONDITION;
-}
-
-/***********************************************************************************************************************
-* Function Name: R_Config_SCI6_IIC_Master_Send
-* Description  : This function sends simple IIC(SCI6) data to slave device
-* Arguments    : adr -
-*                    slave device address
-*                tx_buf -
-*                    transfer buffer pointer (Not used when receive data handled by DTC or DMAC)
+* Function Name: R_Config_SCI6_SPI_Master_Send_Receive
+* Description  : This function sends and receives SCI6 data to and from slave device
+* Arguments    : tx_buf -
+*                    transfer buffer pointer (not used when data is handled by DMAC/DTC)
 *                tx_num -
-*                    buffer size (Not used when receive data handled by DTC or DMAC)
-* Return Value : None
-***********************************************************************************************************************/
-
-void R_Config_SCI6_IIC_Master_Send(uint8_t adr, uint8_t * const tx_buf, uint16_t tx_num)
-{
-    if (tx_num < 1U)
-    {
-        return;
-    }
-
-    gp_sci6_tx_address = tx_buf;
-    g_sci6_tx_count = tx_num;
-    g_sci6_slave_address = adr;
-    g_sci6_iic_transmit_receive_flag = _80_SCI_IIC_TRANSMISSION;
-    g_sci6_iic_cycle_flag = _80_SCI_IIC_START_CYCLE;
-
-    /* Disable RXI and ERI interrupt requests */
-    SCI6.SCR.BIT.RIE = 0U;
-
-    /* Generate start condition */
-    R_Config_SCI6_IIC_StartCondition();
-}
-
-/***********************************************************************************************************************
-* Function Name: R_Config_SCI6_IIC_Master_Receive
-* Description  : This function receives simple IIC(SCI6) data from slave device
-* Arguments    : adr -
-*                    slave device address
+*                    transfer buffer size
 *                rx_buf -
-*                    receive buffer pointer (Not used when receive data handled by DTC or DMAC)
+*                    receive buffer pointer (not used when data is handled by DMAC/DTC)
 *                rx_num -
-*                    buffer size (Not used when receive data handled by DTC or DMAC)
-* Return Value : None
+*                    receive buffer size
+* Return Value : status -
+*                    MD_OK or MD_ARGERROR
 ***********************************************************************************************************************/
 
-void R_Config_SCI6_IIC_Master_Receive(uint8_t adr, uint8_t * const rx_buf, uint16_t rx_num)
+MD_STATUS R_Config_SCI6_SPI_Master_Send_Receive(uint8_t * const tx_buf, uint16_t tx_num, uint8_t * const rx_buf, uint16_t rx_num)
 {
-    if (rx_num < 1U)
+    MD_STATUS status = MD_OK;
+
+    if (1U > tx_num)
     {
-        return;
+        status = MD_ARGERROR;
+    }
+    else
+    {
+        g_sci6_tx_count = tx_num;
+        gp_sci6_tx_address = tx_buf;
+        gp_sci6_rx_address = rx_buf;
+        g_sci6_rx_count = 0U;
+        g_sci6_rx_length = rx_num;
+
+        /* Set SMOSI6 pin */
+        PORT3.PMR.BYTE |= 0x04U;
+
+        /* Set TE, TIE, RE, RIE bits simultaneously */
+        SCI6.SCR.BYTE |= 0xF0U;
     }
 
-    g_sci6_rx_length = rx_num;
-    g_sci6_rx_count = 0;
-    gp_sci6_rx_address = rx_buf;
-    g_sci6_slave_address = adr;
-    g_sci6_iic_transmit_receive_flag = _00_SCI_IIC_RECEPTION;
-    g_sci6_iic_cycle_flag = _80_SCI_IIC_START_CYCLE;
-
-    /* Disable RXI and ERI interrupt requests */
-    SCI6.SCR.BIT.RIE = 0U;
-
-    /* Generate start condition */
-    R_Config_SCI6_IIC_StartCondition();
+    return (status);
 }
 
 /* Start user code for adding. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
-

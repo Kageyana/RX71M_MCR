@@ -22,7 +22,7 @@
 * Version      : 1.10.1
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_S12AD0.
-* Creation Date: 2021-09-01
+* Creation Date: 2021-09-02
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -74,8 +74,8 @@ void R_Config_S12AD0_Create(void)
     /* Set channels and sampling time */
     S12AD.ADANSA0.WORD = _0040_AD_ANx06_USED | _0080_AD_ANx07_USED;
     S12AD.ADADS0.WORD = _0040_AD_ANx06_ADD_USED | _0080_AD_ANx07_ADD_USED;
-    S12AD.ADSSTR6 = _F0_AD0_SAMPLING_STATE_6;
-    S12AD.ADSSTR7 = _F0_AD0_SAMPLING_STATE_7;
+    S12AD.ADSSTR6 = _78_AD0_SAMPLING_STATE_6;
+    S12AD.ADSSTR7 = _78_AD0_SAMPLING_STATE_7;
 
     /* Set compare control register */
     S12AD.ADCMPCR.BYTE = _00_AD_COMPARISON_INTERRUPT_DISABLE | _00_AD_WINDOWFUNCTION_DISABLE;

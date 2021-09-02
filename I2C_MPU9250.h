@@ -117,8 +117,8 @@
 #define TEMP_LSB			333.87	// LSB/°C
 #define ROOMTEMPOFFSET	0		// 21°Cのとき0
 
-#define BUS_IMU_FREE 			0		// 通信可能
-#define BUS_IMU_BUSY 			1		// 通信中
+#define BUS_IMU_FREE 		0		// 通信可能
+#define BUS_IMU_BUSY 		1		// 通信中
 
 // データ処理関連
 #define CLOCK				240		// 動作周波数[MHz]
@@ -128,9 +128,17 @@
 #define DELTATIMU			0.005	// 取得周期
 
 /*************************************** 自動生成関数 **********************************/
-#define I2C_IMU_COMMAND	R_Config_SCI6_IIC_Master_Send( MPU9250_ADDRESS_W, sendData, num)
-#define I2C_IMU_RECIVE		R_Config_SCI6_IIC_Master_Receive( MPU9250_ADDRESS_R, reciveData, num)
-#define I2C_IMU_ARRY		R_Config_SCI6_IIC_Master_Receive(MPU9250_ADDRESS_R, reciveData, num)
+#define USECOM 			1		// 0:I2c 1:SPI
+#if USECOM == 0
+	//I2c
+	#define I2C_IMU_COMMAND	R_Config_SCI6_IIC_Master_Send( MPU9250_ADDRESS_W, data_tr, num)
+	#define I2C_IMU_RECIVE		R_Config_SCI6_IIC_Master_Receive( MPU9250_ADDRESS_R, data_re, num)
+	#define I2C_IMU_ARRY		R_Config_SCI6_IIC_Master_Receive(MPU9250_ADDRESS_R, data_re, num)
+#else
+	//SPI
+	#define IMU_CS				PORT3.PODR.BIT.B1	// CS端子
+	#define IMU_SEND			R_Config_SCI6_SPI_Master_Send_Receive( data_tr, numS, data_re, numR)
+#endif
 /************************************************************************************/
 //====================================//
 // グローバル変数の宣言								//
@@ -159,7 +167,7 @@ extern char	busIMU;
 void wait_IMU ( short waitTime );
 void IMUWriteByte( char reg, char data );
 char IMUReadByte( char reg );
-void IMUReadArry( char reg, char num, char* dataArry );
+void IMUReadArry( char reg, char num2, char* data_re );
 void init_IMU (void);
 void IMUProcess (void);
 void caribrateIMU (void);

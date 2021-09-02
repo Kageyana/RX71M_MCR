@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : Config_SCI6_user.c
-* Version      : 1.9.2
+* Version      : 1.9.3
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_SCI6.
-* Creation Date: 2021-09-01
+* Creation Date: 2021-09-02
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -44,14 +44,11 @@ Includes
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
-extern volatile uint8_t   g_sci6_iic_transmit_receive_flag;  /* SCI6 transmit receive flag for I2C */
-extern volatile uint8_t   g_sci6_iic_cycle_flag;             /* SCI6 start stop flag for I2C */
-extern volatile uint8_t   g_sci6_slave_address;              /* SCI6 target slave address */
-extern volatile uint8_t * gp_sci6_tx_address;                /* SCI6 send buffer address */
-extern volatile uint16_t  g_sci6_tx_count;                   /* SCI6 send data number */
-extern volatile uint8_t * gp_sci6_rx_address;                /* SCI6 receive buffer address */
-extern volatile uint16_t  g_sci6_rx_count;                   /* SCI6 receive data number */
-extern volatile uint16_t  g_sci6_rx_length;                  /* SCI6 receive data length */
+extern volatile uint8_t * gp_sci6_tx_address;               /* SCI6 transmit buffer address */
+extern volatile uint16_t  g_sci6_tx_count;                  /* SCI6 transmit data number */
+extern volatile uint8_t * gp_sci6_rx_address;               /* SCI6 receive buffer address */
+extern volatile uint16_t  g_sci6_rx_count;                  /* SCI6 receive data number */
+extern volatile uint16_t  g_sci6_rx_length;                 /* SCI6 receive data length */
 /* Start user code for global. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -82,41 +79,16 @@ void R_Config_SCI6_Create_UserInit(void)
 #endif
 static void r_Config_SCI6_transmit_interrupt(void)
 {
-    if (0U == SCI6.SISR.BIT.IICACKR)
+    if (0U < g_sci6_tx_count)
     {
-        if (_80_SCI_IIC_TRANSMISSION == g_sci6_iic_transmit_receive_flag)
-        {
-            if (g_sci6_tx_count > 0U)
-            {
-                SCI6.TDR = *gp_sci6_tx_address;
-                gp_sci6_tx_address++;
-                g_sci6_tx_count--;
-            }
-            else
-            {
-                /* Generate stop condition */
-                g_sci6_iic_cycle_flag = _00_SCI_IIC_STOP_CYCLE;
-                R_Config_SCI6_IIC_StopCondition();
-            }
-        }
-        else if (_00_SCI_IIC_RECEPTION == g_sci6_iic_transmit_receive_flag)
-        {
-            SCI6.SIMR2.BIT.IICACKT = 0U;
-            SCI6.SCR.BIT.RIE = 1U;
-            if (g_sci6_rx_length == (g_sci6_rx_count + 1))
-            {
-                SCI6.SIMR2.BIT.IICACKT = 1U;
-            }
-
-            /* Write dummy */
-            SCI6.TDR = 0xFFU;
-        }
+        SCI6.TDR = *gp_sci6_tx_address;
+        gp_sci6_tx_address++;
+        g_sci6_tx_count--;
     }
     else
     {
-        /* Generate stop condition */
-        g_sci6_iic_cycle_flag = _00_SCI_IIC_STOP_CYCLE;
-        R_Config_SCI6_IIC_StopCondition();
+        SCI6.SCR.BIT.TIE = 0U;
+        SCI6.SCR.BIT.TEIE = 1U;
     }
 }
 
@@ -129,30 +101,16 @@ static void r_Config_SCI6_transmit_interrupt(void)
 
 void r_Config_SCI6_transmitend_interrupt(void)
 {
-    if (_80_SCI_IIC_START_CYCLE == g_sci6_iic_cycle_flag)
+    SCI6.SCR.BIT.TIE = 0U;
+    SCI6.SCR.BIT.TEIE = 0U;
+
+    /* Clear TE and RE bits */
+    if(0U == SCI6.SCR.BIT.RIE)
     {
-        SCI6.SIMR3.BIT.IICSTIF = 0U;
-        SCI6.SIMR3.BIT.IICSCLS = 0U;
-        SCI6.SIMR3.BIT.IICSDAS = 0U;
-        SCI6.TDR = g_sci6_slave_address;
+        SCI6.SCR.BYTE &= 0xCFU;
     }
-    else if (_00_SCI_IIC_STOP_CYCLE == g_sci6_iic_cycle_flag)
-    {
-        SCI6.SIMR3.BIT.IICSTIF = 0U;
-        SCI6.SIMR3.BYTE |= (_30_SCI_SSDA_HIGH_IMPEDANCE | _C0_SCI_SSCL_HIGH_IMPEDANCE);
-        if (_80_SCI_IIC_TRANSMISSION == g_sci6_iic_transmit_receive_flag)
-        {
-            r_Config_SCI6_callback_transmitend();
-        }
-        if (_00_SCI_IIC_RECEPTION == g_sci6_iic_transmit_receive_flag)
-        {
-            r_Config_SCI6_callback_receiveend();
-        }
-    }
-    else
-    {
-        /* Do nothing */
-    }
+
+    r_Config_SCI6_callback_transmitend();
 }
 
 /***********************************************************************************************************************
@@ -174,13 +132,40 @@ static void r_Config_SCI6_receive_interrupt(void)
         *gp_sci6_rx_address = SCI6.RDR;
         gp_sci6_rx_address++;
         g_sci6_rx_count++;
+
+        if (g_sci6_rx_length == g_sci6_rx_count)
+        {
+            SCI6.SCR.BIT.RIE = 0;
+
+            /* Clear TE and RE bits */
+            if((0U == SCI6.SCR.BIT.TIE) && (0U == SCI6.SCR.BIT.TEIE))
+            {
+                SCI6.SCR.BYTE &= 0xCFU;
+            }
+
+            r_Config_SCI6_callback_receiveend();
+        }
     }
-    else
-    {
-        /* Generate stop condition */
-        g_sci6_iic_cycle_flag = _00_SCI_IIC_STOP_CYCLE;
-        R_Config_SCI6_IIC_StopCondition();
-    }
+}
+
+/***********************************************************************************************************************
+* Function Name: r_Config_SCI6_receiveerror_interrupt
+* Description  : This function is ERI6 interrupt service routine
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+
+void r_Config_SCI6_receiveerror_interrupt(void)
+{
+    uint8_t err_type;
+
+    r_Config_SCI6_callback_receiveerror();
+
+    /* Clear overrun error flag */
+    err_type = SCI6.SSR.BYTE;
+    err_type &= 0xDFU;
+    err_type |= 0xC0U;
+    SCI6.SSR.BYTE = err_type;
 }
 
 /***********************************************************************************************************************
@@ -208,6 +193,19 @@ static void r_Config_SCI6_callback_receiveend(void)
 {
     /* Start user code for r_Config_SCI6_callback_receiveend. Do not edit comment generated here */
     busIMU = BUS_IMU_FREE;
+    /* End user code. Do not edit comment generated here */
+}
+
+/***********************************************************************************************************************
+* Function Name: r_Config_SCI6_callback_receiveerror
+* Description  : This function is a callback function when SCI6 reception encounters error
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+
+static void r_Config_SCI6_callback_receiveerror(void)
+{
+    /* Start user code for r_Config_SCI6_callback_receiveerror. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
 

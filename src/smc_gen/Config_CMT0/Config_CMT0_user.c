@@ -22,7 +22,7 @@
 * Version      : 2.0.2
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_CMT0.
-* Creation Date: 2021-09-01
+* Creation Date: 2021-09-02
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -85,7 +85,7 @@ static void r_Config_CMT0_cmi0_interrupt(void)
     __setpsw_i();		// ëΩèdäÑÇËçûÇ›ãñâ¬
     
     lcdShowProcess();
-    IMUProcess();
+    //IMUProcess();
     
     cnt0++;
     cnt1++;

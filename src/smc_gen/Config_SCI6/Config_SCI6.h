@@ -19,10 +19,10 @@
 
 /***********************************************************************************************************************
 * File Name    : Config_SCI6.h
-* Version      : 1.9.2
+* Version      : 1.9.3
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_SCI6.
-* Creation Date: 2021-09-01
+* Creation Date: 2021-09-02
 ***********************************************************************************************************************/
 
 #ifndef CFG_Config_SCI6_H
@@ -52,13 +52,12 @@ void R_Config_SCI6_Create(void);
 void R_Config_SCI6_Create_UserInit(void);
 void R_Config_SCI6_Start(void);
 void R_Config_SCI6_Stop(void);
-void R_Config_SCI6_IIC_Master_Send(uint8_t adr, uint8_t * const tx_buf, uint16_t tx_num);
-void R_Config_SCI6_IIC_Master_Receive(uint8_t adr, uint8_t * const rx_buf, uint16_t rx_num);
-void R_Config_SCI6_IIC_StartCondition(void);
-void R_Config_SCI6_IIC_StopCondition(void);
+MD_STATUS R_Config_SCI6_SPI_Master_Send_Receive(uint8_t * const tx_buf, uint16_t tx_num, uint8_t * const rx_buf, uint16_t rx_num);
 void r_Config_SCI6_transmitend_interrupt(void);
+void r_Config_SCI6_receiveerror_interrupt(void);
 static void r_Config_SCI6_callback_transmitend(void);
 static void r_Config_SCI6_callback_receiveend(void);
+static void r_Config_SCI6_callback_receiveerror(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif

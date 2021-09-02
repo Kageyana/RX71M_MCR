@@ -69,7 +69,7 @@ char BSP_CFG_USER_CHARGET_FUNCTION(void);
 /***********************************************************************************************************************
 Private global variables and functions
 ***********************************************************************************************************************/
-void charput_sci1( char output_char )
+void BSP_CFG_USER_CHARPUT_FUNCTION( char output_char )
 {
 	while(!SCI1.SSR.BIT.TDRE);
 	SCI1.TDR = output_char;

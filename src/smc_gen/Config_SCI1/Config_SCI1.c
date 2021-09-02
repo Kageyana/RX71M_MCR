@@ -22,7 +22,7 @@
 * Version      : 1.9.2
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_SCI1.
-* Creation Date: 2021-09-01
+* Creation Date: 2021-09-02
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -82,11 +82,12 @@ void R_Config_SCI1_Create(void)
                     _00_SCI_DATA_LENGTH_8 | _00_SCI_ASYNCHRONOUS_OR_I2C_MODE;
     SCI1.SCMR.BYTE = _00_SCI_SERIAL_MODE | _00_SCI_DATA_INVERT_NONE | _00_SCI_DATA_LSB_FIRST | 
                      _10_SCI_DATA_LENGTH_8_OR_7 | _62_SCI_SCMR_DEFAULT;
-    SCI1.SEMR.BYTE = _00_SCI_BIT_MODULATION_DISABLE | _10_SCI_8_BASE_CLOCK | _00_SCI_NOISE_FILTER_DISABLE | 
+    SCI1.SEMR.BYTE = _04_SCI_BIT_MODULATION_ENABLE | _10_SCI_8_BASE_CLOCK | _00_SCI_NOISE_FILTER_DISABLE | 
                      _00_SCI_BAUDRATE_SINGLE | _00_SCI_LOW_LEVEL_START_BIT;
 
     /* Set bit rate */
-    SCI1.BRR = 0x04U;
+    SCI1.BRR = 0x0EU;
+    SCI1.MDDR = 0x80U;
 
     /* Set RXD1 pin */
     MPC.P30PFS.BYTE = 0x0AU;

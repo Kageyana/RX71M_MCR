@@ -22,7 +22,7 @@
 * Version      : 1.9.1
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_MTU0.
-* Creation Date: 2021-09-01
+* Creation Date: 2021-09-02
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -71,7 +71,7 @@ void R_Config_MTU0_Create(void)
     MTU0.TMDR1.BYTE = _02_MTU_PWM1;
     MTU0.TIORH.BYTE = _02_MTU_IOA_LH | _60_MTU_IOB_HH;
     MTU0.TIORL.BYTE = _02_MTU_IOC_LH | _60_MTU_IOD_HH;
-    MTU0.TGRA = _2EDF_TGRA0_VALUE;
+    MTU0.TGRA = _176F_TGRA0_VALUE;
     MTU0.TGRB = _0000_TGRB0_VALUE;
     MTU0.TGRC = _176F_TGRC0_VALUE;
     MTU0.TGRD = _0000_TGRD0_VALUE;

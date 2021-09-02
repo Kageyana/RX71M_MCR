@@ -22,7 +22,7 @@
 * Version      : 1.9.1
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_MTU0.
-* Creation Date: 2021-09-01
+* Creation Date: 2021-09-02
 ***********************************************************************************************************************/
 
 #ifndef CFG_Config_MTU0_H
@@ -41,7 +41,7 @@ Macro definitions (Register bit)
 Macro definitions
 ***********************************************************************************************************************/
 #define MTU0_PCLK_COUNTER_DIVISION      (1)
-#define _2EDF_TGRA0_VALUE               (0x2EDFU) /* TGRA0 value */
+#define _176F_TGRA0_VALUE               (0x176FU) /* TGRA0 value */
 #define _0000_TGRB0_VALUE               (0x0000U) /* TGRB0 value */
 #define _176F_TGRC0_VALUE               (0x176FU) /* TGRC0 value */
 #define _0000_TGRD0_VALUE               (0x0000U) /* TGRD0 value */

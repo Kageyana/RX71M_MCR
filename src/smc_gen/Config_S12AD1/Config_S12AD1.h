@@ -22,7 +22,7 @@
 * Version      : 1.10.1
 * Device(s)    : R5F571MFCxFP
 * Description  : This file implements device driver for Config_S12AD1.
-* Creation Date: 2021-09-01
+* Creation Date: 2021-09-02
 ***********************************************************************************************************************/
 
 #ifndef CFG_Config_S12AD1_H
@@ -40,7 +40,7 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _F0_AD1_SAMPLING_STATE_L           (0xF0U) /* AN108-AN120 sampling time setting */
+#define _78_AD1_SAMPLING_STATE_L           (0x78U) /* AN108-AN120 sampling time setting */
 
 /***********************************************************************************************************************
 Typedef definitions

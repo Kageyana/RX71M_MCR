@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <MicomToolCommonProjectFile Version="1.00">
-  <CreatorType Name="CubeSuite+" Version="V8.03.00  [21 Nov 2019]" />
+  <CreatorType Name="CubeSuite+" Version="V8.05.00  [26 Nov 2020]" />
   <Placeholders>
     <PlaceholderPrefix>%</PlaceholderPrefix>
     <PlaceholderPostfix>%</PlaceholderPostfix>
@@ -28,6 +28,7 @@
           <Path>src\smc_gen\general\r_cg_mtu3.h</Path>
           <Path>src\smc_gen\general\r_cg_tpu.h</Path>
           <Path>src\smc_gen\general\r_cg_s12ad.h</Path>
+          <Path>src\smc_gen\general\r_cg_rspi.h</Path>
         </Category>
         <Category Name="r_config">
           <Path>src\smc_gen\r_config\r_bsp_interrupt_config.h</Path>
@@ -163,6 +164,11 @@
           <Path>src\smc_gen\Config_SCI6\Config_SCI6.h</Path>
           <Path>src\smc_gen\Config_SCI6\Config_SCI6_user.c</Path>
         </Category>
+        <Category Name="Config_SCI5">
+          <Path>src\smc_gen\Config_SCI5\Config_SCI5.c</Path>
+          <Path>src\smc_gen\Config_SCI5\Config_SCI5.h</Path>
+          <Path>src\smc_gen\Config_SCI5\Config_SCI5_user.c</Path>
+        </Category>
       </Category>
       <Path>I2C_LCD.c</Path>
       <Path>I2C_LCD.h</Path>
@@ -184,7 +190,7 @@
       <DebugToolSettings />
     </DebugOptions>
     <Device Series="RX">R5F571MFCxFP</Device>
-    <BuildOptions Name="CC-RX" Version="V3.02.00">
+    <BuildOptions Name="CC-RX" Version="V3.03.00">
       <BuildMode Name="DefaultBuild" Active="True">
         <GeneralOptions>
           <SimultaneouslyBuild>false</SimultaneouslyBuild>
@@ -194,6 +200,7 @@
           <Option>-fpu</Option>
           <Option>-dbl_size=8</Option>
           <Option>-lang=c99</Option>
+          <Option>-include=src\smc_gen\Config_SCI5</Option>
           <Option>-include=src\smc_gen\Config_SCI6</Option>
           <Option>-include=src\smc_gen\Config_S12AD1</Option>
           <Option>-include=src\smc_gen\Config_S12AD0</Option>
@@ -310,8 +317,11 @@
           <Path>DefaultBuild\Config_SCI6.obj</Path>
           <Path>DefaultBuild\Config_SCI6_user.obj</Path>
           <Path>DefaultBuild\MicroSD.obj</Path>
+          <Path>DefaultBuild\Config_SCI5.obj</Path>
+          <Path>DefaultBuild\Config_SCI5_user.obj</Path>
         </LinkOrder>
         <CommonOptions>
+          <IncludePathForC>src\smc_gen\Config_SCI5</IncludePathForC>
           <IncludePathForC>src\smc_gen\Config_SCI6</IncludePathForC>
           <IncludePathForC>src\smc_gen\Config_S12AD1</IncludePathForC>
           <IncludePathForC>src\smc_gen\Config_S12AD0</IncludePathForC>

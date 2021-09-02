@@ -43,11 +43,14 @@ void wait_IMU ( short waitTime )
 ///////////////////////////////////////////////////////////////
 void IMUWriteByte( char reg, char data )
 {
-	uint8_t sendData[2] = { reg, data }, num = 2;
-	
-	I2C_IMU_COMMAND;		// コマンド送信
-	busIMU = BUS_IMU_BUSY;
-	while(busIMU)__nop();
+	uint8_t data_tr[2] = { reg, data }, data_re[ 1 ], numS = 2, numR = 1;
+	#if USECOM == 0
+		I2C_IMU_COMMAND;		// コマンド送信
+		busIMU = BUS_IMU_BUSY;
+		while(busIMU)__nop();
+	#else
+		IMU_SEND;
+	#endif
 }
 /////////////////////////////////////////////////////////
 // モジュール名 IMUReadByte					//
@@ -57,16 +60,33 @@ void IMUWriteByte( char reg, char data )
 /////////////////////////////////////////////////////////
 char IMUReadByte( char reg )
 {
-	uint8_t sendData[1] = { 0x75U }, num = 1, reciveData[1] = {0};
+	uint8_t data_tr[1] = { reg }, data_re[1] = {0}, data_re2[1] = {0}, numS = 1, numR = 1;
   	
-	I2C_IMU_COMMAND;		// コマンド送信
-	busIMU = BUS_IMU_BUSY;
-	while(busIMU)__nop();
-	I2C_IMU_RECIVE;		// データ送信
-	busIMU = BUS_IMU_BUSY;
-	while(busIMU)__nop();
+	#if USECOM == 0
+		I2C_IMU_COMMAND;		// コマンド送信
+		busIMU = BUS_IMU_BUSY;
+		while(busIMU)__nop();
+		I2C_IMU_RECIVE;		// データ受信
+		busIMU = BUS_IMU_BUSY;
+		while(busIMU)__nop();
+	# else
+		IMU_CS = 0;
+	 	data_tr[0] = 0xf5;
+		R_Config_SCI6_SPI_Master_Send_Receive( data_tr, numS, data_re, numR);
+		busIMU = BUS_IMU_BUSY;
+		while(busIMU)__nop();
+		IMU_CS = 1;
+		
+		IMU_CS = 0;
+		uint8_t data_tr2[1] = {0x00};
+		//data_re[0] = 0x00;
+		R_Config_SCI6_SPI_Master_Send_Receive( data_tr2, numS, data_re2, numR);
+		busIMU = BUS_IMU_BUSY;
+		while(busIMU)__nop();
+		IMU_CS = 1;
+	#endif
 	
-	return reciveData[0];
+	return data_re2[0];
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // モジュール名 IMUReadArry												//
@@ -74,18 +94,20 @@ char IMUReadByte( char reg )
 // 引数         reg:レジスタのアドレス num2 受け取るデータの数 reciveData 取得データを格納する配列	//
 // 戻り値       なし														//
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-void IMUReadArry( char reg, char num2, char* reciveData )
+void IMUReadArry( char reg, char num2, char* data_re )
 {
-	uint8_t sendData[1] = { reg }, num = 1;
+	uint8_t data_tr[1] = { reg }, numS = 1, numR = num2;
 	
-	
-	I2C_IMU_COMMAND;
-	busIMU = BUS_IMU_BUSY;
-	while(busIMU)__nop();
-	num = num2;
-	I2C_IMU_ARRY;
-	busIMU = BUS_IMU_BUSY;
-	while(busIMU)__nop();
+	#if USECOM == 0
+		I2C_IMU_COMMAND;
+		busIMU = BUS_IMU_BUSY;
+		while(busIMU)__nop();
+		I2C_IMU_ARRY;
+		busIMU = BUS_IMU_BUSY;
+		while(busIMU)__nop();
+	# else
+		IMU_SEND;
+	#endif
 }
 ///////////////////////////////////////////////////
 // モジュール名 init_IMU					//
@@ -95,11 +117,14 @@ void IMUReadArry( char reg, char num2, char* reciveData )
 //////////////////////////////////////////////////
 void init_IMU (void)
 {
+	/*
 	IMUWriteByte( PWR_MGMT_1, 0x00);	// スリープモード解除
 	IMUWriteByte( INT_PIN_CFG, 0x02);	// 内蔵プルアップ無効化
 	IMUWriteByte( CONFIG, 0x00);		// ローパスフィルタを使用しない
 	IMUWriteByte( ACCEL_CONFIG, 0x18);	// レンジ±16gに変更
 	IMUWriteByte( GYRO_CONFIG, 0x10);	// レンジ±1000deg/sに変更
+	*/
+	printf("IMU who am i %x\n",IMUReadByte(0x0));
 }
 ///////////////////////////////////////////////////
 // モジュール名 IMUProcess				//
