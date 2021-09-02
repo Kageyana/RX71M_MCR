@@ -14,7 +14,7 @@
 </general>
 <tool id="Clock">
 <option enabled="true" id="vccinput" selection="textinputitem">
-<item enabled="true" id="textinputitem" input="3.3" value="3.3"/>
+<item enabled="true" id="textinputitem" input="3.3" value="3.300"/>
 </option>
 <option enabled="true" id="mainclockenable" selection="check">
 <item enabled="true" id="check"/>
@@ -25,10 +25,10 @@
 <item enabled="true" id="srcEOI"/>
 </option>
 <option enabled="true" id="mainfrequency" selection="textinputitem">
-<item enabled="true" id="textinputitem" input="12" value="24"/>
+<item enabled="true" id="textinputitem" input="12" value="12.000000"/>
 </option>
 <option enabled="true" id="mainwaittime" selection="textinputitem">
-<item enabled="true" id="textinputitem" input="9980" value="9980"/>
+<item enabled="true" id="textinputitem" input="9980" value="9980.000000"/>
 </option>
 <option enabled="true" id="subclockenable" selection="uncheck">
 <item enabled="true" id="check"/>
@@ -42,7 +42,7 @@
 <item enabled="true" id="lowCL"/>
 </option>
 <option enabled="false" id="subwaittime" selection="textinputitem">
-<item enabled="true" id="textinputitem" input="2000" value="2000"/>
+<item enabled="true" id="textinputitem" input="2000" value="2000.000000"/>
 </option>
 <option enabled="true" id="hococlockenable" selection="uncheck">
 <item enabled="true" id="check"/>
@@ -72,36 +72,36 @@
 <item enabled="true" id="textinputitem" input="" value="120"/>
 </option>
 <option enabled="true" id="pllswitcher" selection="pllmain">
-<item enabled="true" id="pllmain" input="" value="24"/>
+<item enabled="true" id="pllmain" input="" value="12.0"/>
 <item enabled="false" id="pllhoco" input="" value="16"/>
 </option>
 <option enabled="true" id="plldivider" selection="div1-1">
 <item enabled="true" id="div1-1"/>
-<item enabled="true" id="div1-2"/>
-<item enabled="true" id="div1-3"/>
+<item enabled="false" id="div1-2"/>
+<item enabled="false" id="div1-3"/>
 </option>
 <option enabled="true" id="pllmul" selection="mul20-1">
 <item enabled="true" id="mul10-1"/>
-<item enabled="false" id="mul10_5-1"/>
-<item enabled="false" id="mul11-1"/>
-<item enabled="false" id="mul11_5-1"/>
-<item enabled="false" id="mul12-1"/>
-<item enabled="false" id="mul12_5-1"/>
-<item enabled="false" id="mul13-1"/>
-<item enabled="false" id="mul13_5-1"/>
-<item enabled="false" id="mul14-1"/>
-<item enabled="false" id="mul14_5-1"/>
-<item enabled="false" id="mul15-1"/>
-<item enabled="false" id="mul15_5-1"/>
-<item enabled="false" id="mul16-1"/>
-<item enabled="false" id="mul16_5-1"/>
-<item enabled="false" id="mul17-1"/>
-<item enabled="false" id="mul17_5-1"/>
-<item enabled="false" id="mul18-1"/>
-<item enabled="false" id="mul18_5-1"/>
-<item enabled="false" id="mul19-1"/>
-<item enabled="false" id="mul19_5-1"/>
-<item enabled="false" id="mul20-1"/>
+<item enabled="true" id="mul10_5-1"/>
+<item enabled="true" id="mul11-1"/>
+<item enabled="true" id="mul11_5-1"/>
+<item enabled="true" id="mul12-1"/>
+<item enabled="true" id="mul12_5-1"/>
+<item enabled="true" id="mul13-1"/>
+<item enabled="true" id="mul13_5-1"/>
+<item enabled="true" id="mul14-1"/>
+<item enabled="true" id="mul14_5-1"/>
+<item enabled="true" id="mul15-1"/>
+<item enabled="true" id="mul15_5-1"/>
+<item enabled="true" id="mul16-1"/>
+<item enabled="true" id="mul16_5-1"/>
+<item enabled="true" id="mul17-1"/>
+<item enabled="true" id="mul17_5-1"/>
+<item enabled="true" id="mul18-1"/>
+<item enabled="true" id="mul18_5-1"/>
+<item enabled="true" id="mul19-1"/>
+<item enabled="true" id="mul19_5-1"/>
+<item enabled="true" id="mul20-1"/>
 <item enabled="false" id="mul20_5-1"/>
 <item enabled="false" id="mul21-1"/>
 <item enabled="false" id="mul21_5-1"/>
@@ -124,8 +124,8 @@
 <item enabled="false" id="mul30-1"/>
 </option>
 <option enabled="true" id="sckswitcher" selection="pll">
-<item enabled="true" id="pll" input="" value="4.8E8"/>
-<item enabled="true" id="main" input="" value="24000000"/>
+<item enabled="true" id="pll" input="" value="2.4E8"/>
+<item enabled="true" id="main" input="" value="1.2E7"/>
 <item enabled="false" id="sub" input="" value="32768.0"/>
 <item enabled="false" id="hoco" input="" value="16000000"/>
 <item enabled="false" id="loco" input="" value="240000"/>
@@ -133,14 +133,14 @@
 <option enabled="true" id="fclkdivider" selection="comboBox1-4">
 <item enabled="false" id="comboBox1-1"/>
 <item enabled="false" id="comboBox1-2"/>
-<item enabled="false" id="comboBox1-4"/>
+<item enabled="true" id="comboBox1-4"/>
 <item enabled="true" id="comboBox1-8"/>
 <item enabled="true" id="comboBox1-16"/>
 <item enabled="true" id="comboBox1-32"/>
 <item enabled="true" id="comboBox1-64"/>
 </option>
 <option enabled="true" id="iclkdivider" selection="comboBox1-1">
-<item enabled="false" id="comboBox1-1"/>
+<item enabled="true" id="comboBox1-1"/>
 <item enabled="true" id="comboBox1-2"/>
 <item enabled="true" id="comboBox1-4"/>
 <item enabled="true" id="comboBox1-8"/>
@@ -150,7 +150,7 @@
 </option>
 <option enabled="true" id="pclkadivider" selection="comboBox1-2">
 <item enabled="false" id="comboBox1-1"/>
-<item enabled="false" id="comboBox1-2"/>
+<item enabled="true" id="comboBox1-2"/>
 <item enabled="true" id="comboBox1-4"/>
 <item enabled="true" id="comboBox1-8"/>
 <item enabled="true" id="comboBox1-16"/>
@@ -160,7 +160,7 @@
 <option enabled="true" id="pclkbdivider" selection="comboBox1-4">
 <item enabled="false" id="comboBox1-1"/>
 <item enabled="false" id="comboBox1-2"/>
-<item enabled="false" id="comboBox1-4"/>
+<item enabled="true" id="comboBox1-4"/>
 <item enabled="true" id="comboBox1-8"/>
 <item enabled="true" id="comboBox1-16"/>
 <item enabled="true" id="comboBox1-32"/>
@@ -169,7 +169,7 @@
 <option enabled="true" id="pclkcdivider" selection="comboBox1-4">
 <item enabled="false" id="comboBox1-1"/>
 <item enabled="false" id="comboBox1-2"/>
-<item enabled="false" id="comboBox1-4"/>
+<item enabled="true" id="comboBox1-4"/>
 <item enabled="true" id="comboBox1-8"/>
 <item enabled="true" id="comboBox1-16"/>
 <item enabled="true" id="comboBox1-32"/>
@@ -178,7 +178,7 @@
 <option enabled="true" id="pclkddivider" selection="comboBox1-4">
 <item enabled="false" id="comboBox1-1"/>
 <item enabled="false" id="comboBox1-2"/>
-<item enabled="false" id="comboBox1-4"/>
+<item enabled="true" id="comboBox1-4"/>
 <item enabled="true" id="comboBox1-8"/>
 <item enabled="true" id="comboBox1-16"/>
 <item enabled="true" id="comboBox1-32"/>
@@ -186,7 +186,7 @@
 </option>
 <option enabled="true" id="bckdivider" selection="comboBox1-2">
 <item enabled="false" id="comboBox1-1"/>
-<item enabled="false" id="comboBox1-2"/>
+<item enabled="true" id="comboBox1-2"/>
 <item enabled="true" id="comboBox1-4"/>
 <item enabled="true" id="comboBox1-8"/>
 <item enabled="true" id="comboBox1-16"/>
@@ -199,44 +199,44 @@
 </option>
 <option enabled="false" id="bckselector" selection="comboBox1-2">
 <item enabled="false" id="comboBox1-1"/>
-<item enabled="false" id="comboBox1-2"/>
+<item enabled="true" id="comboBox1-2"/>
 </option>
-<option enabled="true" id="uckenable" selection="uncheck">
+<option enabled="true" id="uckenable" selection="check">
 <item enabled="true" id="check"/>
 <item enabled="true" id="uncheck"/>
 </option>
-<option enabled="false" id="uckdivider" selection="comboBox1-5">
+<option enabled="true" id="uckdivider" selection="comboBox1-5">
 <item enabled="false" id="comboBox1-2"/>
 <item enabled="false" id="comboBox1-3"/>
 <item enabled="false" id="comboBox1-4"/>
-<item enabled="false" id="comboBox1-5"/>
+<item enabled="true" id="comboBox1-5"/>
 </option>
 <option enabled="true" id="fclk" selection="textoutputitem">
-<item enabled="true" id="textoutputitem" input="" value="120.0"/>
+<item enabled="true" id="textoutputitem" input="" value="60.0"/>
 </option>
 <option enabled="true" id="iclk" selection="textoutputitem">
-<item enabled="true" id="textoutputitem" input="" value="480.0"/>
+<item enabled="true" id="textoutputitem" input="" value="240.0"/>
 </option>
 <option enabled="true" id="pclka" selection="textoutputitem">
-<item enabled="true" id="textoutputitem" input="" value="240.0"/>
+<item enabled="true" id="textoutputitem" input="" value="120.0"/>
 </option>
 <option enabled="true" id="pclkb" selection="textoutputitem">
-<item enabled="true" id="textoutputitem" input="" value="120.0"/>
+<item enabled="true" id="textoutputitem" input="" value="60.0"/>
 </option>
 <option enabled="true" id="pclkc" selection="textoutputitem">
-<item enabled="true" id="textoutputitem" input="" value="120.0"/>
+<item enabled="true" id="textoutputitem" input="" value="60.0"/>
 </option>
 <option enabled="true" id="pclkd" selection="textoutputitem">
-<item enabled="true" id="textoutputitem" input="" value="120.0"/>
+<item enabled="true" id="textoutputitem" input="" value="60.0"/>
 </option>
 <option enabled="true" id="bck" selection="textoutputitem">
-<item enabled="true" id="textoutputitem" input="" value="240.0"/>
-</option>
-<option enabled="false" id="bckpin" selection="textoutputitem">
 <item enabled="true" id="textoutputitem" input="" value="120.0"/>
 </option>
-<option enabled="false" id="uclk" selection="textoutputitem">
-<item enabled="false" id="textoutputitem" input="" value="96.0"/>
+<option enabled="false" id="bckpin" selection="textoutputitem">
+<item enabled="true" id="textoutputitem" input="" value="60.0"/>
+</option>
+<option enabled="true" id="uclk" selection="textoutputitem">
+<item enabled="true" id="textoutputitem" input="" value="48.0"/>
 </option>
 <option enabled="false" id="caclclk" selection="textoutputitem">
 <item enabled="true" id="textoutputitem" input="" value="240"/>
@@ -258,7 +258,7 @@
 <item enabled="true" id="textoutputitem" input="" value="120"/>
 </option>
 <option enabled="true" id="cacmclk" selection="textoutputitem">
-<item enabled="true" id="textoutputitem" input="" value="24"/>
+<item enabled="true" id="textoutputitem" input="" value="12.0"/>
 </option>
 </tool>
 <tool id="Interrupt">
@@ -488,6 +488,7 @@
 </tool>
 <tool id="Pins" version="1.0.1.0">
 <pinItem allocation="11" comments="" direction="None" id="XTAL" isUsedBySoftware="false" locked="false" status="0"/>
+<pinItem allocation="70" comments="" direction="O" id="PA0" isUsedBySoftware="true" locked="false" status="0"/>
 <pinItem allocation="67" comments="" direction="O" id="PA3" isUsedBySoftware="false" locked="false" status="0"/>
 <pinItem allocation="50" comments="" direction="O" id="PC2" isUsedBySoftware="false" locked="false" status="0"/>
 <pinItem allocation="48" comments="" direction="O" id="PC4" isUsedBySoftware="false" locked="false" status="0"/>
@@ -626,7 +627,7 @@
 <item id="In" input="" vlaue="0"/>
 <item id="Out" input="" vlaue="0"/>
 </option>
-<option enabled="false" id="Output1" selection="Output1Use">
+<option enabled="false" id="Output1" selection="Output1Unuse">
 <item id="Output1Unuse" input="" vlaue="0"/>
 <item id="Output1Use" input="" vlaue="0"/>
 <item id="Output1disable" input="" vlaue="0"/>
@@ -885,7 +886,7 @@
 </allocatable>
 <allocatable id="PORTA_Chan">
 <allocatable id="PORTx0_Item">
-<option enabled="true" id="UseStatus" selection="Unuse">
+<option enabled="true" id="UseStatus" selection="Out">
 <item id="Unuse" input="" vlaue="0"/>
 <item id="In" input="" vlaue="0"/>
 <item id="Out" input="" vlaue="0"/>
@@ -1747,7 +1748,7 @@
 <item id="Disable" input="" vlaue="0"/>
 </option>
 </allocatable>
-<osocket id="PORTINFO" value=";PA3_O;PC2_O;PC3_O;PC4_O;PC5_O;PE3_O;PE4_O;PE5_O;PE6_O;PE7_O;P31_O;"/>
+<osocket id="PORTINFO" value=";P31_O;PA3_O;PC2_O;PC3_O;PC4_O;PC5_O;PE3_O;PE4_O;PE5_O;PE6_O;PE7_O;PA0_O;"/>
 </allocatable>
 <component description="このソフトウェア・コンポーネントは、汎用I/Oポートのための構成を提供します。入出力方向や、オープンドレイン出力、入力プルアップ機能などの設定をサポートします。 " detailDescription="" display="ポート" id="com.renesas.smc.tools.swcomponent.codegenerator.port" version="2.1.3"/>
 <allocator channelLevel0="" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="ポートの入力出力構成" display="PORT" id="com.renesas.smc.tools.swcomponent.codegenerator.port.rx71M.PORT" type="">
@@ -1757,7 +1758,7 @@
 </configuration>
 <configuration id="d688a9d4-fc08-4f90-8b22-d47697ec53be" inuse="true" name="Config_CMT0">
 <allocatable id="CMT0">
-<isocket id="CountingClock" selection="Clock.tool_clock_pclkb" value="1.2E8"/>
+<isocket id="CountingClock" selection="Clock.tool_clock_pclkb" value="6.0E7"/>
 <option enabled="true" id="ClockDivision" selection="Devide32">
 <item id="Devide8" input="" vlaue="0"/>
 <item id="Devide32" input="" vlaue="0"/>
@@ -1765,7 +1766,7 @@
 <item id="Devide512" input="" vlaue="0"/>
 </option>
 <option enabled="true" id="IntervalValue" selection="IntervalValue">
-<item id="IntervalValue" input="1" vlaue="3749"/>
+<item id="IntervalValue" input="1" vlaue="1874"/>
 </option>
 <option enabled="true" id="IntervalUnit" selection="ms">
 <item id="ms" input="" vlaue="0"/>
@@ -1804,7 +1805,7 @@
 </configuration>
 <configuration id="5145e36c-55f4-49c3-a0e5-ec1409d8ea19" inuse="true" name="Config_SCI12">
 <allocatable id="SCI12">
-<isocket id="CountingClockB" selection="Clock.tool_clock_pclkb" value="1.2E8"/>
+<isocket id="CountingClockB" selection="Clock.tool_clock_pclkb" value="6.0E7"/>
 <isocket id="CountingClockA" value="1.2E8"/>
 <option enabled="true" id="TransferClock" selection="Internal">
 <item id="Internal" input="" vlaue="0"/>
@@ -1957,7 +1958,7 @@
 </configuration>
 <configuration id="8c4a9bb0-9f9c-427e-851f-6ea3edde15f5" inuse="true" name="Config_SCI1">
 <allocatable id="SCI1">
-<isocket id="CountingClockB" selection="Clock.tool_clock_pclkb" value="1.2E8"/>
+<isocket id="CountingClockB" selection="Clock.tool_clock_pclkb" value="6.0E7"/>
 <option enabled="true" id="BitEdge" selection="LowLevel">
 <item id="LowLevel" input="" vlaue="0"/>
 <item id="FallEdge" input="" vlaue="0"/>
@@ -1989,7 +1990,7 @@
 <item id="8Cyl" input="" vlaue="0"/>
 </option>
 <option enabled="true" id="Bitrate" selection="FreeValue">
-<item id="FreeValue" input="9600" vlaue="9600"/>
+<item id="FreeValue" input="31250" vlaue="9600"/>
 <item id="9600" input="9600" vlaue="0"/>
 <item id="19200" input="19200" vlaue="0"/>
 <item id="31250" input="31250" vlaue="0"/>
@@ -2117,7 +2118,7 @@
 </configuration>
 <configuration id="d80e89c2-a882-4677-9559-ac0534ea942e" inuse="true" name="Config_MTU0">
 <allocatable id="MTU0">
-<isocket id="MTU_PCLK" selection="Clock.tool_clock_pclka" value="2.4E8"/>
+<isocket id="MTU_PCLK" selection="Clock.tool_clock_pclka" value="1.2E8"/>
 <isocket id="TPU_PCLK" value="6.0"/>
 <option enabled="true" id="Sync" selection="Disable">
 <item id="Enable" input="" vlaue="0"/>
@@ -2227,7 +2228,7 @@
 <item id="OutT" input="" vlaue="0"/>
 </option>
 <option enabled="true" id="PeriodValue" selection="PeriodValue">
-<item id="PeriodValue" input="50" vlaue="11999"/>
+<item id="PeriodValue" input="50" vlaue="5999"/>
 </option>
 <option enabled="true" id="Unit" selection="us">
 <item id="ms" input="" vlaue="0"/>
@@ -2643,9 +2644,9 @@
 </configuration>
 <configuration id="da54849f-0b03-4ce9-99b2-5d8889a1ed22" inuse="true" name="Config_S12AD1">
 <allocatable id="S12AD1">
-<isocket id="CountClockI" selection="Clock.tool_clock_iclk" value="4.8E8"/>
-<isocket id="CountADClock" selection="Clock.tool_clock_pclkd" value="1.2E8"/>
-<isocket id="CountClockB" selection="Clock.tool_clock_pclkb" value="1.2E8"/>
+<isocket id="CountClockI" selection="Clock.tool_clock_iclk" value="2.4E8"/>
+<isocket id="CountADClock" selection="Clock.tool_clock_pclkd" value="6.0E7"/>
+<isocket id="CountClockB" selection="Clock.tool_clock_pclkb" value="6.0E7"/>
 <option enabled="true" id="Extendmode" selection="Unuse">
 <item id="Use" input="" vlaue="0"/>
 <item id="Unuse" input="" vlaue="0"/>
@@ -3062,37 +3063,37 @@
 <item id="BetweenRef0Ref1" input="" vlaue="0"/>
 </option>
 <option enabled="false" id="ANx00_Sampling" selection="ANx00_Sampling">
-<item id="ANx00_Sampling" input="0.183" vlaue="22"/>
+<item id="ANx00_Sampling" input="0.183" vlaue="11"/>
 </option>
 <option enabled="false" id="ANx01_Sampling" selection="ANx01_Sampling">
-<item id="ANx01_Sampling" input="0.183" vlaue="22"/>
+<item id="ANx01_Sampling" input="0.183" vlaue="11"/>
 </option>
 <option enabled="false" id="ANx02_Sampling" selection="ANx02_Sampling">
-<item id="ANx02_Sampling" input="0.183" vlaue="22"/>
+<item id="ANx02_Sampling" input="0.183" vlaue="11"/>
 </option>
 <option enabled="false" id="ANx03_Sampling" selection="ANx03_Sampling">
-<item id="ANx03_Sampling" input="0.183" vlaue="22"/>
+<item id="ANx03_Sampling" input="0.183" vlaue="11"/>
 </option>
 <option enabled="false" id="ANx04_Sampling" selection="ANx04_Sampling">
-<item id="ANx04_Sampling" input="0.183" vlaue="22"/>
+<item id="ANx04_Sampling" input="0.183" vlaue="11"/>
 </option>
 <option enabled="false" id="ANx05_Sampling" selection="ANx05_Sampling">
-<item id="ANx05_Sampling" input="0.183" vlaue="22"/>
+<item id="ANx05_Sampling" input="0.183" vlaue="11"/>
 </option>
 <option enabled="false" id="ANx06_Sampling" selection="ANx06_Sampling">
-<item id="ANx06_Sampling" input="0.183" vlaue="22"/>
+<item id="ANx06_Sampling" input="0.183" vlaue="11"/>
 </option>
 <option enabled="false" id="ANx07_Sampling" selection="ANx07_Sampling">
-<item id="ANx07_Sampling" input="0.183" vlaue="22"/>
+<item id="ANx07_Sampling" input="0.183" vlaue="11"/>
 </option>
 <option enabled="true" id="ANLarger_Sampling" selection="ANLarger_Sampling">
-<item id="ANLarger_Sampling" input="2" vlaue="240"/>
+<item id="ANLarger_Sampling" input="2" vlaue="120"/>
 </option>
 <option enabled="false" id="Temperature_Sampling" selection="Temperature_Sampling">
-<item id="Temperature_Sampling" input="0.183" vlaue="22"/>
+<item id="Temperature_Sampling" input="0.183" vlaue="11"/>
 </option>
 <option enabled="false" id="Internal_Sampling" selection="Internal_Sampling">
-<item id="Internal_Sampling" input="0.183" vlaue="22"/>
+<item id="Internal_Sampling" input="0.183" vlaue="11"/>
 </option>
 <option enabled="true" id="S12CMPAIchk" selection="Unuse">
 <item id="Use" input="" vlaue="0"/>
@@ -3125,9 +3126,9 @@
 </configuration>
 <configuration id="77031e2c-8213-4c0d-bdc4-aa2ea2aa0b23" inuse="true" name="Config_S12AD0">
 <allocatable id="S12AD0">
-<isocket id="CountClockI" selection="Clock.tool_clock_iclk" value="4.8E8"/>
-<isocket id="CountADClock" selection="Clock.tool_clock_pclkc" value="1.2E8"/>
-<isocket id="CountClockB" selection="Clock.tool_clock_pclkb" value="1.2E8"/>
+<isocket id="CountClockI" selection="Clock.tool_clock_iclk" value="2.4E8"/>
+<isocket id="CountADClock" selection="Clock.tool_clock_pclkc" value="6.0E7"/>
+<isocket id="CountClockB" selection="Clock.tool_clock_pclkb" value="6.0E7"/>
 <option enabled="true" id="ANx00" selection="Unuse">
 <item id="Use" input="" vlaue="0"/>
 <item id="Unuse" input="" vlaue="0"/>
@@ -3408,31 +3409,31 @@
 <item id="BetweenRef0Ref1" input="" vlaue="0"/>
 </option>
 <option enabled="false" id="DSH_Sampling" selection="DSH_Sampling">
-<item id="DSH_Sampling" input="0.4" vlaue="48"/>
+<item id="DSH_Sampling" input="0.4" vlaue="24"/>
 </option>
 <option enabled="false" id="ANx00_Sampling" selection="ANx00_Sampling">
-<item id="ANx00_Sampling" input="0.183" vlaue="22"/>
+<item id="ANx00_Sampling" input="0.183" vlaue="11"/>
 </option>
 <option enabled="false" id="ANx01_Sampling" selection="ANx01_Sampling">
-<item id="ANx01_Sampling" input="0.183" vlaue="22"/>
+<item id="ANx01_Sampling" input="0.183" vlaue="11"/>
 </option>
 <option enabled="false" id="ANx02_Sampling" selection="ANx02_Sampling">
-<item id="ANx02_Sampling" input="0.183" vlaue="22"/>
+<item id="ANx02_Sampling" input="0.183" vlaue="11"/>
 </option>
 <option enabled="false" id="ANx03_Sampling" selection="ANx03_Sampling">
-<item id="ANx03_Sampling" input="0.183" vlaue="22"/>
+<item id="ANx03_Sampling" input="0.183" vlaue="11"/>
 </option>
 <option enabled="false" id="ANx04_Sampling" selection="ANx04_Sampling">
-<item id="ANx04_Sampling" input="0.183" vlaue="22"/>
+<item id="ANx04_Sampling" input="0.183" vlaue="11"/>
 </option>
 <option enabled="false" id="ANx05_Sampling" selection="ANx05_Sampling">
-<item id="ANx05_Sampling" input="0.183" vlaue="22"/>
+<item id="ANx05_Sampling" input="0.183" vlaue="11"/>
 </option>
 <option enabled="true" id="ANx06_Sampling" selection="ANx06_Sampling">
-<item id="ANx06_Sampling" input="2" vlaue="240"/>
+<item id="ANx06_Sampling" input="2" vlaue="120"/>
 </option>
 <option enabled="true" id="ANx07_Sampling" selection="ANx07_Sampling">
-<item id="ANx07_Sampling" input="2" vlaue="240"/>
+<item id="ANx07_Sampling" input="2" vlaue="120"/>
 </option>
 <option enabled="true" id="S12CMPAIchk" selection="Unuse">
 <item id="Use" input="" vlaue="0"/>
@@ -3465,8 +3466,8 @@
 </configuration>
 <configuration id="be9ac6a5-a543-4c73-80b2-733fc7694555" inuse="true" name="Config_SCI5">
 <allocatable id="SCI5">
-<isocket id="PCLKB" selection="Clock.tool_clock_pclkb" value="1.2E8"/>
-<isocket id="PCLKA" selection="Clock.tool_clock_pclka" value="2.4E8"/>
+<isocket id="PCLKB" selection="Clock.tool_clock_pclkb" value="6.0E7"/>
+<isocket id="PCLKA" selection="Clock.tool_clock_pclka" value="1.2E8"/>
 <option enabled="true" id="Direction" selection="MSB">
 <item id="LSB" input="" vlaue="0"/>
 <item id="MSB" input="" vlaue="0"/>
@@ -3479,7 +3480,7 @@
 <item id="ClkIn" input="" vlaue="0"/>
 </option>
 <option enabled="true" id="Bitrate" selection="Bitrate">
-<item id="Bitrate" input="30000" vlaue="1000"/>
+<item id="Bitrate" input="15000" vlaue="1000"/>
 </option>
 <option enabled="true" id="Modulate" selection="Disable">
 <item id="Disable" input="" vlaue="0"/>
@@ -3607,9 +3608,9 @@
 </configuration>
 <configuration id="ae2335aa-2651-4789-9592-51246e25d1af" inuse="true" name="Config_SCI6">
 <allocatable id="SCI6">
-<isocket id="PCLKB" selection="Clock.tool_clock_pclkb" value="1.2E8"/>
-<isocket id="PCLKA" selection="Clock.tool_clock_pclka" value="2.4E8"/>
-<option enabled="true" id="Direction" selection="LSB">
+<isocket id="PCLKB" selection="Clock.tool_clock_pclkb" value="6.0E7"/>
+<isocket id="PCLKA" selection="Clock.tool_clock_pclka" value="1.2E8"/>
+<option enabled="true" id="Direction" selection="MSB">
 <item id="LSB" input="" vlaue="0"/>
 <item id="MSB" input="" vlaue="0"/>
 </option>
@@ -3621,7 +3622,7 @@
 <item id="ClkIn" input="" vlaue="0"/>
 </option>
 <option enabled="true" id="Bitrate" selection="Bitrate">
-<item id="Bitrate" input="30000" vlaue="1000"/>
+<item id="Bitrate" input="1000" vlaue="1000"/>
 </option>
 <option enabled="true" id="Modulate" selection="Disable">
 <item id="Disable" input="" vlaue="0"/>
@@ -3728,7 +3729,7 @@
 <item id="Div64" input="" vlaue="0"/>
 </option>
 <option enabled="true" id="regBRR" selection="regBRR">
-<item id="regBRR" input="14" vlaue="0"/>
+<item id="regBRR" input="14" vlaue="14"/>
 </option>
 <option enabled="true" id="regMDDR" selection="regMDDR">
 <item id="regMDDR" input="239" vlaue="128"/>
