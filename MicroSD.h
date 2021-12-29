@@ -24,7 +24,7 @@
 //#define MSD_CS_TERMINAL_HIGH	R_PG_IO_PORT_Write_PA0( 1 );	// HIGHT
 //#define MSD_CS_TERMINAL_LOW	R_PG_IO_PORT_Write_PA0( 0 );	// LOW
 
-#define MSD_CS			PORTA.PODR.BIT.B0	// CS端子
+#define MSD_CS			PORTA.PODR.BIT.B3	// CS端子
 #define CS_HIGH			1	// HIGH
 #define CS_LOW			0	// LOW
 
@@ -32,7 +32,7 @@
 #define SPI_SEND			R_Config_SCI5_SPI_Master_Send_Receive( data_tr, 1, data_re, 1)
 
 // SDスイッチ
-#define GET_SDSWITCH		PORTA.PIDR.BIT.B6
+#define GET_SDSWITCH		PORTA.PIDR.BIT.B5
 #define SLOTIN				0	// SDカードあり
 #define SLOTOUT			1	// SDカード無し
 /*******************************************************************************/

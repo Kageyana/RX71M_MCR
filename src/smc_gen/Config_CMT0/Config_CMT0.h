@@ -18,11 +18,10 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : Config_CMT0.h
-* Version      : 2.0.2
-* Device(s)    : R5F571MFCxFP
-* Description  : This file implements device driver for Config_CMT0.
-* Creation Date: 2021-09-02
+* File Name        : Config_CMT0.h
+* Component Version: 2.2.0
+* Device(s)        : R5F571MFCxFP
+* Description      : This file implements device driver for Config_CMT0.
 ***********************************************************************************************************************/
 
 #ifndef CFG_Config_CMT0_H
@@ -40,10 +39,10 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define CMT0_PCLK_COUNTER_DIVISION          (32)
+#define CMT0_PCLK_COUNTER_DIVISION          (8)
 
 /* Compare Match Constant Register (CMCOR) */
-#define _0752_CMT0_CMCOR_VALUE              (0x0752U)
+#define _1D4B_CMT0_CMCOR_VALUE              (0x1D4BU)
 
 /***********************************************************************************************************************
 Typedef definitions

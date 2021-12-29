@@ -18,11 +18,10 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : Config_MTU2.h
-* Version      : 2.1.1
-* Device(s)    : R5F571MFCxFP
-* Description  : This file implements device driver for Config_MTU2.
-* Creation Date: 2021-09-02
+* File Name        : Config_MTU2.h
+* Component Version: 2.3.0
+* Device(s)        : R5F571MFCxFP
+* Description      : This file implements device driver for Config_MTU2.
 ***********************************************************************************************************************/
 
 #ifndef CFG_Config_MTU2_H

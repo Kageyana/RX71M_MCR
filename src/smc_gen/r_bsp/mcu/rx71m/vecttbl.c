@@ -33,6 +33,11 @@
 *                               (Exception functions moved to the common file (r_bsp_interrupts.c).)
 *                               Added support for GNUC and ICCRX.
 *                               Fixed coding style.
+*         : 31.07.2019 3.01     Fixed initialization for option-setting memory.
+*         : 08.10.2019 3.02     Changed for added support of Renesas RTOS (RI600V4 or RI600PX).
+*         : 20.11.2020 3.03     Added the setting of ID code protection for BSP_CFG_ID_CODE_ENABLE.
+*         : 29.01.2021 3.04     Added the macro definition of BSP_PRV_SPCC_VALUE and modified the setting of 
+*                               ID code protection for BSP_CFG_ID_CODE_ENABLE.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -62,6 +67,12 @@ R_BSP_UB_POR_FUNCTION(R_BSP_UB_POWER_ON_RESET_FUNCTION);
     #define BSP_PRV_MDE_VALUE (0xfffffff8)    /* big */
 #else
     #define BSP_PRV_MDE_VALUE (0xffffffff)    /* little */
+#endif
+
+#if BSP_CFG_ID_CODE_ENABLE == 1
+    #define BSP_PRV_SPCC_VALUE (0x1effffff)    /* ID code protection is enabled after a reset. */
+#else
+    #define BSP_PRV_SPCC_VALUE (0xffffffff)    /* ID code protection is disabled after a reset. */
 #endif
 
 /* The UB Code A, UB Code B, and Endian select register B (MDEB) are located in the User Boot space. Immediately
@@ -110,7 +121,7 @@ R_BSP_ATTRIB_SECTION_CHANGE_END
 #pragma address __OFS0reg  = 0x00120068         /* OFS0 register */
 #pragma address __OFS1reg  = 0x0012006c         /* OFS1 register */
 
-const uint32_t __SPCCreg  = 0xffffffff;
+const uint32_t __SPCCreg  = BSP_PRV_SPCC_VALUE;
 const uint32_t __TMEFreg  = BSP_CFG_TRUSTED_MODE_FUNCTION;
 const uint32_t __OSIS1reg = BSP_CFG_ID_CODE_LONG_1;
 const uint32_t __OSIS2reg = BSP_CFG_ID_CODE_LONG_2;
@@ -123,20 +134,24 @@ const uint32_t __OFS1reg  = BSP_CFG_OFS1_REG_VALUE;
 
 #elif defined(__GNUC__)
 
-const uint32_t __SPCCreg  __attribute__ ((section(".ofs1"))) = 0xffffffff;
+const uint32_t __SPCCreg  __attribute__ ((section(".ofs1"))) = BSP_PRV_SPCC_VALUE;
 const uint32_t __TMEFreg  __attribute__ ((section(".ofs2"))) = BSP_CFG_TRUSTED_MODE_FUNCTION;
-const uint32_t __OSIS1reg __attribute__ ((section(".ofs3"))) = BSP_CFG_ID_CODE_LONG_1;
-const uint32_t __OSIS2reg __attribute__ ((section(".ofs3"))) = BSP_CFG_ID_CODE_LONG_2;
-const uint32_t __OSIS3reg __attribute__ ((section(".ofs3"))) = BSP_CFG_ID_CODE_LONG_3;
-const uint32_t __OSIS4reg __attribute__ ((section(".ofs3"))) = BSP_CFG_ID_CODE_LONG_4;
-const uint32_t __TMINFreg __attribute__ ((section(".ofs4"))) = 0xffffffff;
-const uint32_t __MDEreg   __attribute__ ((section(".ofs4"))) = BSP_PRV_MDE_VALUE;
-const uint32_t __OFS0reg  __attribute__ ((section(".ofs4"))) = BSP_CFG_OFS0_REG_VALUE;
-const uint32_t __OFS1reg  __attribute__ ((section(".ofs4"))) = BSP_CFG_OFS1_REG_VALUE;
+const st_ofsm_sec_ofs3_t __ofsm_sec_ofs3   __attribute__ ((section(".ofs3"))) = {
+    BSP_CFG_ID_CODE_LONG_1, /* __OSIS1reg */
+    BSP_CFG_ID_CODE_LONG_2, /* __OSIS2reg */
+    BSP_CFG_ID_CODE_LONG_3, /* __OSIS3reg */
+    BSP_CFG_ID_CODE_LONG_4  /* __OSIS4reg */
+};
+const st_ofsm_sec_ofs4_t __ofsm_sec_ofs4   __attribute__ ((section(".ofs4"))) = {
+    0xffffffff, /* __TMINFreg */
+    BSP_PRV_MDE_VALUE, /* __MDEreg */
+    BSP_CFG_OFS0_REG_VALUE, /* __OFS0reg */
+    BSP_CFG_OFS1_REG_VALUE  /* __OFS1reg */
+};
 
 #elif defined(__ICCRX__)
 
-#pragma public_equ = "__SPCC", 0xffffffff
+#pragma public_equ = "__SPCC", BSP_PRV_SPCC_VALUE
 #pragma public_equ = "__TMEF", BSP_CFG_TRUSTED_MODE_FUNCTION
 #pragma public_equ = "__OSIS_1", BSP_CFG_ID_CODE_LONG_1
 #pragma public_equ = "__OSIS_2", BSP_CFG_ID_CODE_LONG_2
@@ -152,6 +167,10 @@ const uint32_t __OFS1reg  __attribute__ ((section(".ofs4"))) = BSP_CFG_OFS1_REG_
 /***********************************************************************************************************************
 * The following array fills in the exception vector table.
 ***********************************************************************************************************************/
+#if BSP_CFG_RTOS_USED == 4  /* Renesas RI600V4 & RI600PX */
+     /* System configurator generates the ritble.src as interrupt & exception vector tables. */
+#else /* BSP_CFG_RTOS_USED!=4 */
+
 #if defined(__CCRX__) || defined(__GNUC__)
 R_BSP_ATTRIB_SECTION_CHANGE_EXCEPTVECT void (* const Except_Vectors[])(void) =
 {
@@ -203,6 +222,8 @@ R_BSP_ATTRIB_SECTION_CHANGE_RESETVECT void (* const Reset_Vector[])(void) =
 };
 R_BSP_ATTRIB_SECTION_CHANGE_END
 #endif /* defined(__CCRX__), defined(__GNUC__) */
+
+#endif/* BSP_CFG_RTOS_USED */
 
 #endif /* BSP_CFG_STARTUP_DISABLE == 0 */
 

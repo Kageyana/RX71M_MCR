@@ -18,11 +18,10 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : Config_S12AD0_user.c
-* Version      : 1.10.1
-* Device(s)    : R5F571MFCxFP
-* Description  : This file implements device driver for Config_S12AD0.
-* Creation Date: 2021-09-02
+* File Name        : Config_S12AD0_user.c
+* Component Version: 2.4.0
+* Device(s)        : R5F571MFCxFP
+* Description      : This file implements device driver for Config_S12AD0.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -37,7 +36,6 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "Config_S12AD0.h"
 /* Start user code for include. Do not edit comment generated here */
-#include "AD12.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
@@ -75,8 +73,19 @@ void R_Config_S12AD0_Create_UserInit(void)
 static void r_Config_S12AD0_interrupt(void)
 {
     /* Start user code for r_Config_S12AD0_interrupt. Do not edit comment generated here */
-    A_Sen[1] = (uint16_t)(S12AD.ADDR6);
-    A_Sen[2] = (uint16_t)(S12AD.ADDR7);
+    /* End user code. Do not edit comment generated here */
+}
+
+/***********************************************************************************************************************
+* Function Name: r_Config_S12AD0_compare_interrupt
+* Description  : This function is S12CMPI interrupt service routine
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+
+void r_Config_S12AD0_compare_interrupt(void)
+{
+    /* Start user code for r_Config_S12AD0_compare_interrupt. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
 

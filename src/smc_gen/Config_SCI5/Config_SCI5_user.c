@@ -18,11 +18,10 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : Config_SCI5_user.c
-* Version      : 1.9.3
-* Device(s)    : R5F571MFCxFP
-* Description  : This file implements device driver for Config_SCI5.
-* Creation Date: 2021-09-02
+* File Name        : Config_SCI5_user.c
+* Component Version: 1.11.0
+* Device(s)        : R5F571MFCxFP
+* Description      : This file implements device driver for Config_SCI5.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -37,7 +36,6 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "Config_SCI5.h"
 /* Start user code for include. Do not edit comment generated here */
-#include "MicroSD.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
@@ -178,7 +176,6 @@ void r_Config_SCI5_receiveerror_interrupt(void)
 static void r_Config_SCI5_callback_transmitend(void)
 {
     /* Start user code for r_Config_SCI5_callback_transmitend. Do not edit comment generated here */
-    busMSD = BUS_MSD_FREE;
     /* End user code. Do not edit comment generated here */
 }
 
@@ -192,7 +189,6 @@ static void r_Config_SCI5_callback_transmitend(void)
 static void r_Config_SCI5_callback_receiveend(void)
 {
     /* Start user code for r_Config_SCI5_callback_receiveend. Do not edit comment generated here */
-    busMSD = BUS_MSD_FREE;
     /* End user code. Do not edit comment generated here */
 }
 

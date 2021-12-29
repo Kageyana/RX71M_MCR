@@ -18,11 +18,10 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : Config_SCI5.c
-* Version      : 1.9.3
-* Device(s)    : R5F571MFCxFP
-* Description  : This file implements device driver for Config_SCI5.
-* Creation Date: 2021-09-02
+* File Name        : Config_SCI5.c
+* Component Version: 1.11.0
+* Device(s)        : R5F571MFCxFP
+* Description      : This file implements device driver for Config_SCI5.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -96,8 +95,8 @@ void R_Config_SCI5_Create(void)
     PORTA.PMR.BYTE |= 0x10U;
 
     /* Set SCK5 pin */
-    MPC.PC1PFS.BYTE = 0x0AU;
-    PORTC.PMR.BYTE |= 0x02U;
+    MPC.PA1PFS.BYTE = 0x0AU;
+    PORTA.PMR.BYTE |= 0x02U;
 
     R_Config_SCI5_Create_UserInit();
 }

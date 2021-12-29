@@ -14,36 +14,111 @@
 * following link:
 * http://www.renesas.com/disclaimer
 *
-* Copyright (C) 2013 Renesas Electronics Corporation. All rights reserved.
+* Copyright (C) 2019 Renesas Electronics Corporation. All rights reserved.
 ***********************************************************************************************************************/
 /***********************************************************************************************************************
-* File Name    : lowsrc.h
-* Description  : Functions to support stream I/O
+* File Name    : r_bsp_software_interrupt.h
+* Description  : This module implements software interrupt specific functions.
 ***********************************************************************************************************************/
-/***********************************************************************************************************************
+/**********************************************************************************************************************
 * History : DD.MM.YYYY Version  Description
-*         : 28.02.2019 2.00     Merged processing of all devices.
-*                               Added support for GNUC and ICCRX.
-*                               Fixed coding style.
-*         : 31.07.2020 2.01     Fixed an issue that caused build errors when the _REENTRANT option was specified in 
-*                               the CCRX compiler.
-*         : 29.01.2021 3.01     Added tha __write function and __read function for ICCRX.
+*         : 08.10.2019 1.00     First Release
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
 Includes   <System Includes> , "Project Includes"
 ***********************************************************************************************************************/
+#include "platform.h"
+
+/* Multiple inclusion prevention macro */
+#ifndef SOFTWARE_INTERRUPT_H
+#define SOFTWARE_INTERRUPT_H
 
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-/* Multiple inclusion prevention macro */
-#ifndef LOWSRC_H
-#define LOWSRC_H
 
 /***********************************************************************************************************************
 Typedef definitions
 ***********************************************************************************************************************/
+#if (defined(BSP_CFG_SWINT_UNIT1_ENABLE) && (BSP_CFG_SWINT_UNIT1_ENABLE == 1)) || \
+    (defined(BSP_CFG_SWINT_UNIT2_ENABLE) && (BSP_CFG_SWINT_UNIT2_ENABLE == 1))
+
+typedef enum e_bsp_swint_unit
+{
+#if (defined(BSP_CFG_SWINT_UNIT1_ENABLE) && (BSP_CFG_SWINT_UNIT1_ENABLE == 1))
+    BSP_SWINT_UNIT1,
+#endif /* (defined(BSP_CFG_SWINT_UNIT1_ENABLE) && (BSP_CFG_SWINT_UNIT1_ENABLE == 1)) */
+#if (defined(BSP_CFG_SWINT_UNIT2_ENABLE) && (BSP_CFG_SWINT_UNIT2_ENABLE == 1))
+    BSP_SWINT_UNIT2,
+#endif /* (defined(BSP_CFG_SWINT_UNIT2_ENABLE) && (BSP_CFG_SWINT_UNIT2_ENABLE == 1)) */
+    BSP_SWINT_UNIT_MAX
+} e_bsp_swint_unit_t;
+
+typedef enum e_bsp_swint_err
+{
+    BSP_SWINT_SUCCESS = 0,
+    BSP_SWINT_ERR_ALREADY_OPEN,
+    BSP_SWINT_ERR_NOT_CLOSED,
+    BSP_SWINT_ERR_INVALID_UNIT,
+    BSP_SWINT_ERR_INVALID_IPR,
+    BSP_SWINT_ERR_INVALID_CMD,
+    BSP_SWINT_ERR_INVALID_TASK,
+    BSP_SWINT_ERR_INVALID_BUFFER_NUMBER,
+    BSP_SWINT_ERR_TASK_EXECUTING,
+    BSP_SWINT_ERR_FULL_BUFFER,
+    BSP_SWINT_ERR_ACCESS_REJECTION
+} e_bsp_swint_err_t;
+
+typedef enum e_bsp_swint_cmd
+{
+    BSP_SWINT_CMD_GET_INTERRUPT_INFORMATION = 0,
+    BSP_SWINT_CMD_ENABLE_INTERRUPT,
+    BSP_SWINT_CMD_DISABLE_INTERRUPT,
+    BSP_SWINT_CMD_SET_INTERRUPT_PRIORITY,
+    BSP_SWINT_CMD_SET_INTERRUPT_REQUEST,
+    BSP_SWINT_CMD_CLEAR_INTERRUPT_REQUEST,
+    BSP_SWINT_CMD_ENABLE_NESTED_INTERRUPT,
+    BSP_SWINT_CMD_DISABLE_NESTED_INTERRUPT,
+    BSP_SWINT_CMD_CLEAR_TASK,
+    BSP_SWINT_CMD_CLEAR_ALL_TASK,
+    BSP_SWINT_CMD_GET_ALL_TASK_STATUS,
+    BSP_SWINT_CMD_GET_USED_BUFFER,
+    BSP_SWINT_CMD_GET_UNUSED_BUFFER
+} e_bsp_swint_cmd_t;
+
+typedef struct st_bsp_swint_int_info
+{
+    uint8_t ipr;
+    uint8_t ien;
+    uint8_t ir;
+    uint8_t nested_int;
+} st_bsp_swint_int_info_t;
+
+typedef enum e_bsp_swint_task_status
+{
+    BSP_SWINT_TASK_STATUS_NO_REQUEST = 0,
+    BSP_SWINT_TASK_STATUS_REQUESTED,
+    BSP_SWINT_TASK_STATUS_EXECUTING,
+    BSP_SWINT_TASK_STATUS_COMPLETED
+} e_bsp_swint_task_status_t;
+
+typedef struct st_bsp_swint_task
+{
+    e_bsp_swint_task_status_t status;
+    void (*p_taskAddr)(void *p_task_args);
+    void *p_context;
+} st_bsp_swint_task_t;
+
+typedef struct st_bsp_swint_task_buffer
+{
+    uint8_t number;
+} st_bsp_swint_task_buffer_t;
+
+typedef struct st_bsp_swint_access_control
+{
+    int32_t status;
+} st_bsp_swint_access_control_t;
 
 /***********************************************************************************************************************
 Exported global variables
@@ -52,36 +127,12 @@ Exported global variables
 /***********************************************************************************************************************
 Exported global functions (to be accessed by other files)
 ***********************************************************************************************************************/
-#if defined(__CCRX__)
-void init_iolib(void);
-void close_all(void);
-long open(const char *name, long  mode, long  flg);
-long close(long fileno);
-long write(long  fileno, const unsigned char *buf, long  count);
-long read(long fileno, unsigned char *buf, long count);
-long lseek(long fileno, long offset, long base);
-#ifdef _REENTRANT
-long *errno_addr(void);
-long wait_sem(long semnum);
-long signal_sem(long semnum);
-#endif
-#endif /* defined(__CCRX__) */
+e_bsp_swint_err_t R_BSP_SoftwareInterruptOpen(e_bsp_swint_unit_t unit);
+e_bsp_swint_err_t R_BSP_SoftwareInterruptClose(e_bsp_swint_unit_t unit);
+e_bsp_swint_err_t R_BSP_SoftwareInterruptSetTask(e_bsp_swint_unit_t unit, st_bsp_swint_task_t set_task);
+e_bsp_swint_err_t R_BSP_SoftwareInterruptControl(e_bsp_swint_unit_t unit, e_bsp_swint_cmd_t const cmd, void * const p_args);
 
-#if defined(__GNUC__)
-int write(int fileno, char *buf, int count);
-int read(int fileno, char *buf, int count);
-int _write(int fileno, char *buf, int count);
-int _read(int fileno, char *buf, int count);
-void close(void);
-void fstat(void);
-void isatty(void);
-void lseek(void);
-#endif /* defined(__GNUC__) */
-
-#if defined(__ICCRX__)
-size_t __write(int handle, const unsigned char *buf, size_t bufSize);
-size_t __read(int handle, unsigned char *buf, size_t bufSize);
-#endif /* defined(__ICCRX__) */
+#endif /* (BSP_CFG_SWINT_UNIT1_ENABLE == 1) || (BSP_CFG_SWINT_UNIT2_ENABLE == 1) */
 
 #endif  /* End of multiple inclusion prevention macro */
 

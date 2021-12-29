@@ -18,11 +18,10 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : Config_SCI1_user.c
-* Version      : 1.9.2
-* Device(s)    : R5F571MFCxFP
-* Description  : This file implements device driver for Config_SCI1.
-* Creation Date: 2021-09-02
+* File Name        : Config_SCI1_user.c
+* Component Version: 1.11.0
+* Device(s)        : R5F571MFCxFP
+* Description      : This file implements device driver for Config_SCI1.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -61,6 +60,7 @@ extern volatile uint16_t  g_sci1_rx_length;                  /* SCI1 receive dat
 void R_Config_SCI1_Create_UserInit(void)
 {
     /* Start user code for user init. Do not edit comment generated here */
+    // 送信ポートを有効化
     PORT2.PMR.BYTE |= 0x40U;
     SCI1.SCR.BIT.TE = 1U;
     /* End user code. Do not edit comment generated here */
@@ -158,5 +158,10 @@ void r_Config_SCI1_receiveerror_interrupt(void)
 }
 
 /* Start user code for adding. Do not edit comment generated here */
-
+void BSP_CFG_USER_CHARPUT_FUNCTION( char output_char )
+{
+	// printfの出力先をSCI1にする
+	while(!SCI1.SSR.BIT.TDRE);
+	SCI1.TDR = output_char;
+}
 /* End user code. Do not edit comment generated here */

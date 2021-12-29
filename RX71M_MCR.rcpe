@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <MicomToolCommonProjectFile Version="1.00">
-  <CreatorType Name="CubeSuite+" Version="V8.05.00  [26 Nov 2020]" />
+  <CreatorType Name="CubeSuite+" Version="V8.06.00  [03 Jun 2021]" />
   <Placeholders>
     <PlaceholderPrefix>%</PlaceholderPrefix>
     <PlaceholderPostfix>%</PlaceholderPostfix>
@@ -8,46 +8,70 @@
   <Project Name="RX71M_MCR" Type="Application">
     <Files>
       <Path>RX71M_MCR.c</Path>
+      <Path>I2C_LCD.c</Path>
+      <Path>I2C_LCD.h</Path>
+      <Path>Timer.h</Path>
+      <Path>Motor.c</Path>
+      <Path>Motor.h</Path>
+      <Path>Rotaryencoder.c</Path>
+      <Path>Rotaryencoder.h</Path>
+      <Path>AD12.c</Path>
+      <Path>AD12.h</Path>
+      <Path>I2C_MPU9250.c</Path>
+      <Path>I2C_MPU9250.h</Path>
+      <Path>MicroSD.c</Path>
+      <Path>MicroSD.h</Path>
       <Category Name="Smart Configurator">
-        <Category Name="general">
-          <Path>src\smc_gen\general\r_smc_cgc.c</Path>
-          <Path>src\smc_gen\general\r_smc_cgc.h</Path>
-          <Path>src\smc_gen\general\r_smc_cgc_user.c</Path>
-          <Path>src\smc_gen\general\r_smc_interrupt.c</Path>
-          <Path>src\smc_gen\general\r_smc_interrupt.h</Path>
-          <Path>src\smc_gen\general\r_cg_cmt.h</Path>
-          <Path>src\smc_gen\general\r_cg_cmtw.h</Path>
-          <Path>src\smc_gen\general\r_cg_hardware_setup.c</Path>
-          <Path>src\smc_gen\general\r_cg_macrodriver.h</Path>
-          <Path>src\smc_gen\general\r_cg_port.h</Path>
-          <Path>src\smc_gen\general\r_cg_riic.h</Path>
-          <Path>src\smc_gen\general\r_cg_sci.h</Path>
-          <Path>src\smc_gen\general\r_cg_userdefine.h</Path>
-          <Path>src\smc_gen\general\r_smc_entry.h</Path>
-          <Path>src\smc_gen\general\r_cg_scif.h</Path>
-          <Path>src\smc_gen\general\r_cg_mtu3.h</Path>
-          <Path>src\smc_gen\general\r_cg_tpu.h</Path>
-          <Path>src\smc_gen\general\r_cg_s12ad.h</Path>
-          <Path>src\smc_gen\general\r_cg_rspi.h</Path>
-        </Category>
-        <Category Name="r_config">
-          <Path>src\smc_gen\r_config\r_bsp_interrupt_config.h</Path>
-          <Path>src\smc_gen\r_config\r_bsp_config.h</Path>
-          <Path>src\smc_gen\r_config\r_bsp_config_readme.txt</Path>
-        </Category>
-        <Category Name="r_pincfg">
-          <Path>src\smc_gen\r_pincfg\Pin.c</Path>
-          <Path>src\smc_gen\r_pincfg\Pin.h</Path>
-        </Category>
         <Category Name="Config_CMT0">
           <Path>src\smc_gen\Config_CMT0\Config_CMT0.c</Path>
           <Path>src\smc_gen\Config_CMT0\Config_CMT0.h</Path>
           <Path>src\smc_gen\Config_CMT0\Config_CMT0_user.c</Path>
         </Category>
+        <Category Name="Config_MTU0">
+          <Path>src\smc_gen\Config_MTU0\Config_MTU0.c</Path>
+          <Path>src\smc_gen\Config_MTU0\Config_MTU0.h</Path>
+          <Path>src\smc_gen\Config_MTU0\Config_MTU0_user.c</Path>
+        </Category>
+        <Category Name="Config_MTU2">
+          <Path>src\smc_gen\Config_MTU2\Config_MTU2.c</Path>
+          <Path>src\smc_gen\Config_MTU2\Config_MTU2.h</Path>
+          <Path>src\smc_gen\Config_MTU2\Config_MTU2_user.c</Path>
+        </Category>
         <Category Name="Config_PORT">
           <Path>src\smc_gen\Config_PORT\Config_PORT.c</Path>
           <Path>src\smc_gen\Config_PORT\Config_PORT.h</Path>
           <Path>src\smc_gen\Config_PORT\Config_PORT_user.c</Path>
+        </Category>
+        <Category Name="Config_S12AD0">
+          <Path>src\smc_gen\Config_S12AD0\Config_S12AD0.c</Path>
+          <Path>src\smc_gen\Config_S12AD0\Config_S12AD0.h</Path>
+          <Path>src\smc_gen\Config_S12AD0\Config_S12AD0_user.c</Path>
+        </Category>
+        <Category Name="Config_SCI1">
+          <Path>src\smc_gen\Config_SCI1\Config_SCI1.c</Path>
+          <Path>src\smc_gen\Config_SCI1\Config_SCI1.h</Path>
+          <Path>src\smc_gen\Config_SCI1\Config_SCI1_user.c</Path>
+        </Category>
+        <Category Name="Config_SCI12">
+          <Path>src\smc_gen\Config_SCI12\Config_SCI12.c</Path>
+          <Path>src\smc_gen\Config_SCI12\Config_SCI12.h</Path>
+          <Path>src\smc_gen\Config_SCI12\Config_SCI12_user.c</Path>
+        </Category>
+        <Category Name="general">
+          <Path>src\smc_gen\general\r_cg_cmt.h</Path>
+          <Path>src\smc_gen\general\r_cg_hardware_setup.c</Path>
+          <Path>src\smc_gen\general\r_cg_macrodriver.h</Path>
+          <Path>src\smc_gen\general\r_cg_mtu3.h</Path>
+          <Path>src\smc_gen\general\r_cg_port.h</Path>
+          <Path>src\smc_gen\general\r_cg_s12ad.h</Path>
+          <Path>src\smc_gen\general\r_cg_sci.h</Path>
+          <Path>src\smc_gen\general\r_cg_userdefine.h</Path>
+          <Path>src\smc_gen\general\r_smc_cgc.c</Path>
+          <Path>src\smc_gen\general\r_smc_cgc.h</Path>
+          <Path>src\smc_gen\general\r_smc_cgc_user.c</Path>
+          <Path>src\smc_gen\general\r_smc_entry.h</Path>
+          <Path>src\smc_gen\general\r_smc_interrupt.c</Path>
+          <Path>src\smc_gen\general\r_smc_interrupt.h</Path>
         </Category>
         <Category Name="r_bsp">
           <Path>src\smc_gen\r_bsp\platform.h</Path>
@@ -66,21 +90,21 @@
           </Category>
           <Category Name="doc">
             <Category Name="en">
-              <Path>src\smc_gen\r_bsp\doc\en\r01an1685ej0520-rx-bsp.pdf</Path>
+              <Path>src\smc_gen\r_bsp\doc\en\r01an1685ej0564-rx-bsp.pdf</Path>
             </Category>
             <Category Name="ja">
-              <Path>src\smc_gen\r_bsp\doc\ja\r01an1685jj0520-rx-bsp.pdf</Path>
+              <Path>src\smc_gen\r_bsp\doc\ja\r01an1685jj0564-rx-bsp.pdf</Path>
             </Category>
           </Category>
           <Category Name="mcu">
             <Category Name="all">
               <Path>src\smc_gen\r_bsp\mcu\all\dbsct.c</Path>
-              <Path>src\smc_gen\r_bsp\mcu\all\linker_script_rvectors.inc</Path>
+              <Path>src\smc_gen\r_bsp\mcu\all\lowlvl.c</Path>
+              <Path>src\smc_gen\r_bsp\mcu\all\lowlvl.h</Path>
               <Path>src\smc_gen\r_bsp\mcu\all\lowsrc.c</Path>
               <Path>src\smc_gen\r_bsp\mcu\all\lowsrc.h</Path>
               <Path>src\smc_gen\r_bsp\mcu\all\mcu_locks.c</Path>
               <Path>src\smc_gen\r_bsp\mcu\all\resetprg.c</Path>
-              <Path>src\smc_gen\r_bsp\mcu\all\reset_program.S</Path>
               <Path>src\smc_gen\r_bsp\mcu\all\r_bsp_common.c</Path>
               <Path>src\smc_gen\r_bsp\mcu\all\r_bsp_common.h</Path>
               <Path>src\smc_gen\r_bsp\mcu\all\r_bsp_cpu.c</Path>
@@ -89,6 +113,8 @@
               <Path>src\smc_gen\r_bsp\mcu\all\r_bsp_locking.c</Path>
               <Path>src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.c</Path>
               <Path>src\smc_gen\r_bsp\mcu\all\r_bsp_mcu_startup.h</Path>
+              <Path>src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.c</Path>
+              <Path>src\smc_gen\r_bsp\mcu\all\r_bsp_software_interrupt.h</Path>
               <Path>src\smc_gen\r_bsp\mcu\all\r_rtos.h</Path>
               <Path>src\smc_gen\r_bsp\mcu\all\r_rx_compiler.h</Path>
               <Path>src\smc_gen\r_bsp\mcu\all\r_rx_intrinsic_functions.c</Path>
@@ -96,8 +122,6 @@
               <Path>src\smc_gen\r_bsp\mcu\all\r_typedefs.h</Path>
               <Path>src\smc_gen\r_bsp\mcu\all\sbrk.c</Path>
               <Path>src\smc_gen\r_bsp\mcu\all\sbrk.h</Path>
-              <Path>src\smc_gen\r_bsp\mcu\all\lowlvl.c</Path>
-              <Path>src\smc_gen\r_bsp\mcu\all\lowlvl.h</Path>
             </Category>
             <Category Name="rx71m">
               <Path>src\smc_gen\r_bsp\mcu\rx71m\mcu_clocks.c</Path>
@@ -119,50 +143,23 @@
                 <Category Name="ccrx">
                   <Path>src\smc_gen\r_bsp\mcu\rx71m\register_access\ccrx\iodefine.h</Path>
                 </Category>
-                <Category Name="gnuc">
-                  <Path>src\smc_gen\r_bsp\mcu\rx71m\register_access\gnuc\iodefine.h</Path>
-                </Category>
-                <Category Name="iccrx">
-                  <Path>src\smc_gen\r_bsp\mcu\rx71m\register_access\iccrx\iodefine.h</Path>
-                </Category>
               </Category>
             </Category>
           </Category>
         </Category>
-        <Category Name="Config_SCI12">
-          <Path>src\smc_gen\Config_SCI12\Config_SCI12.c</Path>
-          <Path>src\smc_gen\Config_SCI12\Config_SCI12.h</Path>
-          <Path>src\smc_gen\Config_SCI12\Config_SCI12_user.c</Path>
+        <Category Name="r_config">
+          <Path>src\smc_gen\r_config\r_bsp_config.h</Path>
+          <Path>src\smc_gen\r_config\r_bsp_config_readme.txt</Path>
+          <Path>src\smc_gen\r_config\r_bsp_interrupt_config.h</Path>
         </Category>
-        <Category Name="Config_SCI1">
-          <Path>src\smc_gen\Config_SCI1\Config_SCI1.c</Path>
-          <Path>src\smc_gen\Config_SCI1\Config_SCI1.h</Path>
-          <Path>src\smc_gen\Config_SCI1\Config_SCI1_user.c</Path>
+        <Category Name="r_pincfg">
+          <Path>src\smc_gen\r_pincfg\Pin.c</Path>
+          <Path>src\smc_gen\r_pincfg\Pin.h</Path>
         </Category>
-        <Category Name="Config_MTU0">
-          <Path>src\smc_gen\Config_MTU0\Config_MTU0.c</Path>
-          <Path>src\smc_gen\Config_MTU0\Config_MTU0.h</Path>
-          <Path>src\smc_gen\Config_MTU0\Config_MTU0_user.c</Path>
-        </Category>
-        <Category Name="Config_MTU2">
-          <Path>src\smc_gen\Config_MTU2\Config_MTU2.c</Path>
-          <Path>src\smc_gen\Config_MTU2\Config_MTU2.h</Path>
-          <Path>src\smc_gen\Config_MTU2\Config_MTU2_user.c</Path>
-        </Category>
-        <Category Name="Config_S12AD0">
-          <Path>src\smc_gen\Config_S12AD0\Config_S12AD0.c</Path>
-          <Path>src\smc_gen\Config_S12AD0\Config_S12AD0.h</Path>
-          <Path>src\smc_gen\Config_S12AD0\Config_S12AD0_user.c</Path>
-        </Category>
-        <Category Name="Config_S12AD1">
-          <Path>src\smc_gen\Config_S12AD1\Config_S12AD1.c</Path>
-          <Path>src\smc_gen\Config_S12AD1\Config_S12AD1.h</Path>
-          <Path>src\smc_gen\Config_S12AD1\Config_S12AD1_user.c</Path>
-        </Category>
-        <Category Name="Config_SCI6">
-          <Path>src\smc_gen\Config_SCI6\Config_SCI6.c</Path>
-          <Path>src\smc_gen\Config_SCI6\Config_SCI6.h</Path>
-          <Path>src\smc_gen\Config_SCI6\Config_SCI6_user.c</Path>
+        <Category Name="Config_SCI2">
+          <Path>src\smc_gen\Config_SCI2\Config_SCI2.c</Path>
+          <Path>src\smc_gen\Config_SCI2\Config_SCI2.h</Path>
+          <Path>src\smc_gen\Config_SCI2\Config_SCI2_user.c</Path>
         </Category>
         <Category Name="Config_SCI5">
           <Path>src\smc_gen\Config_SCI5\Config_SCI5.c</Path>
@@ -170,19 +167,6 @@
           <Path>src\smc_gen\Config_SCI5\Config_SCI5_user.c</Path>
         </Category>
       </Category>
-      <Path>I2C_LCD.c</Path>
-      <Path>I2C_LCD.h</Path>
-      <Path>Timer.h</Path>
-      <Path>Motor.c</Path>
-      <Path>Motor.h</Path>
-      <Path>Rotaryencoder.h</Path>
-      <Path>Rotaryencoder.c</Path>
-      <Path>AD12.c</Path>
-      <Path>AD12.h</Path>
-      <Path>I2C_MPU9250.c</Path>
-      <Path>I2C_MPU9250.h</Path>
-      <Path>MicroSD.c</Path>
-      <Path>MicroSD.h</Path>
     </Files>
     <DebugOptions>
       <DebugTool>Simulator</DebugTool>
@@ -201,8 +185,7 @@
           <Option>-dbl_size=8</Option>
           <Option>-lang=c99</Option>
           <Option>-include=src\smc_gen\Config_SCI5</Option>
-          <Option>-include=src\smc_gen\Config_SCI6</Option>
-          <Option>-include=src\smc_gen\Config_S12AD1</Option>
+          <Option>-include=src\smc_gen\Config_SCI2</Option>
           <Option>-include=src\smc_gen\Config_S12AD0</Option>
           <Option>-include=src\smc_gen\Config_MTU2</Option>
           <Option>-include=src\smc_gen\Config_MTU0</Option>
@@ -269,27 +252,42 @@
         </LibraryGenerateOptions>
         <LinkOrder>
           <Path>DefaultBuild\RX71M_MCR.obj</Path>
+          <Path>DefaultBuild\I2C_LCD.obj</Path>
+          <Path>DefaultBuild\Motor.obj</Path>
+          <Path>DefaultBuild\Rotaryencoder.obj</Path>
+          <Path>DefaultBuild\AD12.obj</Path>
+          <Path>DefaultBuild\I2C_MPU9250.obj</Path>
+          <Path>DefaultBuild\MicroSD.obj</Path>
+          <Path>DefaultBuild\Config_CMT0.obj</Path>
+          <Path>DefaultBuild\Config_CMT0_user.obj</Path>
+          <Path>DefaultBuild\Config_MTU0.obj</Path>
+          <Path>DefaultBuild\Config_MTU0_user.obj</Path>
+          <Path>DefaultBuild\Config_MTU2.obj</Path>
+          <Path>DefaultBuild\Config_MTU2_user.obj</Path>
+          <Path>DefaultBuild\Config_PORT.obj</Path>
+          <Path>DefaultBuild\Config_PORT_user.obj</Path>
+          <Path>DefaultBuild\Config_S12AD0.obj</Path>
+          <Path>DefaultBuild\Config_S12AD0_user.obj</Path>
+          <Path>DefaultBuild\Config_SCI1.obj</Path>
+          <Path>DefaultBuild\Config_SCI1_user.obj</Path>
+          <Path>DefaultBuild\Config_SCI12.obj</Path>
+          <Path>DefaultBuild\Config_SCI12_user.obj</Path>
+          <Path>DefaultBuild\r_cg_hardware_setup.obj</Path>
           <Path>DefaultBuild\r_smc_cgc.obj</Path>
           <Path>DefaultBuild\r_smc_cgc_user.obj</Path>
           <Path>DefaultBuild\r_smc_interrupt.obj</Path>
-          <Path>DefaultBuild\Pin.obj</Path>
-          <Path>DefaultBuild\I2C_LCD.obj</Path>
-          <Path>DefaultBuild\Config_CMT0.obj</Path>
-          <Path>DefaultBuild\Config_CMT0_user.obj</Path>
-          <Path>DefaultBuild\Config_PORT.obj</Path>
-          <Path>DefaultBuild\Config_PORT_user.obj</Path>
-          <Path>DefaultBuild\r_cg_hardware_setup.obj</Path>
           <Path>DefaultBuild\hwsetup.obj</Path>
           <Path>DefaultBuild\dbsct.obj</Path>
+          <Path>DefaultBuild\lowlvl.obj</Path>
           <Path>DefaultBuild\lowsrc.obj</Path>
           <Path>DefaultBuild\mcu_locks.obj</Path>
           <Path>DefaultBuild\resetprg.obj</Path>
-          <Path>DefaultBuild\reset_program.obj</Path>
           <Path>DefaultBuild\r_bsp_common.obj</Path>
           <Path>DefaultBuild\r_bsp_cpu.obj</Path>
           <Path>DefaultBuild\r_bsp_interrupts.obj</Path>
           <Path>DefaultBuild\r_bsp_locking.obj</Path>
           <Path>DefaultBuild\r_bsp_mcu_startup.obj</Path>
+          <Path>DefaultBuild\r_bsp_software_interrupt.obj</Path>
           <Path>DefaultBuild\r_rx_intrinsic_functions.obj</Path>
           <Path>DefaultBuild\sbrk.obj</Path>
           <Path>DefaultBuild\mcu_clocks.obj</Path>
@@ -297,33 +295,15 @@
           <Path>DefaultBuild\mcu_interrupts.obj</Path>
           <Path>DefaultBuild\mcu_mapped_interrupts.obj</Path>
           <Path>DefaultBuild\vecttbl.obj</Path>
-          <Path>DefaultBuild\Config_SCI12.obj</Path>
-          <Path>DefaultBuild\Config_SCI12_user.obj</Path>
-          <Path>DefaultBuild\Config_SCI1.obj</Path>
-          <Path>DefaultBuild\Config_SCI1_user.obj</Path>
-          <Path>DefaultBuild\lowlvl.obj</Path>
-          <Path>DefaultBuild\Config_MTU0.obj</Path>
-          <Path>DefaultBuild\Config_MTU0_user.obj</Path>
-          <Path>DefaultBuild\Motor.obj</Path>
-          <Path>DefaultBuild\Config_MTU2.obj</Path>
-          <Path>DefaultBuild\Config_MTU2_user.obj</Path>
-          <Path>DefaultBuild\Rotaryencoder.obj</Path>
-          <Path>DefaultBuild\Config_S12AD0.obj</Path>
-          <Path>DefaultBuild\Config_S12AD0_user.obj</Path>
-          <Path>DefaultBuild\Config_S12AD1.obj</Path>
-          <Path>DefaultBuild\Config_S12AD1_user.obj</Path>
-          <Path>DefaultBuild\AD12.obj</Path>
-          <Path>DefaultBuild\I2C_MPU9250.obj</Path>
-          <Path>DefaultBuild\Config_SCI6.obj</Path>
-          <Path>DefaultBuild\Config_SCI6_user.obj</Path>
-          <Path>DefaultBuild\MicroSD.obj</Path>
+          <Path>DefaultBuild\Pin.obj</Path>
+          <Path>DefaultBuild\Config_SCI2.obj</Path>
+          <Path>DefaultBuild\Config_SCI2_user.obj</Path>
           <Path>DefaultBuild\Config_SCI5.obj</Path>
           <Path>DefaultBuild\Config_SCI5_user.obj</Path>
         </LinkOrder>
         <CommonOptions>
           <IncludePathForC>src\smc_gen\Config_SCI5</IncludePathForC>
-          <IncludePathForC>src\smc_gen\Config_SCI6</IncludePathForC>
-          <IncludePathForC>src\smc_gen\Config_S12AD1</IncludePathForC>
+          <IncludePathForC>src\smc_gen\Config_SCI2</IncludePathForC>
           <IncludePathForC>src\smc_gen\Config_S12AD0</IncludePathForC>
           <IncludePathForC>src\smc_gen\Config_MTU2</IncludePathForC>
           <IncludePathForC>src\smc_gen\Config_MTU0</IncludePathForC>

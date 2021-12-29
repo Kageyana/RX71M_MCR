@@ -1,0 +1,57 @@
+[Header]
+Description=Renesas Flash Programmer Configuration File
+File Type=3.2
+[Device Info]
+Device Type=1
+Protocol=10
+Device Code=2002FD0901484000
+Product Name=RX71M Group
+Support FAW=FALSE
+Support AWPR=FALSE
+Support ESW=TRUE
+Memory Area Count=5
+[Clock Info]
+Clock Mode=0
+Support Clock=
+OSC Frequency Range=12000000,12000000
+CPU Frequency Range=120000000,120000000
+SCI Frequency Range=0,48000000
+CPU Ratio=
+SCI Ratio=
+[Memory Area 0]
+Area Type=0x00000001
+Start Address=0xFFFF0000
+Size=0x00010000
+Erase Unit Size=0x00002000
+Write Unit Size=0x00000100
+Attribute=0x00000006
+[Memory Area 1]
+Area Type=0x00000001
+Start Address=0xFFC00000
+Size=0x003F0000
+Erase Unit Size=0x00008000
+Write Unit Size=0x00000100
+Attribute=0x00000006
+[Memory Area 2]
+Area Type=0x00000010
+Start Address=0x00100000
+Size=0x00010000
+Erase Unit Size=0x00000040
+Write Unit Size=0x00000010
+Attribute=0x00000000
+[Memory Area 3]
+Area Type=0x00000100
+Start Address=0xFF7F8000
+Size=0x00008000
+Erase Unit Size=0x00008000
+Write Unit Size=0x00000100
+Attribute=0x00000002
+[Memory Area 4]
+Area Type=0x00010000
+Start Address=0x00120040
+Size=0x00000040
+Erase Unit Size=0x00000000
+Write Unit Size=0x00000040
+Attribute=0x00000000
+[Checksum]
+Checksum=0x0D49425B

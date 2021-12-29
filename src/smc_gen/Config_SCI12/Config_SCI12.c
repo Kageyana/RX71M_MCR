@@ -18,11 +18,10 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : Config_SCI12.c
-* Version      : 1.9.2
-* Device(s)    : R5F571MFCxFP
-* Description  : This file implements device driver for Config_SCI12.
-* Creation Date: 2021-09-02
+* File Name        : Config_SCI12.c
+* Component Version: 1.11.0
+* Device(s)        : R5F571MFCxFP
+* Description      : This file implements device driver for Config_SCI12.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -83,10 +82,8 @@ void R_Config_SCI12_Create(void)
     SCI12.SCMR.BIT.SDIR = 1U;
 
     /* Set bit rate */
-    SCI12.BRR = 0x10U;
-    SCI12.MDDR = 0xE8U;
-    SCI12.SEMR.BYTE = _20_SCI_NOISE_FILTER_ENABLE | _04_SCI_BIT_MODULATION_ENABLE;
-    SCI12.SNFR.BYTE = _01_SCI_IIC_DIV_1;
+    SCI12.BRR = 0x04U;
+    SCI12.SEMR.BYTE = _00_SCI_NOISE_FILTER_DISABLE | _00_SCI_BIT_MODULATION_DISABLE;
     SCI12.SIMR1.BYTE |= (_01_SCI_IIC_MODE | _08_SCI_0_TO_1_CYCLE);
     SCI12.SIMR2.BYTE |= (_01_SCI_RX_TX_INTERRUPTS | _02_SCI_SYNCHRONIZATION | _20_SCI_NACK_TRANSMISSION);
     SCI12.SPMR.BYTE = _00_SCI_CLOCK_NOT_INVERTED | _00_SCI_CLOCK_NOT_DELAYED;

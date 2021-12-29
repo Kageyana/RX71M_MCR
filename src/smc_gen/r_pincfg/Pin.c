@@ -18,11 +18,10 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : Pin.c
-* Version      : 1.0.2
-* Device(s)    : R5F571MFCxFP
-* Description  : This file implements SMC pin code generation.
-* Creation Date: 2021-09-02
+* File Name        : Pin.c
+* Version          : 1.0.2
+* Device(s)        : R5F571MFCxFP
+* Description      : This file implements SMC pin code generation.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -56,45 +55,10 @@ void R_Pins_Create(void)
 {
     R_BSP_RegisterProtectDisable(BSP_REG_PROTECT_MPC);
 
-    /* Set AN006 pin */
-    MPC.P46PFS.BYTE = 0x80U;
-    PORT4.PMR.BYTE &= 0xBFU;
-    PORT4.PDR.BYTE &= 0xBFU;
-
-    /* Set AN007 pin */
-    MPC.P47PFS.BYTE = 0x80U;
-    PORT4.PMR.BYTE &= 0x7FU;
-    PORT4.PDR.BYTE &= 0x7FU;
-
-    /* Set AN108 pin */
-    MPC.PD0PFS.BYTE = 0x80U;
-    PORTD.PMR.BYTE &= 0xFEU;
-    PORTD.PDR.BYTE &= 0xFEU;
-
-    /* Set AN109 pin */
-    MPC.PD1PFS.BYTE = 0x80U;
-    PORTD.PMR.BYTE &= 0xFDU;
-    PORTD.PDR.BYTE &= 0xFDU;
-
-    /* Set AN110 pin */
-    MPC.PD2PFS.BYTE = 0x80U;
-    PORTD.PMR.BYTE &= 0xFBU;
-    PORTD.PDR.BYTE &= 0xFBU;
-
-    /* Set AN111 pin */
-    MPC.PD3PFS.BYTE = 0x80U;
-    PORTD.PMR.BYTE &= 0xF7U;
-    PORTD.PDR.BYTE &= 0xF7U;
-
-    /* Set AN112 pin */
-    MPC.PD4PFS.BYTE = 0x80U;
-    PORTD.PMR.BYTE &= 0xEFU;
-    PORTD.PDR.BYTE &= 0xEFU;
-
-    /* Set AN113 pin */
-    MPC.PD5PFS.BYTE = 0x80U;
-    PORTD.PMR.BYTE &= 0xDFU;
-    PORTD.PDR.BYTE &= 0xDFU;
+    /* Set AN002 pin */
+    MPC.P42PFS.BYTE = 0x80U;
+    PORT4.PMR.BYTE &= 0xFBU;
+    PORT4.PDR.BYTE &= 0xFBU;
 
     /* Set MTCLKA pin */
     MPC.P24PFS.BYTE = 0x02U;
@@ -116,29 +80,29 @@ void R_Pins_Create(void)
     MPC.P30PFS.BYTE = 0x0AU;
     PORT3.PMR.BYTE |= 0x01U;
 
-    /* Set SCK5 pin */
-    MPC.PC1PFS.BYTE = 0x0AU;
-    PORTC.PMR.BYTE |= 0x02U;
+    /* Set SCK2 pin */
+    MPC.P51PFS.BYTE = 0x0AU;
+    PORT5.PMR.BYTE |= 0x02U;
 
-    /* Set SCK6 pin */
-    MPC.P34PFS.BYTE = 0x0AU;
-    PORT3.PMR.BYTE |= 0x10U;
+    /* Set SCK5 pin */
+    MPC.PA1PFS.BYTE = 0x0AU;
+    PORTA.PMR.BYTE |= 0x02U;
+
+    /* Set SMISO2 pin */
+    MPC.P52PFS.BYTE = 0x0AU;
+    PORT5.PMR.BYTE |= 0x04U;
 
     /* Set SMISO5 pin */
     MPC.PA2PFS.BYTE = 0x0AU;
     PORTA.PMR.BYTE |= 0x04U;
 
-    /* Set SMISO6 pin */
-    MPC.P33PFS.BYTE = 0x0AU;
-    PORT3.PMR.BYTE |= 0x08U;
+    /* Set SMOSI2 pin */
+    MPC.P50PFS.BYTE = 0x0AU;
+    PORT5.PMR.BYTE |= 0x01U;
 
     /* Set SMOSI5 pin */
     MPC.PA4PFS.BYTE = 0x0AU;
     PORTA.PMR.BYTE |= 0x10U;
-
-    /* Set SMOSI6 pin */
-    MPC.P32PFS.BYTE = 0x0AU;
-    PORT3.PMR.BYTE |= 0x04U;
 
     /* Set SSCL12 pin */
     MPC.PE2PFS.BYTE = 0x0CU;

@@ -18,11 +18,10 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : Config_S12AD0.c
-* Version      : 1.10.1
-* Device(s)    : R5F571MFCxFP
-* Description  : This file implements device driver for Config_S12AD0.
-* Creation Date: 2021-09-02
+* File Name        : Config_S12AD0.c
+* Component Version: 2.4.0
+* Device(s)        : R5F571MFCxFP
+* Description      : This file implements device driver for Config_S12AD0.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -65,35 +64,29 @@ void R_Config_S12AD0_Create(void)
 
     /* Set S12AD0 control registers */
     S12AD.ADDISCR.BYTE = _00_AD_DISCONECT_UNUSED;
-    S12AD.ADCSR.WORD = _0000_AD_SYNCASYNCTRG_DISABLE | _4000_AD_CONTINUOUS_SCAN_MODE | 
+    S12AD.ADCSR.WORD = _0000_AD_DBLTRIGGER_DISABLE | _0000_AD_SYNCASYNCTRG_DISABLE | _0000_AD_SINGLE_SCAN_MODE | 
                        _1000_AD_SCAN_END_INTERRUPT_ENABLE;
-    S12AD.ADCER.WORD = _0020_AD_AUTO_CLEARING_ENABLE | _0000_AD_RIGHT_ALIGNMENT | _0000_AD_SELFTDIAGST_DISABLE | 
-                       _0000_AD_RESOLUTION_12BIT;
-    S12AD.ADADC.BYTE = _03_AD_4_TIME_CONVERSION | _80_AD_AVERAGE_MODE;
+    S12AD.ADCER.WORD = _0000_AD_AUTO_CLEARING_DISABLE | _0000_AD_RIGHT_ALIGNMENT | _0000_AD_SELFTDIAGST_DISABLE | 
+                       _0004_AD_RESOLUTION_8BIT;
+    S12AD.ADADC.BYTE = _00_AD_1_TIME_CONVERSION | _00_AD_ADDITION_MODE;
 
     /* Set channels and sampling time */
-    S12AD.ADANSA0.WORD = _0040_AD_ANx06_USED | _0080_AD_ANx07_USED;
-    S12AD.ADADS0.WORD = _0040_AD_ANx06_ADD_USED | _0080_AD_ANx07_ADD_USED;
-    S12AD.ADSSTR6 = _78_AD0_SAMPLING_STATE_6;
-    S12AD.ADSSTR7 = _78_AD0_SAMPLING_STATE_7;
+    S12AD.ADANSA0.WORD = _0004_AD_ANx02_USED;
+    S12AD.ADADS0.WORD = _0004_AD_ANx02_ADD_USED;
+    S12AD.ADSSTR2 = _0B_AD0_SAMPLING_STATE_2;
 
     /* Set compare control register */
-    S12AD.ADCMPCR.BYTE = _00_AD_COMPARISON_INTERRUPT_DISABLE | _00_AD_WINDOWFUNCTION_DISABLE;
+    S12AD.ADCMPCR.BYTE = _80_AD_COMPARISON_INTERRUPT_ENABLE | _00_AD_WINDOWFUNCTION_DISABLE;
     S12AD.ADCMPDR0 = 0x0000U;
 
     /* Set interrupt and priority level */
     ICU.SLIBR190.BYTE = 0x40U;
     IPR(PERIB, INTB190) = _0F_AD_PRIORITY_LEVEL15;
 
-    /* Set AN006 pin */
-    PORT4.PMR.BYTE &= 0xBFU;
-    PORT4.PDR.BYTE &= 0xBFU;
-    MPC.P46PFS.BYTE = 0x80U;
-
-    /* Set AN007 pin */
-    PORT4.PMR.BYTE &= 0x7FU;
-    PORT4.PDR.BYTE &= 0x7FU;
-    MPC.P47PFS.BYTE = 0x80U;
+    /* Set AN002 pin */
+    PORT4.PMR.BYTE &= 0xFBU;
+    PORT4.PDR.BYTE &= 0xFBU;
+    MPC.P42PFS.BYTE = 0x80U;
 
     R_Config_S12AD0_Create_UserInit();
 }
@@ -109,6 +102,7 @@ void R_Config_S12AD0_Start(void)
 {
     IR(PERIB, INTB190) = 0U;
     IEN(PERIB, INTB190) = 1U;
+    ICU.GENBL1.BIT.EN20 = 1U;
     S12AD.ADCSR.BIT.ADST = 1U;
 }
 
@@ -124,6 +118,7 @@ void R_Config_S12AD0_Stop(void)
     S12AD.ADCSR.BIT.ADST = 0U;
     IEN(PERIB, INTB190) = 0U;
     IR(PERIB, INTB190) = 0U;
+    ICU.GENBL1.BIT.EN20 = 0U;
 }
 
 /***********************************************************************************************************************

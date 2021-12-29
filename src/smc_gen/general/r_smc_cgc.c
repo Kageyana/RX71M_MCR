@@ -18,11 +18,10 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_smc_cgc.c
-* Version      : 1.6.103
-* Device(s)    : R5F571MFCxFP
-* Description  : This file implements CGC setting.
-* Creation Date: 2021-09-02
+* File Name        : r_smc_cgc.c
+* Version          : 1.8.0
+* Device(s)        : R5F571MFCxFP
+* Description      : This file implements CGC setting.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -55,6 +54,57 @@ Global variables and functions
 
 void R_CGC_Create(void)
 {
+    uint16_t w_count;
+
+    /* Set sub-clock oscillation wait time */
+    SYSTEM.SOSCWTCR.BYTE = _21_CGC_SOSCWTCR_VALUE;
+
+    RTC.RCR4.BIT.RCKSEL = 0U;
+
+    /* Stop sub-clock */
+    while (0U != RTC.RCR3.BIT.RTCEN)
+    {
+        RTC.RCR3.BIT.RTCEN = 0U;
+    }
+
+    /* Stop sub-clock */
+    while (1U != SYSTEM.SOSCCR.BIT.SOSTP)
+    {
+        SYSTEM.SOSCCR.BIT.SOSTP = 1U;
+    }
+
+    while (0U != SYSTEM.OSCOVFSR.BIT.SOOVF)
+    {
+        /* Wait for sub-clock to be stable */
+    }
+
+    /* Set sub-clock drive capacity */
+    while (0x06U != RTC.RCR3.BIT.RTCDV)
+    {
+        RTC.RCR3.BIT.RTCDV = 0x06U;
+    }
+
+    /* Wait for the 5 sub-clock cycles */
+    for (w_count = 0U; w_count < _21_CGC_SOSCWTCR_VALUE; w_count++)
+    {
+        nop();
+    }
+
+    /* Set sub-clock */
+    SYSTEM.SOSCCR.BIT.SOSTP = 0U;
+
+    while (0U != SYSTEM.SOSCCR.BIT.SOSTP)
+    {
+        /* Wait for the register modification to complete */
+    }
+
+    while (1U != SYSTEM.OSCOVFSR.BIT.SOOVF)
+    {
+        /* Wait for sub-clock to be stable */
+    }
+
+    SYSTEM.SOSCWTCR.BYTE = 0x00U;
+
     R_CGC_Create_UserInit();
 }
 

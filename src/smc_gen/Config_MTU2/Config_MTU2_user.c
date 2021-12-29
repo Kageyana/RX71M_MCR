@@ -18,11 +18,10 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : Config_MTU2_user.c
-* Version      : 2.1.1
-* Device(s)    : R5F571MFCxFP
-* Description  : This file implements device driver for Config_MTU2.
-* Creation Date: 2021-09-02
+* File Name        : Config_MTU2_user.c
+* Component Version: 2.3.0
+* Device(s)        : R5F571MFCxFP
+* Description      : This file implements device driver for Config_MTU2.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -37,7 +36,6 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "Config_MTU2.h"
 /* Start user code for include. Do not edit comment generated here */
-#include "Rotaryencoder.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 

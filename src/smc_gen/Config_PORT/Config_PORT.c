@@ -18,11 +18,10 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : Config_PORT.c
-* Version      : 2.1.3
-* Device(s)    : R5F571MFCxFP
-* Description  : This file implements device driver for Config_PORT.
-* Creation Date: 2021-09-02
+* File Name        : Config_PORT.c
+* Component Version: 2.3.0
+* Device(s)        : R5F571MFCxFP
+* Description      : This file implements device driver for Config_PORT.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -55,37 +54,35 @@ Global variables and functions
 
 void R_Config_PORT_Create(void)
 {
-    /* Set PORT3 registers */
-    PORT3.PODR.BYTE = _00_Pm1_OUTPUT_0;
-    PORT3.ODR0.BYTE = _00_Pm0_CMOS_OUTPUT | _00_Pm1_CMOS_OUTPUT | _00_Pm2_CMOS_OUTPUT | _00_Pm3_CMOS_OUTPUT;
-    PORT3.ODR1.BYTE = _00_Pm4_CMOS_OUTPUT | _00_Pm6_CMOS_OUTPUT | _00_Pm7_CMOS_OUTPUT;
-    PORT3.PMR.BYTE = _00_Pm1_PIN_GPIO;
-    PORT3.PDR.BYTE = _02_Pm1_MODE_OUTPUT;
+    /* Set PORT1 registers */
+    PORT1.ODR0.BYTE = _00_Pm2_CMOS_OUTPUT | _00_Pm3_CMOS_OUTPUT;
+    PORT1.ODR1.BYTE = _00_Pm4_CMOS_OUTPUT | _00_Pm5_CMOS_OUTPUT | _00_Pm6_CMOS_OUTPUT | _00_Pm7_CMOS_OUTPUT;
 
     /* Set PORTA registers */
-    PORTA.PODR.BYTE = _00_Pm0_OUTPUT_0 | _00_Pm3_OUTPUT_0;
+    PORTA.PODR.BYTE = _00_Pm3_OUTPUT_0 | _00_Pm6_OUTPUT_0 | _00_Pm7_OUTPUT_0;
     PORTA.ODR0.BYTE = _00_Pm0_CMOS_OUTPUT | _00_Pm1_CMOS_OUTPUT | _00_Pm2_CMOS_OUTPUT | _00_Pm3_CMOS_OUTPUT;
-    PORTA.ODR1.BYTE = _00_Pm4_CMOS_OUTPUT | _00_Pm5_CMOS_OUTPUT | _00_Pm6_CMOS_OUTPUT | _00_Pm7_CMOS_OUTPUT;
-    PORTA.DSCR.BYTE = _00_Pm0_HIDRV_OFF | _00_Pm3_HIDRV_OFF;
-    PORTA.PMR.BYTE = _00_Pm0_PIN_GPIO | _00_Pm3_PIN_GPIO;
-    PORTA.PDR.BYTE = _01_Pm0_MODE_OUTPUT | _08_Pm3_MODE_OUTPUT;
+    PORTA.ODR1.BYTE = _00_Pm4_CMOS_OUTPUT | _00_Pm6_CMOS_OUTPUT | _00_Pm7_CMOS_OUTPUT;
+    PORTA.PCR.BYTE = _00_Pm5_PULLUP_OFF;
+    PORTA.DSCR.BYTE = _00_Pm3_HIDRV_OFF | _00_Pm6_HIDRV_OFF | _00_Pm7_HIDRV_OFF;
+    PORTA.PMR.BYTE = _00_Pm3_PIN_GPIO | _00_Pm5_PIN_GPIO | _00_Pm6_PIN_GPIO | _00_Pm7_PIN_GPIO;
+    PORTA.PDR.BYTE = _08_Pm3_MODE_OUTPUT | _00_Pm5_MODE_INPUT | _40_Pm6_MODE_OUTPUT | _80_Pm7_MODE_OUTPUT;
+
+    /* Set PORTB registers */
+    PORTB.PODR.BYTE = _01_Pm0_OUTPUT_1 | _04_Pm2_OUTPUT_1 | _10_Pm4_OUTPUT_1;
+    PORTB.ODR0.BYTE = _01_Pm0_NCH_OPEN_DRAIN | _00_Pm1_CMOS_OUTPUT | _10_Pm2_NCH_OPEN_DRAIN | _00_Pm3_CMOS_OUTPUT;
+    PORTB.ODR1.BYTE = _01_Pm4_NCH_OPEN_DRAIN | _00_Pm5_CMOS_OUTPUT | _00_Pm6_CMOS_OUTPUT | _00_Pm7_CMOS_OUTPUT;
+    PORTB.DSCR.BYTE = _00_Pm0_HIDRV_OFF | _00_Pm2_HIDRV_OFF | _00_Pm4_HIDRV_OFF;
+    PORTB.PMR.BYTE = _00_Pm0_PIN_GPIO | _00_Pm2_PIN_GPIO | _00_Pm4_PIN_GPIO;
+    PORTB.PDR.BYTE = _01_Pm0_MODE_OUTPUT | _04_Pm2_MODE_OUTPUT | _10_Pm4_MODE_OUTPUT;
 
     /* Set PORTC registers */
-    PORTC.PODR.BYTE = _00_Pm2_OUTPUT_0 | _00_Pm3_OUTPUT_0 | _00_Pm4_OUTPUT_0 | _00_Pm5_OUTPUT_0;
+    PORTC.PODR.BYTE = _00_Pm2_OUTPUT_0 | _00_Pm3_OUTPUT_0 | _00_Pm4_OUTPUT_0 | _00_Pm5_OUTPUT_0 | _00_Pm6_OUTPUT_0;
     PORTC.ODR0.BYTE = _00_Pm0_CMOS_OUTPUT | _00_Pm1_CMOS_OUTPUT | _00_Pm2_CMOS_OUTPUT | _00_Pm3_CMOS_OUTPUT;
     PORTC.ODR1.BYTE = _00_Pm4_CMOS_OUTPUT | _00_Pm5_CMOS_OUTPUT | _00_Pm6_CMOS_OUTPUT | _00_Pm7_CMOS_OUTPUT;
-    PORTC.DSCR.BYTE = _00_Pm2_HIDRV_OFF | _00_Pm3_HIDRV_OFF | _00_Pm4_HIDRV_OFF | _00_Pm5_HIDRV_OFF;
-    PORTC.PMR.BYTE = _00_Pm2_PIN_GPIO | _00_Pm3_PIN_GPIO | _00_Pm4_PIN_GPIO | _00_Pm5_PIN_GPIO;
-    PORTC.PDR.BYTE = _04_Pm2_MODE_OUTPUT | _08_Pm3_MODE_OUTPUT | _10_Pm4_MODE_OUTPUT | _20_Pm5_MODE_OUTPUT;
-
-    /* Set PORTE registers */
-    PORTE.PODR.BYTE = _00_Pm3_OUTPUT_0 | _00_Pm4_OUTPUT_0 | _00_Pm5_OUTPUT_0 | _00_Pm6_OUTPUT_0 | _00_Pm7_OUTPUT_0;
-    PORTE.ODR0.BYTE = _00_Pm0_CMOS_OUTPUT | _00_Pm1_CMOS_OUTPUT | _00_Pm2_CMOS_OUTPUT | _00_Pm3_CMOS_OUTPUT;
-    PORTE.ODR1.BYTE = _00_Pm4_CMOS_OUTPUT | _00_Pm5_CMOS_OUTPUT | _00_Pm6_CMOS_OUTPUT | _00_Pm7_CMOS_OUTPUT;
-    PORTE.DSCR.BYTE = _00_Pm3_HIDRV_OFF | _00_Pm4_HIDRV_OFF | _00_Pm5_HIDRV_OFF | _00_Pm6_HIDRV_OFF | _00_Pm7_HIDRV_OFF;
-    PORTE.PMR.BYTE = _00_Pm3_PIN_GPIO | _00_Pm4_PIN_GPIO | _00_Pm5_PIN_GPIO | _00_Pm6_PIN_GPIO | _00_Pm7_PIN_GPIO;
-    PORTE.PDR.BYTE = _08_Pm3_MODE_OUTPUT | _10_Pm4_MODE_OUTPUT | _20_Pm5_MODE_OUTPUT | _40_Pm6_MODE_OUTPUT | 
-                     _80_Pm7_MODE_OUTPUT;
+    PORTC.DSCR.BYTE = _00_Pm2_HIDRV_OFF | _00_Pm3_HIDRV_OFF | _00_Pm4_HIDRV_OFF | _00_Pm5_HIDRV_OFF | _00_Pm6_HIDRV_OFF;
+    PORTC.PMR.BYTE = _00_Pm2_PIN_GPIO | _00_Pm3_PIN_GPIO | _00_Pm4_PIN_GPIO | _00_Pm5_PIN_GPIO | _00_Pm6_PIN_GPIO;
+    PORTC.PDR.BYTE = _04_Pm2_MODE_OUTPUT | _08_Pm3_MODE_OUTPUT | _10_Pm4_MODE_OUTPUT | _20_Pm5_MODE_OUTPUT | 
+                     _40_Pm6_MODE_OUTPUT;
 
     R_Config_PORT_Create_UserInit();
 }

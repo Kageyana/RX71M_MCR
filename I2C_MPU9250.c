@@ -49,7 +49,9 @@ void IMUWriteByte( char reg, char data )
 		busIMU = BUS_IMU_BUSY;
 		while(busIMU)__nop();
 	#else
-		IMU_SEND;
+		SPI_IMU_SEND;
+		busIMU = BUS_IMU_BUSY;
+		while(busIMU)__nop();
 	#endif
 }
 /////////////////////////////////////////////////////////
@@ -60,7 +62,7 @@ void IMUWriteByte( char reg, char data )
 /////////////////////////////////////////////////////////
 char IMUReadByte( char reg )
 {
-	uint8_t data_tr[1] = { reg }, data_re[1] = {0}, data_re2[1] = {0}, numS = 1, numR = 1;
+	uint8_t data_tr[2] = { reg | 0x80, 0xff }, data_re[2] = {0xff, 0xff}, numS = 2, numR = 2;
   	
 	#if USECOM == 0
 		I2C_IMU_COMMAND;		// コマンド送信
@@ -70,23 +72,14 @@ char IMUReadByte( char reg )
 		busIMU = BUS_IMU_BUSY;
 		while(busIMU)__nop();
 	# else
-		IMU_CS = 0;
-	 	data_tr[0] = 0xf5;
-		R_Config_SCI6_SPI_Master_Send_Receive( data_tr, numS, data_re, numR);
+		// アドレス送信
+		SPI_IMU_CS = 0;
+		SPI_IMU_SEND;
 		busIMU = BUS_IMU_BUSY;
 		while(busIMU)__nop();
-		IMU_CS = 1;
-		
-		IMU_CS = 0;
-		uint8_t data_tr2[1] = {0x00};
-		//data_re[0] = 0x00;
-		R_Config_SCI6_SPI_Master_Send_Receive( data_tr2, numS, data_re2, numR);
-		busIMU = BUS_IMU_BUSY;
-		while(busIMU)__nop();
-		IMU_CS = 1;
 	#endif
 	
-	return data_re2[0];
+	return data_re[1];
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // モジュール名 IMUReadArry												//
@@ -106,7 +99,7 @@ void IMUReadArry( char reg, char num2, char* data_re )
 		busIMU = BUS_IMU_BUSY;
 		while(busIMU)__nop();
 	# else
-		IMU_SEND;
+		SPI_IMU_SEND;
 	#endif
 }
 ///////////////////////////////////////////////////
@@ -117,6 +110,9 @@ void IMUReadArry( char reg, char num2, char* data_re )
 //////////////////////////////////////////////////
 void init_IMU (void)
 {
+	#if USECOM == 0
+		SPI_IMU_CS = 1;
+	#endif
 	/*
 	IMUWriteByte( PWR_MGMT_1, 0x00);	// スリープモード解除
 	IMUWriteByte( INT_PIN_CFG, 0x02);	// 内蔵プルアップ無効化
@@ -124,7 +120,7 @@ void init_IMU (void)
 	IMUWriteByte( ACCEL_CONFIG, 0x18);	// レンジ±16gに変更
 	IMUWriteByte( GYRO_CONFIG, 0x10);	// レンジ±1000deg/sに変更
 	*/
-	printf("IMU who am i %x\n",IMUReadByte(0x0));
+	printf("IMU who am i 0x%x\n",IMUReadByte(0x80));
 }
 ///////////////////////////////////////////////////
 // モジュール名 IMUProcess				//

@@ -18,20 +18,19 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : Config_S12AD1.h
-* Version      : 1.10.1
-* Device(s)    : R5F571MFCxFP
-* Description  : This file implements device driver for Config_S12AD1.
-* Creation Date: 2021-09-02
+* File Name        : Config_SCI2.h
+* Component Version: 1.11.0
+* Device(s)        : R5F571MFCxFP
+* Description      : This file implements device driver for Config_SCI2.
 ***********************************************************************************************************************/
 
-#ifndef CFG_Config_S12AD1_H
-#define CFG_Config_S12AD1_H
+#ifndef CFG_Config_SCI2_H
+#define CFG_Config_SCI2_H
 
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
-#include "r_cg_s12ad.h"
+#include "r_cg_sci.h"
 
 /***********************************************************************************************************************
 Macro definitions (Register bit)
@@ -40,7 +39,6 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _78_AD1_SAMPLING_STATE_L           (0x78U) /* AN108-AN120 sampling time setting */
 
 /***********************************************************************************************************************
 Typedef definitions
@@ -49,12 +47,16 @@ Typedef definitions
 /***********************************************************************************************************************
 Global functions
 ***********************************************************************************************************************/
-void R_Config_S12AD1_Create(void);
-void R_Config_S12AD1_Create_UserInit(void);
-void R_Config_S12AD1_Start(void);
-void R_Config_S12AD1_Stop(void);
-void R_Config_S12AD1_Get_ValueResult(ad_channel_t channel, uint16_t * const buffer);
-void R_Config_S12AD1_Set_CompareValue(uint16_t reg_value0,uint16_t reg_value1);
+void R_Config_SCI2_Create(void);
+void R_Config_SCI2_Create_UserInit(void);
+void R_Config_SCI2_Start(void);
+void R_Config_SCI2_Stop(void);
+MD_STATUS R_Config_SCI2_SPI_Master_Send_Receive(uint8_t * const tx_buf, uint16_t tx_num, uint8_t * const rx_buf, uint16_t rx_num);
+void r_Config_SCI2_transmitend_interrupt(void);
+void r_Config_SCI2_receiveerror_interrupt(void);
+static void r_Config_SCI2_callback_transmitend(void);
+static void r_Config_SCI2_callback_receiveend(void);
+static void r_Config_SCI2_callback_receiveerror(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif

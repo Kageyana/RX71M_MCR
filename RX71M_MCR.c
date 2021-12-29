@@ -13,7 +13,7 @@
 #include "I2c_LCD.h"
 #include "Motor.h"
 #include "Timer.h"
-#include "MicroSD.h"
+//#include "MicroSD.h"
 #include "I2C_MPU9250.h"
 
 void main(void)
@@ -23,28 +23,25 @@ void main(void)
 	R_Config_SCI1_Start();
 	// I2C通信開始
 	R_Config_SCI12_Start();
-	R_Config_SCI6_Start();
 	inti_lcd();
-	init_IMU();
 	// SPI通信開始
-	R_Config_SCI5_Start();
-	init_msd();
+	R_Config_SCI2_Start();
+	init_IMU();
+	//init_msd();
 	//タイマ割り込み開始
 	R_Config_CMT0_Start();
 	// 位相計数モード計測開始
-	R_Config_MTU2_Start();
+	//R_Config_MTU2_Start();
 	// PWM出力開始
-	R_Config_MTU0_Start();
+	//R_Config_MTU0_Start();
 	// ブレーキモード
-	motor_r_mode(BRAKE,BRAKE);
+	//motor_r_mode(BRAKE,BRAKE);
 	// モータ停止
-	motor_r(0,0);
+	//motor_r(0,0);
 	// センサ駆動
-	PORTA.PODR.BIT.B3 = 0;
+	//PORTA.PODR.BIT.B3 = 0;
 	// A/D変換開始
-	R_Config_S12AD0_Start();
-	R_Config_S12AD1_Start();
-	
+	//R_Config_S12AD0_Start();
 	printf("Hello\n");
 	
 	while(1){
@@ -56,7 +53,8 @@ void main(void)
 			lcdPosition( 0, 0 );
 			lcdPrintf("zg      ");
 			lcdPosition( 0, 1 );
-			lcdPrintf("%d", PORT1.PIDR.BIT.B3);
+			//lcdPrintf("%d", PORTA.PIDR.BIT.B2);
+			lcdPrintf("asfa");
 		}
 		
 		/*if ( PORT1.PIDR.BIT.B3 == 0 && flg == 0) {

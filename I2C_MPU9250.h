@@ -131,13 +131,13 @@
 #define USECOM 			1		// 0:I2c 1:SPI
 #if USECOM == 0
 	//I2c
-	#define I2C_IMU_COMMAND	R_Config_SCI6_IIC_Master_Send( MPU9250_ADDRESS_W, data_tr, num)
-	#define I2C_IMU_RECIVE		R_Config_SCI6_IIC_Master_Receive( MPU9250_ADDRESS_R, data_re, num)
-	#define I2C_IMU_ARRY		R_Config_SCI6_IIC_Master_Receive(MPU9250_ADDRESS_R, data_re, num)
+	#define I2C_IMU_COMMAND	R_Config_SCI2_IIC_Master_Send( MPU9250_ADDRESS_W, data_tr, num)
+	#define I2C_IMU_RECIVE		R_Config_SCI2_IIC_Master_Receive( MPU9250_ADDRESS_R, data_re, num)
+	#define I2C_IMU_ARRY		R_Config_SCI2_IIC_Master_Receive(MPU9250_ADDRESS_R, data_re, num)
 #else
 	//SPI
-	#define IMU_CS				PORT3.PODR.BIT.B1	// CS端子
-	#define IMU_SEND			R_Config_SCI6_SPI_Master_Send_Receive( data_tr, numS, data_re, numR)
+	#define SPI_IMU_CS			PORTC.PODR.BIT.B6	// CS端子
+	#define SPI_IMU_SEND		R_Config_SCI2_SPI_Master_Send_Receive( data_tr, numS, data_re, numR)
 #endif
 /************************************************************************************/
 //====================================//

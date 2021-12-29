@@ -18,11 +18,10 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : Config_CMT0.c
-* Version      : 2.0.2
-* Device(s)    : R5F571MFCxFP
-* Description  : This file implements device driver for Config_CMT0.
-* Creation Date: 2021-09-02
+* File Name        : Config_CMT0.c
+* Component Version: 2.2.0
+* Device(s)        : R5F571MFCxFP
+* Description      : This file implements device driver for Config_CMT0.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -57,19 +56,19 @@ void R_Config_CMT0_Create(void)
 {
     /* Disable CMI0 interrupt */
     IEN(CMT0,CMI0) = 0U;
-    
+
     /* Cancel CMT stop state in LPC */
     MSTP(CMT0) = 0U;
-    
-    /* Set control registers */  
-    CMT0.CMCR.WORD = _0001_CMT_CMCR_CLOCK_PCLK32 | _0040_CMT_CMCR_CMIE_ENABLE | _0080_CMT_CMCR_DEFAULT;
-    
+
+    /* Set control registers */
+    CMT0.CMCR.WORD = _0000_CMT_CMCR_CLOCK_PCLK8 | _0040_CMT_CMCR_CMIE_ENABLE | _0080_CMT_CMCR_DEFAULT;
+
     /* Set compare match register */
-    CMT0.CMCOR = _0752_CMT0_CMCOR_VALUE;
-    
+    CMT0.CMCOR = _1D4B_CMT0_CMCOR_VALUE;
+
     /* Set CMI0 priority level */
     IPR(CMT0,CMI0) = _06_CMT_PRIORITY_LEVEL6;
-    
+
     R_Config_CMT0_Create_UserInit();
 }
 
@@ -84,7 +83,7 @@ void R_Config_CMT0_Start(void)
 {
     /* Enable CMI0 interrupt in ICU */
     IEN(CMT0,CMI0) = 1U;
-    
+
     /* Start CMT0 count */
     CMT.CMSTR0.BIT.STR0 = 1U;
 }
@@ -100,7 +99,7 @@ void R_Config_CMT0_Stop(void)
 {
     /* Stop CMT0 count */
     CMT.CMSTR0.BIT.STR0 = 0U;
-    
+
     /* Disable CMI0 interrupt in ICU */
     IEN(CMT0,CMI0) = 0U;
 }

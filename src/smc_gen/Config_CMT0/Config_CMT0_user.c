@@ -18,11 +18,10 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : Config_CMT0_user.c
-* Version      : 2.0.2
-* Device(s)    : R5F571MFCxFP
-* Description  : This file implements device driver for Config_CMT0.
-* Creation Date: 2021-09-02
+* File Name        : Config_CMT0_user.c
+* Component Version: 2.2.0
+* Device(s)        : R5F571MFCxFP
+* Description      : This file implements device driver for Config_CMT0.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -41,7 +40,7 @@ Includes
 #include "Timer.h"
 #include "Rotaryencoder.h"
 #include "AD12.h"
-#include "I2C_MPU9250.h"
+//#include "I2C_MPU9250.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
@@ -109,7 +108,7 @@ static void r_Config_CMT0_cmi0_interrupt(void)
 		break;
 	case 100:
 		
-		PORTE.PODR.BIT.B3 = !PORTE.PODR.BIT.B3;
+		PORTB.PODR.BIT.B0 = !PORTB.PODR.BIT.B0;
 		//printf("%d\r",MTU2.TCNT);	// カウント
 		//printf("%d\r",MTU2.TCNT);		// エンコーダ
 		//printf("%4d  %4d  %4d  %4d  %4d  %4d\r",A_Sen[1],A_Sen[2],A_Sen[3],A_Sen[4],A_Sen[5],A_Sen[6]);

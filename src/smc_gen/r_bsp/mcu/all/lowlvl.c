@@ -30,7 +30,6 @@
 Includes   <System Includes> , "Project Includes"
 ***********************************************************************************************************************/
 #include "platform.h"
-#include "r_smc_entry.h"
 /* When using the user startup program, disable the following code. */
 #if BSP_CFG_STARTUP_DISABLE == 0
 
@@ -69,11 +68,7 @@ char BSP_CFG_USER_CHARGET_FUNCTION(void);
 /***********************************************************************************************************************
 Private global variables and functions
 ***********************************************************************************************************************/
-void BSP_CFG_USER_CHARPUT_FUNCTION( char output_char )
-{
-	while(!SCI1.SSR.BIT.TDRE);
-	SCI1.TDR = output_char;
-}
+
 /***********************************************************************************************************************
 * Function Name: charput
 * Description  : Outputs a character on a serial port

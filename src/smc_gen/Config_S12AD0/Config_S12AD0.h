@@ -18,11 +18,10 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : Config_S12AD0.h
-* Version      : 1.10.1
-* Device(s)    : R5F571MFCxFP
-* Description  : This file implements device driver for Config_S12AD0.
-* Creation Date: 2021-09-02
+* File Name        : Config_S12AD0.h
+* Component Version: 2.4.0
+* Device(s)        : R5F571MFCxFP
+* Description      : This file implements device driver for Config_S12AD0.
 ***********************************************************************************************************************/
 
 #ifndef CFG_Config_S12AD0_H
@@ -40,8 +39,7 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _78_AD0_SAMPLING_STATE_6           (0x78U) /* ANx06 sampling time setting */
-#define _78_AD0_SAMPLING_STATE_7           (0x78U) /* ANx07 sampling time setting */
+#define _0B_AD0_SAMPLING_STATE_2           (0x0BU) /* ANx02 sampling time setting */
 
 /***********************************************************************************************************************
 Typedef definitions
@@ -56,6 +54,7 @@ void R_Config_S12AD0_Start(void);
 void R_Config_S12AD0_Stop(void);
 void R_Config_S12AD0_Get_ValueResult(ad_channel_t channel, uint16_t * const buffer);
 void R_Config_S12AD0_Set_CompareValue(uint16_t reg_value0,uint16_t reg_value1);
+void r_Config_S12AD0_compare_interrupt(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif

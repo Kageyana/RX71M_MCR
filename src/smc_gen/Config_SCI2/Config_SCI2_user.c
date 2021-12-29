@@ -18,11 +18,10 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : Config_SCI6_user.c
-* Version      : 1.9.3
-* Device(s)    : R5F571MFCxFP
-* Description  : This file implements device driver for Config_SCI6.
-* Creation Date: 2021-09-02
+* File Name        : Config_SCI2_user.c
+* Component Version: 1.11.0
+* Device(s)        : R5F571MFCxFP
+* Description      : This file implements device driver for Config_SCI2.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -35,7 +34,7 @@ Pragma directive
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "Config_SCI6.h"
+#include "Config_SCI2.h"
 /* Start user code for include. Do not edit comment generated here */
 #include "I2C_MPU9250.h"
 /* End user code. Do not edit comment generated here */
@@ -44,168 +43,169 @@ Includes
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
-extern volatile uint8_t * gp_sci6_tx_address;               /* SCI6 transmit buffer address */
-extern volatile uint16_t  g_sci6_tx_count;                  /* SCI6 transmit data number */
-extern volatile uint8_t * gp_sci6_rx_address;               /* SCI6 receive buffer address */
-extern volatile uint16_t  g_sci6_rx_count;                  /* SCI6 receive data number */
-extern volatile uint16_t  g_sci6_rx_length;                 /* SCI6 receive data length */
+extern volatile uint8_t * gp_sci2_tx_address;               /* SCI2 transmit buffer address */
+extern volatile uint16_t  g_sci2_tx_count;                  /* SCI2 transmit data number */
+extern volatile uint8_t * gp_sci2_rx_address;               /* SCI2 receive buffer address */
+extern volatile uint16_t  g_sci2_rx_count;                  /* SCI2 receive data number */
+extern volatile uint16_t  g_sci2_rx_length;                 /* SCI2 receive data length */
 /* Start user code for global. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Config_SCI6_Create_UserInit
-* Description  : This function adds user code after initializing the SCI6 channel
+* Function Name: R_Config_SCI2_Create_UserInit
+* Description  : This function adds user code after initializing the SCI2 channel
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Config_SCI6_Create_UserInit(void)
+void R_Config_SCI2_Create_UserInit(void)
 {
     /* Start user code for user init. Do not edit comment generated here */
     /* End user code. Do not edit comment generated here */
 }
 
 /***********************************************************************************************************************
-* Function Name: r_Config_SCI6_transmit_interrupt
-* Description  : This function is TXI6 interrupt service routine
+* Function Name: r_Config_SCI2_transmit_interrupt
+* Description  : This function is TXI2 interrupt service routine
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-#if FAST_INTERRUPT_VECTOR == VECT_SCI6_TXI6
-#pragma interrupt r_Config_SCI6_transmit_interrupt(vect=VECT(SCI6,TXI6),fint)
+#if FAST_INTERRUPT_VECTOR == VECT_SCI2_TXI2
+#pragma interrupt r_Config_SCI2_transmit_interrupt(vect=VECT(SCI2,TXI2),fint)
 #else
-#pragma interrupt r_Config_SCI6_transmit_interrupt(vect=VECT(SCI6,TXI6))
+#pragma interrupt r_Config_SCI2_transmit_interrupt(vect=VECT(SCI2,TXI2))
 #endif
-static void r_Config_SCI6_transmit_interrupt(void)
+static void r_Config_SCI2_transmit_interrupt(void)
 {
-    if (0U < g_sci6_tx_count)
+    if (0U < g_sci2_tx_count)
     {
-        SCI6.TDR = *gp_sci6_tx_address;
-        gp_sci6_tx_address++;
-        g_sci6_tx_count--;
+        SCI2.TDR = *gp_sci2_tx_address;
+        gp_sci2_tx_address++;
+        g_sci2_tx_count--;
     }
     else
     {
-        SCI6.SCR.BIT.TIE = 0U;
-        SCI6.SCR.BIT.TEIE = 1U;
+        SCI2.SCR.BIT.TIE = 0U;
+        SCI2.SCR.BIT.TEIE = 1U;
     }
 }
 
 /***********************************************************************************************************************
-* Function Name: r_Config_SCI6_transmitend_interrupt
-* Description  : This function is TEI6 interrupt service routine
+* Function Name: r_Config_SCI2_transmitend_interrupt
+* Description  : This function is TEI2 interrupt service routine
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void r_Config_SCI6_transmitend_interrupt(void)
+void r_Config_SCI2_transmitend_interrupt(void)
 {
-    SCI6.SCR.BIT.TIE = 0U;
-    SCI6.SCR.BIT.TEIE = 0U;
+    SCI2.SCR.BIT.TIE = 0U;
+    SCI2.SCR.BIT.TEIE = 0U;
 
     /* Clear TE and RE bits */
-    if(0U == SCI6.SCR.BIT.RIE)
+    if(0U == SCI2.SCR.BIT.RIE)
     {
-        SCI6.SCR.BYTE &= 0xCFU;
+        SCI2.SCR.BYTE &= 0xCFU;
     }
 
-    r_Config_SCI6_callback_transmitend();
+    r_Config_SCI2_callback_transmitend();
 }
 
 /***********************************************************************************************************************
-* Function Name: r_Config_SCI6_receive_interrupt
-* Description  : This function is RXI6 interrupt service routine
+* Function Name: r_Config_SCI2_receive_interrupt
+* Description  : This function is RXI2 interrupt service routine
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-#if FAST_INTERRUPT_VECTOR == VECT_SCI6_RXI6
-#pragma interrupt r_Config_SCI6_receive_interrupt(vect=VECT(SCI6,RXI6),fint)
+#if FAST_INTERRUPT_VECTOR == VECT_SCI2_RXI2
+#pragma interrupt r_Config_SCI2_receive_interrupt(vect=VECT(SCI2,RXI2),fint)
 #else
-#pragma interrupt r_Config_SCI6_receive_interrupt(vect=VECT(SCI6,RXI6))
+#pragma interrupt r_Config_SCI2_receive_interrupt(vect=VECT(SCI2,RXI2))
 #endif
-static void r_Config_SCI6_receive_interrupt(void)
+static void r_Config_SCI2_receive_interrupt(void)
 {
-    if (g_sci6_rx_length > g_sci6_rx_count)
+    if (g_sci2_rx_length > g_sci2_rx_count)
     {
-        *gp_sci6_rx_address = SCI6.RDR;
-        gp_sci6_rx_address++;
-        g_sci6_rx_count++;
+        *gp_sci2_rx_address = SCI2.RDR;
+        gp_sci2_rx_address++;
+        g_sci2_rx_count++;
 
-        if (g_sci6_rx_length == g_sci6_rx_count)
+        if (g_sci2_rx_length == g_sci2_rx_count)
         {
-            SCI6.SCR.BIT.RIE = 0;
+            SCI2.SCR.BIT.RIE = 0;
 
             /* Clear TE and RE bits */
-            if((0U == SCI6.SCR.BIT.TIE) && (0U == SCI6.SCR.BIT.TEIE))
+            if((0U == SCI2.SCR.BIT.TIE) && (0U == SCI2.SCR.BIT.TEIE))
             {
-                SCI6.SCR.BYTE &= 0xCFU;
+                SCI2.SCR.BYTE &= 0xCFU;
             }
 
-            r_Config_SCI6_callback_receiveend();
+            r_Config_SCI2_callback_receiveend();
         }
     }
 }
 
 /***********************************************************************************************************************
-* Function Name: r_Config_SCI6_receiveerror_interrupt
-* Description  : This function is ERI6 interrupt service routine
+* Function Name: r_Config_SCI2_receiveerror_interrupt
+* Description  : This function is ERI2 interrupt service routine
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void r_Config_SCI6_receiveerror_interrupt(void)
+void r_Config_SCI2_receiveerror_interrupt(void)
 {
     uint8_t err_type;
 
-    r_Config_SCI6_callback_receiveerror();
+    r_Config_SCI2_callback_receiveerror();
 
     /* Clear overrun error flag */
-    err_type = SCI6.SSR.BYTE;
+    err_type = SCI2.SSR.BYTE;
     err_type &= 0xDFU;
     err_type |= 0xC0U;
-    SCI6.SSR.BYTE = err_type;
+    SCI2.SSR.BYTE = err_type;
 }
 
 /***********************************************************************************************************************
-* Function Name: r_Config_SCI6_callback_transmitend
-* Description  : This function is a callback function when SCI6 finishes transmission
+* Function Name: r_Config_SCI2_callback_transmitend
+* Description  : This function is a callback function when SCI2 finishes transmission
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-static void r_Config_SCI6_callback_transmitend(void)
+static void r_Config_SCI2_callback_transmitend(void)
 {
-    /* Start user code for r_Config_SCI6_callback_transmitend. Do not edit comment generated here */
+    /* Start user code for r_Config_SCI2_callback_transmitend. Do not edit comment generated here */
     busIMU = BUS_IMU_FREE;
     /* End user code. Do not edit comment generated here */
 }
 
 /***********************************************************************************************************************
-* Function Name: r_Config_SCI6_callback_receiveend
-* Description  : This function is a callback function when SCI6 finishes reception
+* Function Name: r_Config_SCI2_callback_receiveend
+* Description  : This function is a callback function when SCI2 finishes reception
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-static void r_Config_SCI6_callback_receiveend(void)
+static void r_Config_SCI2_callback_receiveend(void)
 {
-    /* Start user code for r_Config_SCI6_callback_receiveend. Do not edit comment generated here */
+    /* Start user code for r_Config_SCI2_callback_receiveend. Do not edit comment generated here */
     busIMU = BUS_IMU_FREE;
     /* End user code. Do not edit comment generated here */
 }
 
 /***********************************************************************************************************************
-* Function Name: r_Config_SCI6_callback_receiveerror
-* Description  : This function is a callback function when SCI6 reception encounters error
+* Function Name: r_Config_SCI2_callback_receiveerror
+* Description  : This function is a callback function when SCI2 reception encounters error
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-static void r_Config_SCI6_callback_receiveerror(void)
+static void r_Config_SCI2_callback_receiveerror(void)
 {
-    /* Start user code for r_Config_SCI6_callback_receiveerror. Do not edit comment generated here */
+    /* Start user code for r_Config_SCI2_callback_receiveerror. Do not edit comment generated here */
+    busIMU = BUS_IMU_FREE;
     /* End user code. Do not edit comment generated here */
 }
 

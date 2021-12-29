@@ -18,11 +18,10 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : Config_SCI5.h
-* Version      : 1.9.3
-* Device(s)    : R5F571MFCxFP
-* Description  : This file implements device driver for Config_SCI5.
-* Creation Date: 2021-09-02
+* File Name        : Config_SCI5.h
+* Component Version: 1.11.0
+* Device(s)        : R5F571MFCxFP
+* Description      : This file implements device driver for Config_SCI5.
 ***********************************************************************************************************************/
 
 #ifndef CFG_Config_SCI5_H
