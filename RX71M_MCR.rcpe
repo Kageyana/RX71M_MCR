@@ -17,8 +17,8 @@
       <Path>Rotaryencoder.h</Path>
       <Path>AD12.c</Path>
       <Path>AD12.h</Path>
-      <Path>I2C_MPU9250.c</Path>
-      <Path>I2C_MPU9250.h</Path>
+      <Path>IMU_ICM20648.c</Path>
+      <Path>IMU_ICM20648.h</Path>
       <Path>MicroSD.c</Path>
       <Path>MicroSD.h</Path>
       <Category Name="Smart Configurator">
@@ -256,7 +256,7 @@
           <Path>DefaultBuild\Motor.obj</Path>
           <Path>DefaultBuild\Rotaryencoder.obj</Path>
           <Path>DefaultBuild\AD12.obj</Path>
-          <Path>DefaultBuild\I2C_MPU9250.obj</Path>
+          <Path>DefaultBuild\IMU_ICM20648.obj</Path>
           <Path>DefaultBuild\MicroSD.obj</Path>
           <Path>DefaultBuild\Config_CMT0.obj</Path>
           <Path>DefaultBuild\Config_CMT0_user.obj</Path>

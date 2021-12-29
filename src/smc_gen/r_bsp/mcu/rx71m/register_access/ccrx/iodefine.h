@@ -57,6 +57,11 @@
 #define __RX71MIODEFINE_HEADER__
 #pragma bit_order left
 #pragma unpack
+
+#ifdef _VSCODE
+#define __evenaccess
+#endif
+
 struct st_bsc {
 	union {
 		unsigned char BYTE;

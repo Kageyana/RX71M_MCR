@@ -89,7 +89,7 @@ char IMUReadByte( char reg )
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 void IMUReadArry( char reg, char num2, char* data_re )
 {
-	uint8_t data_tr[1] = { reg }, numS = 1, numR = num2;
+	uint8_t data_tr[1] = { reg | 0x80 }, numS = 1, numR = num2;
 	
 	#if USECOM == 0
 		I2C_IMU_COMMAND;
@@ -113,13 +113,11 @@ void init_IMU (void)
 	#if USECOM == 0
 		SPI_IMU_CS = 1;
 	#endif
-	/*
 	IMUWriteByte( PWR_MGMT_1, 0x00);	// スリープモード解除
 	IMUWriteByte( INT_PIN_CFG, 0x02);	// 内蔵プルアップ無効化
 	IMUWriteByte( CONFIG, 0x00);		// ローパスフィルタを使用しない
 	IMUWriteByte( ACCEL_CONFIG, 0x18);	// レンジ±16gに変更
 	IMUWriteByte( GYRO_CONFIG, 0x10);	// レンジ±1000deg/sに変更
-	*/
 	printf("IMU who am i 0x%x\n",IMUReadByte(0x80));
 }
 ///////////////////////////////////////////////////
