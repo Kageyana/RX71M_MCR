@@ -14,7 +14,7 @@
 #include "Motor.h"
 #include "Timer.h"
 //#include "MicroSD.h"
-#include "I2C_MPU9250.h"
+#include "IMU_ICM20648.h"
 
 void main(void)
 {

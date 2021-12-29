@@ -36,7 +36,7 @@ Includes
 #include "r_cg_macrodriver.h"
 #include "Config_SCI2.h"
 /* Start user code for include. Do not edit comment generated here */
-#include "I2C_MPU9250.h"
+#include "IMU_ICM20648.h"
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
 
