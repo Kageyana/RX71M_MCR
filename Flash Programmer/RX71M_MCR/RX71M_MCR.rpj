@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <RfpProject>
   <FileVersion>V1.04.00</FileVersion>
-  <ProductVersion>V3.08.02</ProductVersion>
+  <ProductVersion>V3.09.00</ProductVersion>
   <ParameterFile>RX71M Group.fcf</ParameterFile>
   <Device>RX710</Device>
   <OperationTab>
     <Endian>RFLG_ENDIAN_LITTLE</Endian>
-    <ProgramFile>C:\Users\Natsuki\Dropbox\Document\MCR\RX71M_MCR\DefaultBuild\RX71M_MCR.mot</ProgramFile>
+    <ProgramFile>D:\ドキュメント\MCR\RX71M_MCR\DefaultBuild\RX71M_MCR.mot</ProgramFile>
   </OperationTab>
   <OperationSettingTab>
     <FillCode>False</FillCode>
@@ -77,7 +77,8 @@
     <ToolWideVoltage>False</ToolWideVoltage>
     <MainClock>12000000</MainClock>
     <AutoAuthen>False</AutoAuthen>
-    <IdCodeAuthen>FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF</IdCodeAuthen>
+    <IdCodeAuthen>
+    </IdCodeAuthen>
     <CodeFlashPWDAuthen>
     </CodeFlashPWDAuthen>
     <DataFlashPWDAuthen>

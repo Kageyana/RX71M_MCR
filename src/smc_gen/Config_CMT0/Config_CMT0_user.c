@@ -84,7 +84,7 @@ static void r_Config_CMT0_cmi0_interrupt(void)
     __setpsw_i();		// ëΩèdäÑÇËçûÇ›ãñâ¬
     
     lcdShowProcess();
-    //IMUProcess();
+    IMUProcess();
     
     cnt0++;
     cnt1++;

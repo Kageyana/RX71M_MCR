@@ -7,20 +7,6 @@
   </Placeholders>
   <Project Name="RX71M_MCR" Type="Application">
     <Files>
-      <Path>RX71M_MCR.c</Path>
-      <Path>I2C_LCD.c</Path>
-      <Path>I2C_LCD.h</Path>
-      <Path>Timer.h</Path>
-      <Path>Motor.c</Path>
-      <Path>Motor.h</Path>
-      <Path>Rotaryencoder.c</Path>
-      <Path>Rotaryencoder.h</Path>
-      <Path>AD12.c</Path>
-      <Path>AD12.h</Path>
-      <Path>IMU_ICM20648.c</Path>
-      <Path>IMU_ICM20648.h</Path>
-      <Path>MicroSD.c</Path>
-      <Path>MicroSD.h</Path>
       <Category Name="Smart Configurator">
         <Category Name="Config_CMT0">
           <Path>src\smc_gen\Config_CMT0\Config_CMT0.c</Path>
@@ -167,6 +153,24 @@
           <Path>src\smc_gen\Config_SCI5\Config_SCI5_user.c</Path>
         </Category>
       </Category>
+      <Category Name="Src">
+        <Path>src\AD12.c</Path>
+        <Path>src\I2C_LCD.c</Path>
+        <Path>src\IMU_ICM20648.c</Path>
+        <Path>src\MicroSD.c</Path>
+        <Path>src\motor.c</Path>
+        <Path>src\Rotaryencoder.c</Path>
+        <Path>src\RX71M_MCR.c</Path>
+      </Category>
+      <Category Name="Inc">
+        <Path>Inc\I2C_LCD.h</Path>
+        <Path>Inc\IMU_ICM20648.h</Path>
+        <Path>Inc\MicroSD.h</Path>
+        <Path>Inc\motor.h</Path>
+        <Path>Inc\Rotaryencoder.h</Path>
+        <Path>Inc\timer.h</Path>
+        <Path>Inc\AD12.h</Path>
+      </Category>
     </Files>
     <DebugOptions>
       <DebugTool>Simulator</DebugTool>
@@ -184,6 +188,7 @@
           <Option>-fpu</Option>
           <Option>-dbl_size=8</Option>
           <Option>-lang=c99</Option>
+          <Option>-include=Inc</Option>
           <Option>-include=src\smc_gen\Config_SCI5</Option>
           <Option>-include=src\smc_gen\Config_SCI2</Option>
           <Option>-include=src\smc_gen\Config_S12AD0</Option>
@@ -251,13 +256,6 @@
           <GenerateMode>BuildOptionChanged</GenerateMode>
         </LibraryGenerateOptions>
         <LinkOrder>
-          <Path>DefaultBuild\RX71M_MCR.obj</Path>
-          <Path>DefaultBuild\I2C_LCD.obj</Path>
-          <Path>DefaultBuild\Motor.obj</Path>
-          <Path>DefaultBuild\Rotaryencoder.obj</Path>
-          <Path>DefaultBuild\AD12.obj</Path>
-          <Path>DefaultBuild\IMU_ICM20648.obj</Path>
-          <Path>DefaultBuild\MicroSD.obj</Path>
           <Path>DefaultBuild\Config_CMT0.obj</Path>
           <Path>DefaultBuild\Config_CMT0_user.obj</Path>
           <Path>DefaultBuild\Config_MTU0.obj</Path>
@@ -300,8 +298,16 @@
           <Path>DefaultBuild\Config_SCI2_user.obj</Path>
           <Path>DefaultBuild\Config_SCI5.obj</Path>
           <Path>DefaultBuild\Config_SCI5_user.obj</Path>
+          <Path>DefaultBuild\AD12.obj</Path>
+          <Path>DefaultBuild\I2C_LCD.obj</Path>
+          <Path>DefaultBuild\IMU_ICM20648.obj</Path>
+          <Path>DefaultBuild\MicroSD.obj</Path>
+          <Path>DefaultBuild\motor.obj</Path>
+          <Path>DefaultBuild\Rotaryencoder.obj</Path>
+          <Path>DefaultBuild\RX71M_MCR.obj</Path>
         </LinkOrder>
         <CommonOptions>
+          <IncludePathForC>Inc</IncludePathForC>
           <IncludePathForC>src\smc_gen\Config_SCI5</IncludePathForC>
           <IncludePathForC>src\smc_gen\Config_SCI2</IncludePathForC>
           <IncludePathForC>src\smc_gen\Config_S12AD0</IncludePathForC>

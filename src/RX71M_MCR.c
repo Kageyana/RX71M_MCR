@@ -56,7 +56,7 @@ void main(void)
 			//lcdPrintf("%d", PORTA.PIDR.BIT.B2);
 			lcdPrintf("asfa");
 		}
-		
+		printf("x: %d y: %d z: %d\r",rawXg, rawYg, rawZg);
 		/*if ( PORT1.PIDR.BIT.B3 == 0 && flg == 0) {
 			flg = 1;
 			
