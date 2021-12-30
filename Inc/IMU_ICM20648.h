@@ -20,10 +20,10 @@
 #define MPU9250_ADDRESS_W     	0xd0		// 書き込み時のスレーブアドレス
 #define MPU9250_ADDRESS_R    	0xd1		// 読み込み時のスレーブアドレス
 
-#define ACCELLSB			2048		// 16[g]
-#define GYROLSB			32.8		// 1000[deg/s]
+#define ACCELLSB			2048	// 16[g]
+#define GYROLSB				16.4	// 1000[deg/s]
 #define TEMP_LSB			333.87	// LSB/°C
-#define ROOMTEMPOFFSET	0		// 21°Cのとき0
+#define ROOMTEMPOFFSET		0		// 21°Cのとき0
 
 #define BUS_IMU_FREE 		0		// 通信可能
 #define BUS_IMU_BUSY 		1		// 通信中
@@ -32,8 +32,9 @@
 #define CLOCK				240		// 動作周波数[MHz]
 
 #define MAXDATA_RANGE		32764	// 16bitデータの最大値
-#define G_ACCELERATION		9.81		// 重力加速度
+#define G_ACCELERATION		9.81	// 重力加速度
 #define DELTATIMU			0.005	// 取得周期
+#define SAMPLE				5000	// キャリブレーションのサンプル数
 
 /*************************************** 自動生成関数 **********************************/
 #define USECOM 			1		// 0:I2c 1:SPI

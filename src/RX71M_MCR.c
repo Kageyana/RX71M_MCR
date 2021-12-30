@@ -27,6 +27,7 @@ void main(void)
 	// IMU
 	R_Config_SCI2_Start();
 	printf("IMUinit %d\n",init_IMU());
+	caribrateIMU();
 	// MicroSD
 	//init_msd();
 	//タイマ割り込み開始
@@ -57,7 +58,7 @@ void main(void)
 			//lcdPrintf("%d", PORTA.PIDR.BIT.B2);
 			lcdPrintf("asfa");
 		}
-		printf("xg: %3.1f yg: %3.1f zg: %3.1f          \r",rawXg/16.4, rawYg/16.4, rawZg/16.4);
+		printf("xg: %3.1f yg: %3.1f zg: %3.1f          \r",PichAngleIMU, RollAngleIMU, TurningAngleIMU);
 		/*if ( PORT1.PIDR.BIT.B3 == 0 && flg == 0) {
 			flg = 1;
 			

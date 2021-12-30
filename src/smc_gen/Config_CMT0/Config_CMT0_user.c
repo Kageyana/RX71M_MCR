@@ -84,41 +84,40 @@ static void r_Config_CMT0_cmi0_interrupt(void)
     __setpsw_i();		// 多重割り込み許可
     
     lcdShowProcess();
-    IMUProcess();
+	if ( Timer10 % 5 == 0 ) {
+		IMUProcess();
+		getTurningAngleIMU();
+		getRollAngleIMU();
+		getPichAngleIMU();
+	}
     
     cnt0++;
     cnt1++;
     Timer10++;
+
+	// 10msごとに処理する
     switch ( Timer10 ) {	
-	case 1:
-		break;
-	case 2:
-		break;
-	case 3:
-		break;
-	case 5:
-		break;
-	case 6:
-		break;
-	case 7:
-		break;
-	case 8:
-		break;
-	case 9:
-		break;
-	case 100:
-		
-		PORTB.PODR.BIT.B0 = !PORTB.PODR.BIT.B0;
-		//printf("%d\r",MTU2.TCNT);	// カウント
-		//printf("%d\r",MTU2.TCNT);		// エンコーダ
-		//printf("%4d  %4d  %4d  %4d  %4d  %4d\r",A_Sen[1],A_Sen[2],A_Sen[3],A_Sen[4],A_Sen[5],A_Sen[6]);
-		//printf("%x\n",SCI6.SIMR3.BIT.IICSCLS);
-		//printf("0x%x\n",IMUReadByte(WHO_AM_I));
-		//printf("%5d   %5d   %5d\n",rawXg,rawYg,rawZg);
-		Timer10 = 0;
-		break;
-	default:
-		break;
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 5:
+			break;
+		case 6:
+			break;
+		case 7:
+			break;
+		case 8:
+			break;
+		case 9:
+			break;
+		case 10:
+			Timer10 = 0;
+			break;
+		default:
+			break;
 	}
     /* End user code. Do not edit comment generated here */
 }

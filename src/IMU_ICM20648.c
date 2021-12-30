@@ -16,7 +16,7 @@ double 	TurningAngleIMU;	// IMUから求めたヨー角度
 double	RollAngleIMU;		// IMUから求めたロール方向角度
 double 	PichAngleIMU;		// IMUから求めたピッチ方向角度
 double	TempIMU;			// IMUの温度
-short		offset[3];			// オフセット値(16bit)
+short	offset[3];			// オフセット値(16bit)
 
 char	whoami;
 char cnt_imu = 0;
@@ -24,7 +24,7 @@ char	busIMU = BUS_IMU_FREE;
 
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 wait_IMU
-// 処理概要   遅延処理
+// 処理概要   	遅延処理
 // 引数         遅延時間(ms)
 // 戻り値       なし
 ///////////////////////////////////////////////////////////////////////////
@@ -37,7 +37,7 @@ void wait_IMU ( short waitTime )
 }
 ///////////////////////////////////////////////////////////////
 // モジュール名 IMUWriteByte
-// 処理概要   指定したレジスタにデータを書き込む
+// 処理概要   	指定したレジスタにデータを書き込む
 // 引数         reg:レジスタのアドレス data:書き込みデータ
 // 戻り値       なし
 ///////////////////////////////////////////////////////////////
@@ -59,7 +59,7 @@ void IMUWriteByte( char reg, char data )
 }
 /////////////////////////////////////////////////////////
 // モジュール名 IMUReadByte
-// 処理概要   指定したレジスタのデータを読む
+// 処理概要   	指定したレジスタのデータを読む
 // 引数         reg:レジスタのアドレス
 // 戻り値       レジスタの値
 /////////////////////////////////////////////////////////
@@ -87,7 +87,7 @@ char IMUReadByte( char reg )
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // モジュール名 IMUReadArry
-// 処理概要   指定したレジスタから指定の数だけデータを読む
+// 処理概要   	指定したレジスタから指定の数だけデータを読む
 // 引数         reg:レジスタのアドレス num2 受け取るデータの数 reciveData 取得データを格納する配列
 // 戻り値       なし
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -112,7 +112,7 @@ void IMUReadArry( char reg, char num2, char* data_re )
 }
 ///////////////////////////////////////////////////
 // モジュール名 init_IMU
-// 処理概要   IMUの初期化
+// 処理概要   	IMUの初期化
 // 引数         なし
 // 戻り値       なし
 ///////////////////////////////////////////////////
@@ -135,8 +135,37 @@ bool init_IMU (void)
 	return ret;
 }
 ///////////////////////////////////////////////////
+// モジュール名 caribrateIMU
+// 処理概要   	各軸のキャリブレーション
+// 引数         なし
+// 戻り値       なし
+///////////////////////////////////////////////////
+void caribrateIMU (void) {
+	int32_t sumXg=0, sumYg=0,sumZg=0, test = -10000;
+	int16_t test2;
+	uint8_t axisData[14];
+
+	for (uint16_t i=0;i<SAMPLE;i++) {
+		IMUReadArry( GYRO_XOUT_H, 6, axisData);
+		sumXg += (int16_t)( (axisData[1] << 8 & 0xff00 ) | axisData[2] );
+		sumYg += (int16_t)( (axisData[3] << 8 & 0xff00 ) | axisData[4] );
+		sumZg += (int16_t)( (axisData[5] << 8 & 0xff00 ) | axisData[6] );
+		
+		// wait_IMU(100);
+	}
+	offset[0] = sumXg/SAMPLE;
+	offset[1] = sumYg/SAMPLE;
+	offset[2] = sumZg/SAMPLE;
+
+	printf("x: %d y: %d z: %d\n",offset[0],offset[1],offset[2]);
+
+	TurningAngleIMU = 0;
+	RollAngleIMU = 0;
+	PichAngleIMU = 0;
+}
+///////////////////////////////////////////////////
 // モジュール名 IMUProcess
-// 処理概要   センセデータの取得
+// 処理概要   	センセデータの取得
 // 引数         なし
 // 戻り値       なし
 ///////////////////////////////////////////////////
@@ -149,11 +178,49 @@ void IMUProcess (void)
 	rawYa = (short)( (axisData[3] << 8 & 0xff00 ) | axisData[4] );
 	rawZa = (short)( (axisData[5] << 8 & 0xff00 ) | axisData[6] );
 
- 	rawXg = (short)( (axisData[7] << 8 & 0xff00 ) | axisData[8] );
-	rawYg = (short)( (axisData[9] << 8 & 0xff00 ) | axisData[10] );
-	rawZg = (short)( (axisData[11] << 8 & 0xff00 ) | axisData[12] );
+ 	rawXg = (short)( (axisData[7] << 8 & 0xff00 ) | axisData[8] ) - offset[0];
+	rawYg = (short)( (axisData[9] << 8 & 0xff00 ) | axisData[10] ) - offset[1];
+	rawZg = (short)( (axisData[11] << 8 & 0xff00 ) | axisData[12] ) - offset[2];
 
 	// rawXa = (short)( (IMUReadByte(0x2d) << 8 & 0xff00 ) | IMUReadByte(0x2e) );
 	// rawYa = (short)( (IMUReadByte(0x2f) << 8 & 0xff00 ) | IMUReadByte(0x30) );
 	// rawZa = (short)( (IMUReadByte(0x31) << 8 & 0xff00 ) | IMUReadByte(0x32) );
+}
+///////////////////////////////////////////////////
+// モジュール名 getTurningAngleIMU
+// 処理概要   	yaw軸の角度を算出
+// 引数         なし
+// 戻り値       なし
+///////////////////////////////////////////////////
+void getTurningAngleIMU(void) {
+	double angularVelocity_zg;
+
+	angularVelocity_zg = (double)(rawZg) / GYROLSB;	// IMUのデータを角速度[deg/s]に変換
+	TurningAngleIMU += (double)( angularVelocity_zg) * DELTATIMU;
+}
+///////////////////////////////////////////////////
+// モジュール名 getTurningAngleIMU
+// 処理概要   	yaw軸の角度を算出
+// 引数         なし
+// 戻り値       なし
+///////////////////////////////////////////////////
+void getRollAngleIMU(void)
+{
+	double angularVelocity_yg;
+
+	angularVelocity_yg = (double)(rawXg) / GYROLSB;	// IMUのデータを角速度[deg/s]に変換
+	RollAngleIMU -= (double)( angularVelocity_yg) * DELTATIMU;
+}
+///////////////////////////////////////////////////
+// モジュール名 getTurningAngleIMU
+// 処理概要   	yaw軸の角度を算出
+// 引数         なし
+// 戻り値       なし
+///////////////////////////////////////////////////
+void getPichAngleIMU( void )
+{
+	double angularVelocity_xg;
+	
+	angularVelocity_xg = (double)(rawYg) / GYROLSB;	// IMUのデータを角速度[deg/s]に変換
+	PichAngleIMU -= (double)( angularVelocity_xg) * DELTATIMU;
 }
