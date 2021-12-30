@@ -3,7 +3,7 @@
 //====================================//
 // インクルード                  	   //
 //====================================//
-#include "smc_gen/general/r_smc_entry.h"
+#include "r_smc_entry.h"
 //====================================//
 // シンボル定義						   //
 //====================================//
@@ -76,7 +76,7 @@ void wait_IMU ( short waitTime );
 void IMUWriteByte( char reg, char data );
 char IMUReadByte( char reg );
 void IMUReadArry( char reg, char num2, char* data_re );
-void init_IMU (void);
+bool init_IMU (void);
 void IMUProcess (void);
 void caribrateIMU (void);
 void getTurningAngleIMU(void);

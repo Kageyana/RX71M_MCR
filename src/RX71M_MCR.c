@@ -21,12 +21,13 @@ void main(void)
 	uint8_t flg = 0;
 	// UART通信開始
 	R_Config_SCI1_Start();
-	// I2C通信開始
+	// LCD
 	R_Config_SCI12_Start();
 	inti_lcd();
-	// SPI通信開始
+	// IMU
 	R_Config_SCI2_Start();
-	init_IMU();
+	printf("IMUinit %d\n",init_IMU());
+	// MicroSD
 	//init_msd();
 	//タイマ割り込み開始
 	R_Config_CMT0_Start();
@@ -42,7 +43,7 @@ void main(void)
 	//PORTA.PODR.BIT.B3 = 0;
 	// A/D変換開始
 	//R_Config_S12AD0_Start();
-	printf("Hello\n");
+	printf("Hello RXworld\n");
 	
 	while(1){
 		uint8_t ret, test_buff[512];
@@ -56,7 +57,7 @@ void main(void)
 			//lcdPrintf("%d", PORTA.PIDR.BIT.B2);
 			lcdPrintf("asfa");
 		}
-		printf("x: %d y: %d z: %d\r",rawXg, rawYg, rawZg);
+		printf("xg: %3.1f yg: %3.1f zg: %3.1f          \r",rawXg/16.4, rawYg/16.4, rawZg/16.4);
 		/*if ( PORT1.PIDR.BIT.B3 == 0 && flg == 0) {
 			flg = 1;
 			

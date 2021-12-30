@@ -43,7 +43,8 @@ void wait_IMU ( short waitTime )
 ///////////////////////////////////////////////////////////////
 void IMUWriteByte( char reg, char data )
 {
-	uint8_t data_tr[2] = { reg, data }, data_re[ 1 ], numS = 2, numR = 2;
+	uint8_t data_tr[2] = { reg, data }, data_re[2], numS = 2, numR = 2;
+	
 	#if USECOM == 0
 		I2C_IMU_COMMAND;		// コマンド送信
 		busIMU = BUS_IMU_BUSY;
@@ -64,7 +65,7 @@ void IMUWriteByte( char reg, char data )
 /////////////////////////////////////////////////////////
 char IMUReadByte( char reg )
 {
-	uint8_t data_tr[2] = { reg | 0x80, 0xff }, data_re[2], numS = 2, numR = 2;
+	uint8_t data_tr[2] = { reg | 0x80 }, data_re[2], numS = 2, numR = 2;
   	
 	#if USECOM == 0
 		I2C_IMU_COMMAND;		// コマンド送信
@@ -92,7 +93,7 @@ char IMUReadByte( char reg )
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 void IMUReadArry( char reg, char num2, char* data_re )
 {
-	uint8_t data_tr[1] = { reg | 0x80 }, numS = 1, numR = num2;
+	uint8_t data_tr[20] = { reg | 0x80 }, numS = num2+1, numR = num2+1;
 	
 	#if USECOM == 0
 		I2C_IMU_COMMAND;
@@ -104,6 +105,8 @@ void IMUReadArry( char reg, char num2, char* data_re )
 	# else
 		SPI_IMU_CS = 0;
 		SPI_IMU_SEND;
+		busIMU = BUS_IMU_BUSY;
+		while(busIMU)__nop();
 		SPI_IMU_CS = 1;
 	#endif
 }
@@ -113,13 +116,14 @@ void IMUReadArry( char reg, char num2, char* data_re )
 // 引数         なし
 // 戻り値       なし
 ///////////////////////////////////////////////////
-void init_IMU (void)
+bool init_IMU (void)
 {
+	bool ret=false;
 	#if USECOM == 1
 		SPI_IMU_CS = 1;
 	#endif
-	printf("0x%x\n",IMUReadByte(WHO_AM_I));
 	if (IMUReadByte(0x0) == 0xE0) {
+		ret = true;
 		IMUWriteByte( PWR_MGMT_1, 0x01);	// スリープモード解除
 		IMUWriteByte( USER_CTRL, 0x10);		// 諸々機能無効　SPIonly
 		IMUWriteByte( REG_BANK_SEL, 0x20);	// USER_BANK2を有効化
@@ -127,6 +131,8 @@ void init_IMU (void)
 		IMUWriteByte( ACCEL_CONFIG, 0x06);	// 加速度レンジ±16g
 		IMUWriteByte( REG_BANK_SEL, 0x00);	// USER_BANK0を有効化
 	}
+
+	return ret;
 }
 ///////////////////////////////////////////////////
 // モジュール名 IMUProcess
@@ -137,11 +143,17 @@ void init_IMU (void)
 void IMUProcess (void)
 {
 	char 	axisData[14];	// 角加速度、温度の8bit分割データ格納先
-	
-	IMUReadArry( GYRO_XOUT_H, 6, axisData);
-	rawXg = (short)((axisData[0] << 8 & 0xff00 ) | axisData[1]);
-	rawYg = (short)((axisData[2] << 8 & 0xff00 ) | axisData[3]);
-	rawZg = (short)((axisData[4] << 8 & 0xff00 ) | axisData[5]);
-	
-	
+
+	IMUReadArry( ACCEL_XOUT_H, 12, axisData);
+	rawXa = (short)( (axisData[1] << 8 & 0xff00 ) | axisData[2] );
+	rawYa = (short)( (axisData[3] << 8 & 0xff00 ) | axisData[4] );
+	rawZa = (short)( (axisData[5] << 8 & 0xff00 ) | axisData[6] );
+
+ 	rawXg = (short)( (axisData[7] << 8 & 0xff00 ) | axisData[8] );
+	rawYg = (short)( (axisData[9] << 8 & 0xff00 ) | axisData[10] );
+	rawZg = (short)( (axisData[11] << 8 & 0xff00 ) | axisData[12] );
+
+	// rawXa = (short)( (IMUReadByte(0x2d) << 8 & 0xff00 ) | IMUReadByte(0x2e) );
+	// rawYa = (short)( (IMUReadByte(0x2f) << 8 & 0xff00 ) | IMUReadByte(0x30) );
+	// rawZa = (short)( (IMUReadByte(0x31) << 8 & 0xff00 ) | IMUReadByte(0x32) );
 }

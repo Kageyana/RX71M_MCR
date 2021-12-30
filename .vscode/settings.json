@@ -7,7 +7,11 @@
         "imu_icm20648.h": "c",
         "r_smc_entry.h": "c",
         "platform.h": "c",
-        "r_bsp.h": "c"
+        "r_bsp.h": "c",
+        "ad12.h": "c",
+        "array": "c",
+        "string": "c",
+        "string_view": "c"
     },
     "C_Cpp.default.defines": [
         "_DEBUG",
