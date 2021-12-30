@@ -161,6 +161,7 @@
         <Path>src\motor.c</Path>
         <Path>src\Rotaryencoder.c</Path>
         <Path>src\RX71M_MCR.c</Path>
+        <Path>src\LED.c</Path>
       </Category>
       <Category Name="Inc">
         <Path>Inc\I2C_LCD.h</Path>
@@ -170,6 +171,7 @@
         <Path>Inc\Rotaryencoder.h</Path>
         <Path>Inc\timer.h</Path>
         <Path>Inc\AD12.h</Path>
+        <Path>Inc\LED.h</Path>
       </Category>
     </Files>
     <DebugOptions>
@@ -305,6 +307,7 @@
           <Path>DefaultBuild\motor.obj</Path>
           <Path>DefaultBuild\Rotaryencoder.obj</Path>
           <Path>DefaultBuild\RX71M_MCR.obj</Path>
+          <Path>DefaultBuild\LED.obj</Path>
         </LinkOrder>
         <CommonOptions>
           <IncludePathForC>Inc</IncludePathForC>

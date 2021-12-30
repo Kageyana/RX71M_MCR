@@ -199,8 +199,8 @@ void getTurningAngleIMU(void) {
 	TurningAngleIMU += (double)( angularVelocity_zg) * DELTATIMU;
 }
 ///////////////////////////////////////////////////
-// モジュール名 getTurningAngleIMU
-// 処理概要   	yaw軸の角度を算出
+// モジュール名 getRollAngleIMU
+// 処理概要   	roll軸の角度を算出
 // 引数         なし
 // 戻り値       なし
 ///////////////////////////////////////////////////
@@ -212,8 +212,8 @@ void getRollAngleIMU(void)
 	RollAngleIMU -= (double)( angularVelocity_yg) * DELTATIMU;
 }
 ///////////////////////////////////////////////////
-// モジュール名 getTurningAngleIMU
-// 処理概要   	yaw軸の角度を算出
+// モジュール名 getPichAngleIMU
+// 処理概要   	pich軸の角度を算出
 // 引数         なし
 // 戻り値       なし
 ///////////////////////////////////////////////////

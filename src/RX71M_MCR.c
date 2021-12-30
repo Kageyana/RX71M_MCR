@@ -13,6 +13,7 @@
 #include "I2c_LCD.h"
 #include "Motor.h"
 #include "Timer.h"
+#include "LED.h"
 //#include "MicroSD.h"
 #include "IMU_ICM20648.h"
 
@@ -45,10 +46,11 @@ void main(void)
 	// A/D•ÏŠ·ŠJn
 	//R_Config_S12AD0_Start();
 	printf("Hello RXworld\n");
-	
+	led_out(0x5);
 	while(1){
 		uint8_t ret, test_buff[512];
 		uint16_t l, i;
+
 		
 		if ( cnt0 >= 100 ) {
 			cnt0 = 0;
