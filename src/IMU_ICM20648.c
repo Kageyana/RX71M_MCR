@@ -6,21 +6,21 @@
 // グローバル変数の宣言
 //====================================
 // IMUから取得したデータ
-volatile int 	rawXa = 0, rawYa = 0, rawZa = 0;	// 加速度(16bitデータ)
-volatile int 	rawXg = 0, rawYg = 0, rawZg = 0;	// 角加速度(16bitデータ)
+volatile int32_t 	rawXa = 0, rawYa = 0, rawZa = 0;	// 加速度(16bitデータ)
+volatile int32_t 	rawXg = 0, rawYg = 0, rawZg = 0;	// 角加速度(16bitデータ)
 
-volatile short 	rawTemp;			// 温度(16bitデータ)
+volatile int16_t 	rawTemp;			// 温度(16bitデータ)
 
 // データ処理
 double 	TurningAngleIMU;	// IMUから求めたヨー角度
 double	RollAngleIMU;		// IMUから求めたロール方向角度
 double 	PichAngleIMU;		// IMUから求めたピッチ方向角度
 double	TempIMU;			// IMUの温度
-short	offset[3];			// オフセット値(16bit)
+int16_t	offsetX, offsetY, offsetZ;		// オフセット値(16bit)
 
-char	whoami;
-char cnt_imu = 0;
-char	busIMU = BUS_IMU_FREE;
+uint8_t	whoami;
+uint8_t cnt_imu = 0;
+uint8_t	busIMU = BUS_IMU_FREE;
 
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 wait_IMU
@@ -28,11 +28,11 @@ char	busIMU = BUS_IMU_FREE;
 // 引数         遅延時間(ms)
 // 戻り値       なし
 ///////////////////////////////////////////////////////////////////////////
-void wait_IMU ( short waitTime )
+void wait_IMU ( uint16_t waitTime )
 {
-	volatile int time, i = 0;
+	volatile int32_t time, i = 0;
 	
-	time = (int)waitTime * ( CLOCK * 1000 ) / 16;
+	time = (int32_t)waitTime * ( CLOCK * 1000 ) / 10;
 	for ( i = 0; i < time; i++) __nop();
 }
 ///////////////////////////////////////////////////////////////
@@ -41,7 +41,7 @@ void wait_IMU ( short waitTime )
 // 引数         reg:レジスタのアドレス data:書き込みデータ
 // 戻り値       なし
 ///////////////////////////////////////////////////////////////
-void IMUWriteByte( char reg, char data )
+void IMUWriteByte( uint8_t reg, uint8_t data )
 {
 	uint8_t data_tr[2] = { reg, data }, data_re[2], numS = 2, numR = 2;
 	
@@ -63,7 +63,7 @@ void IMUWriteByte( char reg, char data )
 // 引数         reg:レジスタのアドレス
 // 戻り値       レジスタの値
 /////////////////////////////////////////////////////////
-char IMUReadByte( char reg )
+uint8_t IMUReadByte( uint8_t reg )
 {
 	uint8_t data_tr[2] = { reg | 0x80 }, data_re[2], numS = 2, numR = 2;
   	
@@ -91,7 +91,7 @@ char IMUReadByte( char reg )
 // 引数         reg:レジスタのアドレス num2 受け取るデータの数 reciveData 取得データを格納する配列
 // 戻り値       なし
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-void IMUReadArry( char reg, char num2, char* data_re )
+void IMUReadArry( uint8_t reg, uint8_t num2, uint8_t* data_re )
 {
 	uint8_t data_tr[20] = { reg | 0x80 }, numS = num2+1, numR = num2+1;
 	
@@ -144,20 +144,20 @@ void caribrateIMU (void) {
 	int32_t sumXg=0, sumYg=0,sumZg=0, test = -10000;
 	int16_t test2;
 	uint8_t axisData[14];
+	// X,Y軸は基板に合わせて入れ替えている
 
 	for (uint16_t i=0;i<SAMPLE;i++) {
 		IMUReadArry( GYRO_XOUT_H, 6, axisData);
 		sumYg += (int16_t)( (axisData[1] << 8 & 0xff00 ) | axisData[2] );
 		sumXg += (int16_t)( (axisData[3] << 8 & 0xff00 ) | axisData[4] );
 		sumZg += (int16_t)( (axisData[5] << 8 & 0xff00 ) | axisData[6] );
-		
-		// wait_IMU(100);
 	}
-	offset[0] = sumXg/SAMPLE;
-	offset[1] = sumYg/SAMPLE;
-	offset[2] = sumZg/SAMPLE;
+	
+	offsetX = sumXg/SAMPLE;
+	offsetY = sumYg/SAMPLE;
+	offsetZ = sumZg/SAMPLE;
 
-	printf("x: %d y: %d z: %d\n",offset[0],offset[1],offset[2]);
+	printf("x: %d y: %d z: %d\n",offsetX,offsetY,offsetZ);
 
 	TurningAngleIMU = 0;
 	RollAngleIMU = 0;
@@ -171,16 +171,17 @@ void caribrateIMU (void) {
 ///////////////////////////////////////////////////
 void IMUProcess (void)
 {
-	char 	axisData[14];	// 角加速度、温度の8bit分割データ格納先
+	uint8_t 	axisData[14];	// 角加速度、温度の8bit分割データ格納先
+	// X,Y軸は基板に合わせて入れ替えている
 
 	IMUReadArry( ACCEL_XOUT_H, 12, axisData);
 	rawYa = (short)( (axisData[1] << 8 & 0xff00 ) | axisData[2] );
 	rawXa = (short)( (axisData[3] << 8 & 0xff00 ) | axisData[4] );
 	rawZa = (short)( (axisData[5] << 8 & 0xff00 ) | axisData[6] );
 
- 	rawYg = (short)( (axisData[7] << 8 & 0xff00 ) | axisData[8] ) - offset[0];
-	rawXg = (short)( (axisData[9] << 8 & 0xff00 ) | axisData[10] ) - offset[1];
-	rawZg = (short)( (axisData[11] << 8 & 0xff00 ) | axisData[12] ) - offset[2];
+ 	rawYg = (short)( (axisData[7] << 8 & 0xff00 ) | axisData[8] ) - offsetY;
+	rawXg = (short)( (axisData[9] << 8 & 0xff00 ) | axisData[10] ) - offsetX;
+	rawZg = (short)( (axisData[11] << 8 & 0xff00 ) | axisData[12] ) - offsetZ;
 
 	// rawXa = (short)( (IMUReadByte(0x2d) << 8 & 0xff00 ) | IMUReadByte(0x2e) );
 	// rawYa = (short)( (IMUReadByte(0x2f) << 8 & 0xff00 ) | IMUReadByte(0x30) );

@@ -34,13 +34,13 @@ extern char	busLCD;
 // プロトタイプ宣言					   //
 //====================================//
 // LCD関連
-void wait_lcd ( short waitTime );
+void wait_lcd ( uint16_t waitTime );
 void lcdShowProcess( void );
-void lcdPosition( char x ,char y );
+void lcdPosition( uint8_t x ,uint8_t y );
 void inti_lcd( void );
-void lcd_CMD( unsigned char cmd );
-void lcd_put( unsigned char data );
-int lcdPrintf( char *format, ... );
+void lcd_CMD( uint8_t cmd );
+void lcd_put( uint8_t data );
+int32_t lcdPrintf( uint8_t *format, ... );
 void lcdcursol (void);
 
 #endif // I2C_LCD_H_

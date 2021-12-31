@@ -11,10 +11,10 @@
 //====================================//
 // グローバル変数の宣言					//
 //====================================//
-extern unsigned int	EncoderTotal;	// 総走行距離
-extern signed short	Encoder;		// 1msごとのパルス
-extern unsigned int	enc1;		    // 走行用距離カウント
-extern unsigned int	enc_slope;		// 坂上距離カウント
+extern uint32_t	EncoderTotal;	// 総走行距離
+extern int16_t	Encoder;		// 1msごとのパルス
+extern uint32_t	enc1;		    // 走行用距離カウント
+extern uint32_t	enc_slope;		// 坂上距離カウント
 //====================================//
 // プロトタイプ宣言					   //
 //====================================//

@@ -6,21 +6,21 @@
 // グローバル変数の宣言
 //====================================
 // LCD関連
-static volatile char	buffLcdData[ LCD_MAX_X / LCD_MAX_Y ];		// 表示バッファ
-static char		buffLcdData2[ LCD_MAX_X / LCD_MAX_Y + 10 ]; 	// 表示バッファ一時作業エリア
-static volatile int	lcdBuffPosition;				// バッファに書き込む位置
-static volatile int	lcdMode2 = 1;					// 表示処理No管理
-static volatile int	lcdNowLocate;					// 現在の表示している位置
-static volatile int	lcdRefreshFlag;					// リフレッシュフラグ
+static volatile uint8_t	buffLcdData[ LCD_MAX_X / LCD_MAX_Y ];		// 表示バッファ
+static uint8_t		buffLcdData2[ LCD_MAX_X / LCD_MAX_Y + 10 ]; 	// 表示バッファ一時作業エリア
+static volatile uint32_t	lcdBuffPosition;				// バッファに書き込む位置
+static volatile uint32_t	lcdMode2 = 1;					// 表示処理No管理
+static volatile uint32_t	lcdNowLocate;					// 現在の表示している位置
+static volatile uint32_t	lcdRefreshFlag;					// リフレッシュフラグ
 
-char	busLCD = BUS_LCD_FREE;
+uint8_t	busLCD = BUS_LCD_FREE;
 /////////////////////////////////////////////////////////////////////////
 // モジュール名 lcd_put
 // 処理概要     データ送信
 // 引数         data
 // 戻り値       なし
 /////////////////////////////////////////////////////////////////////////
-void lcd_put( unsigned char data )
+void lcd_put( uint8_t data )
 {
 	uint8_t word[2] = { RSBIT1, data };
 	I2C_LCD_SEND;
@@ -33,7 +33,7 @@ void lcd_put( unsigned char data )
 // 引数         cmd
 // 戻り値       なし
 //////////////////////////////////////////////////////////////////////////
-void lcd_CMD( unsigned char cmd ) 
+void lcd_CMD( uint8_t cmd ) 
 {
 	uint8_t Command[2] = { RSBIT0, cmd };
  	I2C_LCD_CMD;
@@ -46,11 +46,11 @@ void lcd_CMD( unsigned char cmd )
 // 引数         遅延時間(ms)
 // 戻り値       なし
 //////////////////////////////////////////////////////////////////////////
-void wait_lcd ( short waitTime )
+void wait_lcd ( uint16_t waitTime )
 {
-	volatile int time, i = 0;
+	volatile uint32_t time, i = 0;
 	
-	time = (int)waitTime * ( CLOCK * 1000 )/ 16;
+	time = (uint32_t)waitTime * ( CLOCK * 1000 )/ 10;
 	for ( i = 0; i < time; i++) __nop();
 }
 //////////////////////////////////////////////////////////////////////////
@@ -87,9 +87,9 @@ void wait_lcd ( short waitTime )
 // 引数         x , y
 // 戻り値       なし
 //////////////////////////////////////////////////////////////////////////
-static void lcdLocate( int x, int y )
+static void lcdLocate( uint32_t x, uint32_t y )
 {
-    volatile unsigned char work = 0x80;
+    volatile uint8_t work = 0x80;
 
     // xの計算
     work += x;
@@ -156,11 +156,11 @@ void lcdShowProcess( void )
 // 引数         printfと同じ
 // 戻り値       正常時：出力した文字列 異常時：負の数
 //////////////////////////////////////////////////////////////////////////
-int lcdPrintf(char *format, ...)
+int lcdPrintf(uint8_t *format, ...)
 {
-    volatile va_list argptr;
-    volatile char    *p;
-    volatile short     ret = 0;
+    volatile va_list	argptr;
+    volatile uint8_t	*p;
+    volatile uint16_t	ret = 0;
 
     va_start(argptr, format);
     ret = vsprintf( buffLcdData2, format, argptr );
@@ -185,7 +185,7 @@ int lcdPrintf(char *format, ...)
 // 引数         横位置 , 縦位置
 // 戻り値       なし
 //////////////////////////////////////////////////////////////////////////
-void lcdPosition(char x ,char y)
+void lcdPosition(uint8_t x ,uint8_t y)
 {
     if( x >= LCD_MAX_X ) return;
     if( y >= LCD_MAX_Y ) return;

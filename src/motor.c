@@ -5,11 +5,11 @@
 //=====================================
 // グローバル変数の宣言
 //=====================================//
-signed char	accele_fR;		// 右前モーターPWM値
-signed char	accele_fL;		// 左前モーターPWM値
-signed char	accele_rR;		// 右後モーターPWM値
-signed char	accele_rL;		// 左後モーターPWM値
-signed char	sPwm;		// サーボモーターPWM値
+int8_t	accele_fR;		// 右前モーターPWM値
+int8_t	accele_fL;		// 左前モーターPWM値
+int8_t	accele_rR;		// 右後モーターPWM値
+int8_t	accele_rL;		// 左後モーターPWM値
+int8_t	sPwm;		// サーボモーターPWM値
 
 ///////////////////////////////////////////////////////////////////////////
 // モジュール名 motor_mode
@@ -17,7 +17,7 @@ signed char	sPwm;		// サーボモーターPWM値
 // 引数         acelerL, accelerR(PWMを1～100%で指定)
 // 戻り値       なし
 ///////////////////////////////////////////////////////////////////////////
-void motor_r_mode(char rl, char rr )
+void motor_r_mode(uint8_t rl, uint8_t rr )
 {
 	SR_RL = rl;
 	SR_RR = rr;
@@ -28,7 +28,7 @@ void motor_r_mode(char rl, char rr )
 // 引数         acelerL, accelerR(PWMを1～100%で指定)
 // 戻り値       なし
 ///////////////////////////////////////////////////////////////////////////
-void motor_r( signed char accelerL, signed char accelerR )
+void motor_r( int8_t accelerL, int8_t accelerR )
 {
 	uint16_t pwmrl, pwmrr;
 	/*

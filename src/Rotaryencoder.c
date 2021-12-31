@@ -5,10 +5,10 @@
 //====================================
 // グローバル変数の宣言
 //====================================
-unsigned int	EncoderTotal;	// 総走行距離
-signed short	Encoder;		// 1msごとのパルス
-unsigned int	enc1;		// 走行用距離カウント
-unsigned int	enc_slope;		// 坂上距離カウント
+uint32_t	EncoderTotal;	// 総走行距離
+int16_t 	Encoder;		// 1msごとのパルス
+uint32_t	enc1;		    // 走行用距離カウント
+uint32_t	enc_slope;		// 坂上距離カウント
 
 //////////////////////////////////////////////////////////////////////////
 // モジュール名 lcd_put
