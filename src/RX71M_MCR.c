@@ -14,6 +14,7 @@
 #include "Motor.h"
 #include "Timer.h"
 #include "LED.h"
+#include "button.h"
 //#include "MicroSD.h"
 #include "IMU_ICM20648.h"
 
@@ -50,7 +51,6 @@ void main(void)
 	while(1){
 		uint8_t ret, test_buff[512];
 		uint16_t l, i;
-
 		
 		if ( cnt0 >= 100 ) {
 			cnt0 = 0;
@@ -58,7 +58,12 @@ void main(void)
 			lcdPrintf("zg      ");
 			lcdPosition( 0, 1 );
 			//lcdPrintf("%d", PORTA.PIDR.BIT.B2);
-			lcdPrintf("asfa");
+			lcdPrintf("tc%d ro%x",getTactsw(),getRotarysw());
+		}
+		if (getTactsw() == PUSH) {
+			TurningAngleIMU = 0;
+			RollAngleIMU = 0;
+			PichAngleIMU = 0;
 		}
 		printf("xg: %3.1f yg: %3.1f zg: %3.1f          \r",PichAngleIMU, RollAngleIMU, TurningAngleIMU);
 		/*if ( PORT1.PIDR.BIT.B3 == 0 && flg == 0) {

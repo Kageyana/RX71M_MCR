@@ -114,7 +114,7 @@ void IMUReadArry( char reg, char num2, char* data_re )
 // モジュール名 init_IMU
 // 処理概要   	IMUの初期化
 // 引数         なし
-// 戻り値       なし
+// 戻り値       0: 初期化失敗 1: 初期化成功
 ///////////////////////////////////////////////////
 bool init_IMU (void)
 {
