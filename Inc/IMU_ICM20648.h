@@ -78,7 +78,7 @@ void IMUWriteByte( uint8_t reg, uint8_t data );
 uint8_t IMUReadByte( uint8_t reg );
 void IMUReadArry( uint8_t reg, uint8_t num2, uint8_t* data_re );
 bool init_IMU (void);
-void IMUProcess (void);
+void getIMUdata (void);
 void caribrateIMU (void);
 void getTurningAngleIMU(void);
 void getRollAngleIMU(void);

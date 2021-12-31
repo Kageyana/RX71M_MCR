@@ -85,7 +85,7 @@ static void r_Config_CMT0_cmi0_interrupt(void)
     
     lcdShowProcess();
 	if ( Timer10 % 5 == 0 ) {
-		IMUProcess();
+		getIMUdata();
 		getTurningAngleIMU();
 		getRollAngleIMU();
 		getPichAngleIMU();

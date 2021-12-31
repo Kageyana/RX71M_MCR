@@ -169,7 +169,7 @@ void caribrateIMU (void) {
 // 引数         なし
 // 戻り値       なし
 ///////////////////////////////////////////////////
-void IMUProcess (void)
+void getIMUdata (void)
 {
 	uint8_t 	axisData[14];	// 角加速度、温度の8bit分割データ格納先
 	// X,Y軸は基板に合わせて入れ替えている

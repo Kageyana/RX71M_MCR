@@ -6,8 +6,8 @@
 // グローバル変数の宣言
 //====================================
 // LCD関連
-static volatile uint8_t	buffLcdData[ LCD_MAX_X / LCD_MAX_Y ];		// 表示バッファ
-static uint8_t		buffLcdData2[ LCD_MAX_X / LCD_MAX_Y + 10 ]; 	// 表示バッファ一時作業エリア
+static volatile uint8_t		buffLcdData[ LCD_MAX_X / LCD_MAX_Y ];		// 表示バッファ
+static uint8_t				buffLcdData2[ LCD_MAX_X / LCD_MAX_Y + 10 ]; 	// 表示バッファ一時作業エリア
 static volatile uint32_t	lcdBuffPosition;				// バッファに書き込む位置
 static volatile uint32_t	lcdMode2 = 1;					// 表示処理No管理
 static volatile uint32_t	lcdNowLocate;					// 現在の表示している位置
@@ -156,7 +156,7 @@ void lcdShowProcess( void )
 // 引数         printfと同じ
 // 戻り値       正常時：出力した文字列 異常時：負の数
 //////////////////////////////////////////////////////////////////////////
-int lcdPrintf(uint8_t *format, ...)
+int32_t lcdPrintf(uint8_t *format, ...)
 {
     volatile va_list	argptr;
     volatile uint8_t	*p;
