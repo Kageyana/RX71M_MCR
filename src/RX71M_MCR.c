@@ -9,14 +9,15 @@
 /*                                                                     */
 /***********************************************************************/
 //#include "typedefine.h"
-#include "r_smc_entry.h"  //スマートコンフィグレータのマニュアルの使用例で呼んでたのでinclude
+#include "r_smc_entry.h"  //スマートコンフィグレータ用のライブラリ
 #include "I2c_LCD.h"
 #include "Motor.h"
 #include "Timer.h"
 #include "LED.h"
 #include "button.h"
-//#include "MicroSD.h"
+#include "MicroSD.h"
 #include "IMU_ICM20648.h"
+#include "AD12.h"
 
 void main(void)
 {
@@ -44,8 +45,11 @@ void main(void)
 	//motor_r(0,0);
 	// センサ駆動
 	//PORTA.PODR.BIT.B3 = 0;
+
 	// A/D変換開始
-	//R_Config_S12AD0_Start();
+	R_Config_S12AD0_Start();
+	R_Config_S12AD1_Start();
+
 	printf("Hello RXworld\n");
 	led_out(0x5);
 	while(1){
@@ -65,15 +69,17 @@ void main(void)
 			RollAngleIMU = 0;
 			PichAngleIMU = 0;
 		}
-		printf("xg: %3.1f yg: %3.1f zg: %3.1f          \r",PichAngleIMU, RollAngleIMU, TurningAngleIMU);
+		printf("AD02: %4d AD111: %4d VBAT: %2.3f\r",A0_Sen[2], A1_Sen[11], getVmeter());
+		
+		// printf("xg: %3.1f yg: %3.1f zg: %3.1f          \r",PichAngleIMU, RollAngleIMU, TurningAngleIMU);
+		
 		/*if ( PORT1.PIDR.BIT.B3 == 0 && flg == 0) {
 			flg = 1;
 			
 			// microSDイレース
 			cnt1 = 0;
 			ret = eraseMicroSD( 0x00000, 0x5dc00-1 );
-			l = cnt1;
-			if (ret == 1) while(1);
+			l = cnt1;			if (ret == 1) while(1);
 			else printf("microSD Erase Time %d[ms]\n",l);
 			
 			// バッファ作成

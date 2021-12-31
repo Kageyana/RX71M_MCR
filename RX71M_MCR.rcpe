@@ -152,6 +152,11 @@
           <Path>src\smc_gen\Config_SCI5\Config_SCI5.h</Path>
           <Path>src\smc_gen\Config_SCI5\Config_SCI5_user.c</Path>
         </Category>
+        <Category Name="Config_S12AD1">
+          <Path>src\smc_gen\Config_S12AD1\Config_S12AD1.c</Path>
+          <Path>src\smc_gen\Config_S12AD1\Config_S12AD1.h</Path>
+          <Path>src\smc_gen\Config_S12AD1\Config_S12AD1_user.c</Path>
+        </Category>
       </Category>
       <Category Name="Src">
         <Path>src\AD12.c</Path>
@@ -192,6 +197,7 @@
           <Option>-fpu</Option>
           <Option>-dbl_size=8</Option>
           <Option>-lang=c99</Option>
+          <Option>-include=src\smc_gen\Config_S12AD1</Option>
           <Option>-include=Inc</Option>
           <Option>-include=src\smc_gen\Config_SCI5</Option>
           <Option>-include=src\smc_gen\Config_SCI2</Option>
@@ -311,8 +317,11 @@
           <Path>DefaultBuild\RX71M_MCR.obj</Path>
           <Path>DefaultBuild\LED.obj</Path>
           <Path>DefaultBuild\button.obj</Path>
+          <Path>DefaultBuild\Config_S12AD1.obj</Path>
+          <Path>DefaultBuild\Config_S12AD1_user.obj</Path>
         </LinkOrder>
         <CommonOptions>
+          <IncludePathForC>src\smc_gen\Config_S12AD1</IncludePathForC>
           <IncludePathForC>Inc</IncludePathForC>
           <IncludePathForC>src\smc_gen\Config_SCI5</IncludePathForC>
           <IncludePathForC>src\smc_gen\Config_SCI2</IncludePathForC>

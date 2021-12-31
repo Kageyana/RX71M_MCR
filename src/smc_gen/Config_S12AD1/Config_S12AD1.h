@@ -18,52 +18,42 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : r_smc_interrupt.c
-* Version          : 1.2.2
+* File Name        : Config_S12AD1.h
+* Component Version: 1.12.0
 * Device(s)        : R5F571MFCxFP
-* Description      : This file implements interrupt setting.
+* Description      : This file implements device driver for Config_S12AD1.
 ***********************************************************************************************************************/
 
-/***********************************************************************************************************************
-Pragma directive
-***********************************************************************************************************************/
-/* Start user code for pragma. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
+#ifndef CFG_Config_S12AD1_H
+#define CFG_Config_S12AD1_H
 
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
-#include "r_cg_macrodriver.h"
-#include "r_smc_interrupt.h"
-/* Start user code for include. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
-#include "r_cg_userdefine.h"
+#include "r_cg_s12ad.h"
 
 /***********************************************************************************************************************
-Global variables and functions
+Macro definitions (Register bit)
 ***********************************************************************************************************************/
-/* Start user code for global. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Interrupt_Create
-* Description  : This function Used to set the fast interrupt or group interrupt 
-* Arguments    : None
-* Return Value : None
+Macro definitions
+***********************************************************************************************************************/
+#define _F0_AD1_SAMPLING_STATE_L           (0xF0U) /* AN108-AN120 sampling time setting */
+
+/***********************************************************************************************************************
+Typedef definitions
 ***********************************************************************************************************************/
 
-void R_Interrupt_Create(void)
-{
-    /* Disable group BL0 interrupt*/
-    IEN(ICU,GROUPBL0) = 0U;
-    
-
-    /* Set group BL0 interrupt priority level */
-    IPR(ICU,GROUPBL0) = _0F_ICU_PRIORITY_LEVEL15;
-
-    /* Enable group BL0 interrupt */
-    IEN(ICU,GROUPBL0) = 1U;
-}
-
-/* Start user code for adding. Do not edit comment generated here */
+/***********************************************************************************************************************
+Global functions
+***********************************************************************************************************************/
+void R_Config_S12AD1_Create(void);
+void R_Config_S12AD1_Create_UserInit(void);
+void R_Config_S12AD1_Start(void);
+void R_Config_S12AD1_Stop(void);
+void R_Config_S12AD1_Get_ValueResult(ad_channel_t channel, uint16_t * const buffer);
+void R_Config_S12AD1_Set_CompareValue(uint16_t reg_value0,uint16_t reg_value1);
+/* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
+#endif

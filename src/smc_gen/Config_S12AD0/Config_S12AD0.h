@@ -39,7 +39,7 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _0B_AD0_SAMPLING_STATE_2           (0x0BU) /* ANx02 sampling time setting */
+#define _F0_AD0_SAMPLING_STATE_2           (0xF0U) /* ANx02 sampling time setting */
 
 /***********************************************************************************************************************
 Typedef definitions
@@ -54,7 +54,6 @@ void R_Config_S12AD0_Start(void);
 void R_Config_S12AD0_Stop(void);
 void R_Config_S12AD0_Get_ValueResult(ad_channel_t channel, uint16_t * const buffer);
 void R_Config_S12AD0_Set_CompareValue(uint16_t reg_value0,uint16_t reg_value1);
-void r_Config_S12AD0_compare_interrupt(void);
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #endif

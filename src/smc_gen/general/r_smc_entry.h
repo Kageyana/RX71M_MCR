@@ -40,6 +40,7 @@ Includes
 #include "Config_MTU0.h"
 #include "Config_SCI2.h"
 #include "Config_SCI5.h"
+#include "Config_S12AD1.h"
 
 /***********************************************************************************************************************
 Macro definitions (Register bit)

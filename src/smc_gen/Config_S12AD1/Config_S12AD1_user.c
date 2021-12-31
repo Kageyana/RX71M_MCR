@@ -18,10 +18,10 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name        : r_smc_interrupt.c
-* Version          : 1.2.2
+* File Name        : Config_S12AD1_user.c
+* Component Version: 1.12.0
 * Device(s)        : R5F571MFCxFP
-* Description      : This file implements interrupt setting.
+* Description      : This file implements device driver for Config_S12AD1.
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -34,7 +34,7 @@ Pragma directive
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "r_smc_interrupt.h"
+#include "Config_S12AD1.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -43,26 +43,39 @@ Includes
 Global variables and functions
 ***********************************************************************************************************************/
 /* Start user code for global. Do not edit comment generated here */
+#include "AD12.h"
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Interrupt_Create
-* Description  : This function Used to set the fast interrupt or group interrupt 
+* Function Name: R_Config_S12AD1_Create_UserInit
+* Description  : This function adds user code after initializing the S12AD1 channel
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Interrupt_Create(void)
+void R_Config_S12AD1_Create_UserInit(void)
 {
-    /* Disable group BL0 interrupt*/
-    IEN(ICU,GROUPBL0) = 0U;
-    
+    /* Start user code for user init. Do not edit comment generated here */
+    /* End user code. Do not edit comment generated here */
+}
 
-    /* Set group BL0 interrupt priority level */
-    IPR(ICU,GROUPBL0) = _0F_ICU_PRIORITY_LEVEL15;
+/***********************************************************************************************************************
+* Function Name: r_Config_S12AD1_interrupt
+* Description  : This function is S12ADI1 interrupt service routine
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
 
-    /* Enable group BL0 interrupt */
-    IEN(ICU,GROUPBL0) = 1U;
+#if FAST_INTERRUPT_VECTOR == VECT_PERIB_INTB192
+#pragma interrupt r_Config_S12AD1_interrupt(vect=VECT(PERIB,INTB192),fint)
+#else
+#pragma interrupt r_Config_S12AD1_interrupt(vect=VECT(PERIB,INTB192))
+#endif
+static void r_Config_S12AD1_interrupt(void)
+{
+    /* Start user code for r_Config_S12AD1_interrupt. Do not edit comment generated here */
+    inttrruptAD1();
+    /* End user code. Do not edit comment generated here */
 }
 
 /* Start user code for adding. Do not edit comment generated here */

@@ -73,19 +73,7 @@ void R_Config_S12AD0_Create_UserInit(void)
 static void r_Config_S12AD0_interrupt(void)
 {
     /* Start user code for r_Config_S12AD0_interrupt. Do not edit comment generated here */
-    /* End user code. Do not edit comment generated here */
-}
-
-/***********************************************************************************************************************
-* Function Name: r_Config_S12AD0_compare_interrupt
-* Description  : This function is S12CMPI interrupt service routine
-* Arguments    : None
-* Return Value : None
-***********************************************************************************************************************/
-
-void r_Config_S12AD0_compare_interrupt(void)
-{
-    /* Start user code for r_Config_S12AD0_compare_interrupt. Do not edit comment generated here */
+    inttrruptAD0();
     /* End user code. Do not edit comment generated here */
 }
 

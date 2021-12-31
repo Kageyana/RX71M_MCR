@@ -60,6 +60,11 @@ void R_Pins_Create(void)
     PORT4.PMR.BYTE &= 0xFBU;
     PORT4.PDR.BYTE &= 0xFBU;
 
+    /* Set AN111 pin */
+    MPC.PD3PFS.BYTE = 0x80U;
+    PORTD.PMR.BYTE &= 0xF7U;
+    PORTD.PDR.BYTE &= 0xF7U;
+
     /* Set MTCLKA pin */
     MPC.P24PFS.BYTE = 0x02U;
     PORT2.PMR.BYTE |= 0x10U;
