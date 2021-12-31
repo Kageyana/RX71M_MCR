@@ -147,8 +147,8 @@ void caribrateIMU (void) {
 
 	for (uint16_t i=0;i<SAMPLE;i++) {
 		IMUReadArry( GYRO_XOUT_H, 6, axisData);
-		sumXg += (int16_t)( (axisData[1] << 8 & 0xff00 ) | axisData[2] );
-		sumYg += (int16_t)( (axisData[3] << 8 & 0xff00 ) | axisData[4] );
+		sumYg += (int16_t)( (axisData[1] << 8 & 0xff00 ) | axisData[2] );
+		sumXg += (int16_t)( (axisData[3] << 8 & 0xff00 ) | axisData[4] );
 		sumZg += (int16_t)( (axisData[5] << 8 & 0xff00 ) | axisData[6] );
 		
 		// wait_IMU(100);
@@ -174,12 +174,12 @@ void IMUProcess (void)
 	char 	axisData[14];	// Šp‰Á‘¬“xA‰·“x‚Ì8bit•ªŠ„ƒf[ƒ^Ši”[æ
 
 	IMUReadArry( ACCEL_XOUT_H, 12, axisData);
-	rawXa = (short)( (axisData[1] << 8 & 0xff00 ) | axisData[2] );
-	rawYa = (short)( (axisData[3] << 8 & 0xff00 ) | axisData[4] );
+	rawYa = (short)( (axisData[1] << 8 & 0xff00 ) | axisData[2] );
+	rawXa = (short)( (axisData[3] << 8 & 0xff00 ) | axisData[4] );
 	rawZa = (short)( (axisData[5] << 8 & 0xff00 ) | axisData[6] );
 
- 	rawXg = (short)( (axisData[7] << 8 & 0xff00 ) | axisData[8] ) - offset[0];
-	rawYg = (short)( (axisData[9] << 8 & 0xff00 ) | axisData[10] ) - offset[1];
+ 	rawYg = (short)( (axisData[7] << 8 & 0xff00 ) | axisData[8] ) - offset[0];
+	rawXg = (short)( (axisData[9] << 8 & 0xff00 ) | axisData[10] ) - offset[1];
 	rawZg = (short)( (axisData[11] << 8 & 0xff00 ) | axisData[12] ) - offset[2];
 
 	// rawXa = (short)( (IMUReadByte(0x2d) << 8 & 0xff00 ) | IMUReadByte(0x2e) );
